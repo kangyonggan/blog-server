@@ -37,6 +37,8 @@ public class ArticleServiceImpl extends BaseService<Article> implements ArticleS
             example.setOrderByClause("id desc");
         }
 
+        example.selectProperties("id", "title", "createdTime");
+
         PageHelper.startPage(params.getPageNum(), params.getPageSize());
         return myMapper.selectByExample(example);
     }
