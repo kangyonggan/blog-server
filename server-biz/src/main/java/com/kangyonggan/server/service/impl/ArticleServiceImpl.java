@@ -32,6 +32,8 @@ public class ArticleServiceImpl extends BaseService<Article> implements ArticleS
         String order = params.getOrder();
         if (!StringUtil.hasEmpty(sort, order)) {
             example.setOrderByClause(sort + " " + order.toUpperCase());
+        } else {
+            example.setOrderByClause("id desc");
         }
 
         PageHelper.startPage(params.getPageNum(), params.getPageSize());

@@ -1,6 +1,5 @@
 package com.kangyonggan.server.interceptor;
 
-import lombok.extern.log4j.Log4j2;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +10,6 @@ import java.util.Map;
  * @author kangyonggan
  * @since 5/15/18
  */
-@Log4j2
 public class ParamsInterceptor extends HandlerInterceptorAdapter {
 
     /**
@@ -23,7 +21,6 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 保存当前请求
         currentRequest.set(request);
-        log.info("saved request!");
         return super.preHandle(request, response, handler);
     }
 
@@ -31,7 +28,6 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         // 从本地线程中移除请求
         currentRequest.remove();
-        log.info("removed request!");
     }
 
     /**
