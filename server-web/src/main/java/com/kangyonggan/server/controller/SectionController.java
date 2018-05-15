@@ -31,7 +31,7 @@ public class SectionController extends BaseController {
         Response response = Response.getSuccessResponse();
         List<Section> sections = sectionService.findAllSections(getIntegerParam("novelCode"));
 
-        response.put("sections", sections);
+        response.put("list", sections);
         return response;
     }
 

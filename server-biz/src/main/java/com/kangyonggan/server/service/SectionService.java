@@ -18,4 +18,10 @@ public interface SectionService {
      */
     List<Section> findAllSections(Integer novelCode);
 
+    /**
+     * 拉取最新章节
+     *
+     * @param novelCode
+     */
+    void updateSections(Integer novelCode);
 }

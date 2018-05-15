@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.Novel;
 import com.kangyonggan.server.service.NovelService;
+import com.kangyonggan.server.service.SectionService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,9 @@ public class NovelController extends BaseController {
 
     @Autowired
     private NovelService novelService;
+
+    @Autowired
+    private SectionService sectionService;
 
     /**
      * 列表
@@ -55,6 +59,19 @@ public class NovelController extends BaseController {
         Novel novel = novelService.findNovelByCode(code);
 
         response.put("novel", novel);
+        return response;
+    }
+
+    /**
+     * 拉取最新章节
+     *
+     * @param code
+     * @return
+     */
+    @RequestMapping(value = "{code:[\\d]+}/pull", method = RequestMethod.GET)
+    public Response pull(@PathVariable("code") Integer code) {
+        Response response = Response.getSuccessResponse();
+        sectionService.updateSections(code);
         return response;
     }
 

@@ -13,6 +13,11 @@ import java.util.List;
 public interface NovelService {
 
     /**
+     * 笔趣阁地址
+     */
+    String BI_QU_GE_URL = "http://www.biquge.cn/";
+
+    /**
      * 搜索小说
      *
      * @param params
