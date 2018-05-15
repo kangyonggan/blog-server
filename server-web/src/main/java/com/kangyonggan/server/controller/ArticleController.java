@@ -1,12 +1,13 @@
 package com.kangyonggan.server.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.kangyonggan.server.dto.Params;
+import com.kangyonggan.app.util.MarkdownUtil;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.Article;
 import com.kangyonggan.server.service.ArticleService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +41,22 @@ public class ArticleController extends BaseController {
         PageInfo pageInfo = new PageInfo<>(articles);
 
         response.put("pageInfo", pageInfo);
+        return response;
+    }
+
+    /**
+     * 详情
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "{id:[\\d]+}", method = RequestMethod.GET)
+    public Response detail(@PathVariable("id") Long id) {
+        Response response = Response.getSuccessResponse();
+        Article article = articleService.findArticleById(id);
+        article.setContent(MarkdownUtil.markdownToHtml(article.getContent()));
+
+        response.put("article", article);
         return response;
     }
 

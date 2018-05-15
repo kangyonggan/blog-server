@@ -3,8 +3,11 @@ package com.kangyonggan.server.controller;
 import com.kangyonggan.app.util.StringUtil;
 import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.dto.Query;
+import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.interceptor.ParamsInterceptor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
@@ -18,6 +21,26 @@ import java.util.Map;
 public class BaseController {
 
     /**
+     * 异常捕获
+     *
+     * @param e 异常
+     * @return 返回统一异常响应
+     */
+    @ExceptionHandler
+    @ResponseBody
+    public Response handleException(Exception e) {
+        Response response;
+        if (e != null) {
+            response = Response.getFailureResponse(e.getMessage());
+        } else {
+            response = Response.getFailureResponse();
+        }
+
+        log.error("捕获到异常", e);
+        return response;
+    }
+
+    /**
      * 获取请求参数
      *
      * @return 返回请求参数
@@ -26,9 +49,10 @@ public class BaseController {
         Params params = new Params();
 
         // 分页相关参数
-        params.setPageSize(getIntegerParam("limit", 10));
+        params.setPageSize(getIntegerParam("pageSize", getIntegerParam("limit", 10)));
         int offset = getIntegerParam("offset", 0);
-        params.setPageNum(offset / params.getPageSize() + 1);
+        int pageNum = getIntegerParam("pageNum", offset / params.getPageSize() + 1);
+        params.setPageNum(pageNum);
 
         String sort = getStringParam("sort");
         params.setSort(StringUtil.camelToUnderLine(sort));

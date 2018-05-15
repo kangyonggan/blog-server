@@ -57,9 +57,19 @@ public final class Response extends HashMap<String, Object> implements Serializa
      * @return 返回一个失败响应
      */
     public static Response getFailureResponse() {
+        return getFailureResponse(Resp.FAILURE.getRespMsg());
+    }
+
+    /**
+     * 获取一个失败的响应
+     *
+     * @param msg 失败消息
+     * @return 返回一个失败响应
+     */
+    public static Response getFailureResponse(String msg) {
         Response response = new Response();
         response.put(RESP_CO, Resp.FAILURE.getRespCo());
-        response.put(RESP_MSG, Resp.FAILURE.getRespMsg());
+        response.put(RESP_MSG, msg);
         return response;
     }
 

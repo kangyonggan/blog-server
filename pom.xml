@@ -30,6 +30,7 @@
         <mybatis-generator.version>1.3.2</mybatis-generator.version>
         <mybatis-mapper.version>3.3.8</mybatis-mapper.version>
         <druid.version>1.0.18</druid.version>
+        <extra.version>3.2.1</extra.version>
         <plugin.mybatis-generator.version>1.3.2</plugin.mybatis-generator.version>
     </properties>
 
@@ -140,6 +141,11 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kangyonggan</groupId>
+                <artifactId>extra-core</artifactId>
+                <version>${extra.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

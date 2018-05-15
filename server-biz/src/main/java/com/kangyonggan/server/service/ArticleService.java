@@ -19,4 +19,12 @@ public interface ArticleService {
      */
     List<Article> searchArticles(Params params);
 
+    /**
+     * 查找文章
+     *
+     * @param id
+     * @return
+     */
+    Article findArticleById(Long id);
+
 }

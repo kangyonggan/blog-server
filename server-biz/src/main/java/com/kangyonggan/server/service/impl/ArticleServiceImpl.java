@@ -2,6 +2,7 @@ package com.kangyonggan.server.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.kangyonggan.app.util.StringUtil;
+import com.kangyonggan.extra.core.annotation.Log;
 import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.model.Article;
 import com.kangyonggan.server.service.ArticleService;
@@ -38,5 +39,11 @@ public class ArticleServiceImpl extends BaseService<Article> implements ArticleS
 
         PageHelper.startPage(params.getPageNum(), params.getPageSize());
         return myMapper.selectByExample(example);
+    }
+
+    @Override
+    @Log
+    public Article findArticleById(Long id) {
+        return myMapper.selectByPrimaryKey(id);
     }
 }
