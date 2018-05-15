@@ -54,7 +54,9 @@ public class ArticleController extends BaseController {
     public Response detail(@PathVariable("id") Long id) {
         Response response = Response.getSuccessResponse();
         Article article = articleService.findArticleById(id);
-        article.setContent(MarkdownUtil.markdownToHtml(article.getContent()));
+        if (article != null) {
+            article.setContent(MarkdownUtil.markdownToHtml(article.getContent()));
+        }
 
         response.put("article", article);
         return response;

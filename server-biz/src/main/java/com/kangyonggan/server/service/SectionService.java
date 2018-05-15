@@ -24,4 +24,28 @@ public interface SectionService {
      * @param novelCode
      */
     void updateSections(Integer novelCode);
+
+    /**
+     * 查找章节
+     *
+     * @param code
+     * @return
+     */
+    Section findSectionByCode(Integer code);
+
+    /**
+     * 查找上一章
+     *
+     * @param code
+     * @return
+     */
+    Section findPrevSectionByCode(Integer code);
+
+    /**
+     * 查找下一章
+     *
+     * @param code
+     * @return
+     */
+    Section findNextSectionByCode(Integer code);
 }

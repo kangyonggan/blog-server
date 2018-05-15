@@ -63,6 +63,58 @@ public class SectionServiceImpl extends BaseService<Section> implements SectionS
         }
     }
 
+    @Override
+    @Log
+    public Section findSectionByCode(Integer code) {
+        Section section = new Section();
+        section.setCode(code);
+
+        return myMapper.selectOne(section);
+    }
+
+    @Override
+    @Log
+    public Section findPrevSectionByCode(Integer code) {
+        Section section = findSectionByCode(code);
+        if (section == null) {
+            return null;
+        }
+        Example example = new Example(Section.class);
+
+        example.createCriteria().andEqualTo("novelCode", section.getNovelCode()).andLessThan("code", code);
+
+        example.setOrderByClause("code desc");
+
+        PageHelper.startPage(1, 1);
+        List<Section> sections = myMapper.selectByExample(example);
+        if (sections.isEmpty()) {
+            return null;
+        }
+
+        return sections.get(0);
+    }
+
+    @Override
+    @Log
+    public Section findNextSectionByCode(Integer code) {
+        Section section = findSectionByCode(code);
+        if (section == null) {
+            return null;
+        }
+        Example example = new Example(Section.class);
+        example.createCriteria().andEqualTo("novelCode", section.getNovelCode()).andGreaterThan("code", code);
+
+        example.setOrderByClause("code asc");
+
+        PageHelper.startPage(1, 1);
+        List<Section> sections = myMapper.selectByExample(example);
+        if (sections.isEmpty()) {
+            return null;
+        }
+
+        return sections.get(0);
+    }
+
     /**
      * 拉取小说章节
      *
