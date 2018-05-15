@@ -20,4 +20,11 @@ public interface NovelService {
      */
     List<Novel> searchNovels(Params params);
 
+    /**
+     * 查找小说
+     *
+     * @param code
+     * @return
+     */
+    Novel findNovelByCode(Integer code);
 }

@@ -2,6 +2,7 @@ package com.kangyonggan.server.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.kangyonggan.app.util.StringUtil;
+import com.kangyonggan.extra.core.annotation.Log;
 import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.model.Novel;
 import com.kangyonggan.server.service.NovelService;
@@ -44,5 +45,14 @@ public class NovelServiceImpl extends BaseService<Novel> implements NovelService
 
         PageHelper.startPage(params.getPageNum(), params.getPageSize());
         return myMapper.selectByExample(example);
+    }
+
+    @Override
+    @Log
+    public Novel findNovelByCode(Integer code) {
+        Novel novel = new Novel();
+        novel.setCode(code);
+
+        return myMapper.selectOne(novel);
     }
 }

@@ -6,6 +6,7 @@ import com.kangyonggan.server.model.Novel;
 import com.kangyonggan.server.service.NovelService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,6 +40,21 @@ public class NovelController extends BaseController {
         PageInfo pageInfo = new PageInfo<>(novels);
 
         response.put("pageInfo", pageInfo);
+        return response;
+    }
+
+    /**
+     * 详情
+     *
+     * @param code
+     * @return
+     */
+    @RequestMapping(value = "{code:[\\d]+}", method = RequestMethod.GET)
+    public Response detail(@PathVariable("code") Integer code) {
+        Response response = Response.getSuccessResponse();
+        Novel novel = novelService.findNovelByCode(code);
+
+        response.put("novel", novel);
         return response;
     }
 

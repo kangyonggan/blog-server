@@ -95,6 +95,37 @@ CREATE UNIQUE INDEX code_UNIQUE
 CREATE INDEX ix_category_code
   ON tb_novel (category_code);
 
+-- ----------------------------
+--  Table structure for tb_section
+-- ----------------------------
+DROP TABLE
+IF EXISTS tb_section;
+
+CREATE TABLE tb_section
+(
+  id           BIGINT(20) PRIMARY KEY AUTO_INCREMENT NOT NULL
+  COMMENT '主键, 自增',
+  code         INT(11)                               NOT NULL
+  COMMENT '章节代码',
+  title        VARCHAR(64)                           NOT NULL
+  COMMENT '标题',
+  content      LONGTEXT                              NOT NULL
+  COMMENT '内容',
+  novel_code   INT(11)                               NOT NULL
+  COMMENT '小说代码',
+  is_deleted   TINYINT                               NOT NULL                    DEFAULT 0
+  COMMENT '逻辑删除:{0:未删除, 1:已删除}',
+  created_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP
+  COMMENT '创建时间',
+  updated_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  COMMENT '更新时间'
+)
+  COMMENT '章节表';
+CREATE UNIQUE INDEX code_UNIQUE
+  ON tb_section (code);
+CREATE INDEX ix_novel_code
+  ON tb_section (novel_code);
+
 
 INSERT INTO tb_category
 (code, name, type, sort)
