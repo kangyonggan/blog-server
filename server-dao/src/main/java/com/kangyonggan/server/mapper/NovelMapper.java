@@ -14,12 +14,6 @@ import java.util.List;
 @Mapper
 public interface NovelMapper extends MyMapper<Novel> {
 
-    /**
-     * 查找最后一本小说
-     *
-     * @return
-     */
-    Integer selectLastNovelCode();
 
     /**
      * 搜索小说
@@ -32,11 +26,4 @@ public interface NovelMapper extends MyMapper<Novel> {
      */
     List<Novel> searchNovels(@Param("code") String code, @Param("name") String name, @Param("author") String author, @Param("categoryCode") String categoryCode);
 
-    /**
-     * 搜索小说，根据name或author
-     *
-     * @param key
-     * @return
-     */
-    List<Novel> searchNovelsByKey(@Param("key") String key);
 }

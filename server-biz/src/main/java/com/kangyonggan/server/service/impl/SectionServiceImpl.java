@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -115,6 +116,35 @@ public class SectionServiceImpl extends BaseService<Section> implements SectionS
         }
 
         return sections.get(0);
+    }
+
+    @Override
+    public List<Section> findNext100Sections(Integer code) {
+        Section section = findSectionByCode(code);
+        if (section == null) {
+            return new ArrayList<>();
+        }
+        Example example = new Example(Section.class);
+        example.createCriteria().andEqualTo("novelCode", section.getNovelCode()).andGreaterThanOrEqualTo("code", code);
+
+        example.setOrderByClause("code asc");
+
+        PageHelper.startPage(1, 100);
+        return myMapper.selectByExample(example);
+    }
+
+    @Override
+    @Log
+    public Section findFirstSection(int novelCode) {
+        Example example = new Example(Section.class);
+
+        example.createCriteria().andEqualTo("novelCode", novelCode);
+
+        example.setOrderByClause("code asc");
+        PageHelper.startPage(1, 1);
+        List<Section> sections = myMapper.selectByExample(example);
+
+        return sections.isEmpty() ? null : sections.get(0);
     }
 
     /**

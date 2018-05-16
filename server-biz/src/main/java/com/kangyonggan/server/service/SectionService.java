@@ -48,4 +48,20 @@ public interface SectionService {
      * @return
      */
     Section findNextSectionByCode(Integer code);
+
+    /**
+     * 查找后面100章
+     *
+     * @param code
+     * @return
+     */
+    List<Section> findNext100Sections(Integer code);
+
+    /**
+     * 查找第一章
+     *
+     * @param novelCode
+     * @return
+     */
+    Section findFirstSection(int novelCode);
 }

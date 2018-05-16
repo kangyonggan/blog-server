@@ -4,9 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.kangyonggan.app.util.StringUtil;
 import com.kangyonggan.extra.core.annotation.Log;
 import com.kangyonggan.server.dto.Params;
+import com.kangyonggan.server.mapper.NovelMapper;
 import com.kangyonggan.server.model.Novel;
 import com.kangyonggan.server.service.NovelService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
@@ -18,6 +20,9 @@ import java.util.List;
  */
 @Service
 public class NovelServiceImpl extends BaseService<Novel> implements NovelService {
+
+    @Autowired
+    private NovelMapper novelMapper;
 
     @Override
     public List<Novel> searchNovels(Params params) {
