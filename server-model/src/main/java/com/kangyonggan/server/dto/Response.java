@@ -95,4 +95,14 @@ public final class Response extends HashMap<String, Object> implements Serializa
         return this;
     }
 
+    /**
+     * 设置成功消息
+     *
+     * @param msg 成功消息
+     */
+    public Response success(String msg) {
+        put(RESP_CO, Resp.SUCCESS.getRespCo());
+        put(RESP_MSG, msg);
+        return this;
+    }
 }
