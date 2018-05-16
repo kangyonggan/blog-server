@@ -2,7 +2,9 @@ package com.kangyonggan.server.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.kangyonggan.app.util.HtmlUtil;
+import com.kangyonggan.app.util.StringUtil;
 import com.kangyonggan.extra.core.annotation.Log;
+import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.model.Novel;
 import com.kangyonggan.server.model.Section;
 import com.kangyonggan.server.service.NovelService;
@@ -37,10 +39,17 @@ public class SectionServiceImpl extends BaseService<Section> implements SectionS
     private NovelService novelService;
 
     @Override
-    public List<Section> findAllSections(Integer novelCode) {
+    public List<Section> findAllSections(Params params) {
         Example example = new Example(Section.class);
-        example.createCriteria().andEqualTo("novelCode", novelCode);
-        example.setOrderByClause("code asc");
+        example.createCriteria().andEqualTo("novelCode", params.getQuery().getString("novelCode"));
+
+        String sort = params.getSort();
+        String order = params.getOrder();
+        if (!StringUtil.hasEmpty(sort, order)) {
+            example.setOrderByClause(sort + " " + order.toUpperCase());
+        } else {
+            example.setOrderByClause("code desc");
+        }
 
         example.selectProperties("id", "code", "novelCode", "title");
 

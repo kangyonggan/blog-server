@@ -21,9 +21,6 @@ import java.util.List;
 @Service
 public class NovelServiceImpl extends BaseService<Novel> implements NovelService {
 
-    @Autowired
-    private NovelMapper novelMapper;
-
     @Override
     public List<Novel> searchNovels(Params params) {
         Example example = new Example(Novel.class);

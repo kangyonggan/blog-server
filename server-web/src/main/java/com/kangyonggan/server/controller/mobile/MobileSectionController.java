@@ -1,5 +1,6 @@
 package com.kangyonggan.server.controller.mobile;
 
+import com.kangyonggan.server.controller.BaseController;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.Section;
 import com.kangyonggan.server.service.SectionService;
@@ -19,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("mobile/section")
 @Log4j2
-public class MobileSectionController {
+public class MobileSectionController extends BaseController {
 
     @Autowired
     private SectionService sectionService;
@@ -160,15 +161,14 @@ public class MobileSectionController {
     /**
      * 查找小说全部章节
      *
-     * @param novelCode
      * @return
      */
     @RequestMapping(value = "all", method = RequestMethod.POST)
-    public Response sections(@RequestParam("novelCode") int novelCode) {
+    public Response sections() {
         Response response = Response.getSuccessResponse();
 
         try {
-            List<Section> sections = sectionService.findAllSections(novelCode);
+            List<Section> sections = sectionService.findAllSections(getRequestParams());
 
             response.put("sections", sections);
         } catch (Exception e) {

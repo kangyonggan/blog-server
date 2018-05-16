@@ -30,7 +30,7 @@ public class SectionController extends BaseController {
     @RequestMapping(method = RequestMethod.GET)
     public Response list() {
         Response response = Response.getSuccessResponse();
-        List<Section> sections = sectionService.findAllSections(getIntegerParam("novelCode"));
+        List<Section> sections = sectionService.findAllSections(getRequestParams());
 
         response.put("list", sections);
         return response;
