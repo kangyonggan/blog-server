@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
  */
 @SuppressWarnings("AlibabaUndefineMagicConstant")
 public class DestinyUtil {
+    private static final String BR = "</br>";
 
     /**
      * 天干，10个
@@ -274,14 +275,14 @@ public class DestinyUtil {
         StringBuilder result = new StringBuilder();
         if (queLen == 0) {
             // 五行圆满
-            result.append("五行圆满\n");
+            result.append("五行圆满").append(BR);
         } else {
             // 五行有缺
             result.append("五行缺：");
             for (int i = 0; i < queLen; i++) {
                 result.append(que[i]).append(" ");
             }
-            result.append("\n");
+            result.append(BR);
         }
 
         if (ruoLen > 0) {
@@ -289,7 +290,7 @@ public class DestinyUtil {
             for (int i = 0; i < ruoLen; i++) {
                 result.append(ruo[i]).append(" ");
             }
-            result.append("\n");
+            result.append(BR);
         }
 
         if (qiangLen > 0) {
@@ -297,7 +298,7 @@ public class DestinyUtil {
             for (int i = 0; i < qiangLen; i++) {
                 result.append(qiang[i]).append("\t");
             }
-            result.append("\n");
+            result.append(BR);
         }
 
         return result.toString();
