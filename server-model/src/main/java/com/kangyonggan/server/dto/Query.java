@@ -30,7 +30,7 @@ public class Query extends HashMap<String, Object> {
      * @return 返回参数值
      */
     public Integer getInteger(String name) {
-        return (Integer) get(name);
+        return Integer.parseInt(getString(name));
     }
 
     /**

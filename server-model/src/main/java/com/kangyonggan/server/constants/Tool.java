@@ -6,5 +6,6 @@ package com.kangyonggan.server.constants;
  */
 public enum Tool {
     qr,
-    qr2
+    qr2,
+    bazi
 }
