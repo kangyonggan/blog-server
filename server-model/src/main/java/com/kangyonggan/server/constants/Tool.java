@@ -7,5 +7,7 @@ package com.kangyonggan.server.constants;
 public enum Tool {
     qr,
     qr2,
-    bazi
+    bazi,
+    xml,
+    idcard
 }
