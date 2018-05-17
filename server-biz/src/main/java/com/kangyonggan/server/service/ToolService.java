@@ -2,6 +2,7 @@ package com.kangyonggan.server.service;
 
 import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.dto.Response;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author kangyonggan
@@ -14,7 +15,8 @@ public interface ToolService {
      *
      * @param params
      * @param response
+     * @param file
      * @return
      */
-    void handle(Params params, Response response);
+    void handle(Params params, Response response, MultipartFile file);
 }

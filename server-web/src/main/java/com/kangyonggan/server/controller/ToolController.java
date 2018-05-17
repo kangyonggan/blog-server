@@ -6,7 +6,9 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author kangyonggan
@@ -22,12 +24,13 @@ public class ToolController extends BaseController {
     /**
      * 提交
      *
+     * @param file
      * @return
      */
     @RequestMapping(method = RequestMethod.POST)
-    public Response submit() throws FileUploadException {
+    public Response submit(@RequestParam(value = "file", required = false) MultipartFile file) throws FileUploadException {
         Response response = Response.getSuccessResponse();
-        toolService.handle(getRequestParams(), response);
+        toolService.handle(getRequestParams(), response, file);
 
         return response;
     }
