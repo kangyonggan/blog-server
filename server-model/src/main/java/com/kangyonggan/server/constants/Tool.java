@@ -10,5 +10,10 @@ public enum Tool {
     bazi,
     xml,
     idcard,
-    gencard
+    gencard,
+    sql,
+    json,
+    js,
+    css,
+    charset
 }

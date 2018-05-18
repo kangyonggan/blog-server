@@ -1,18 +1,20 @@
 package com.kangyonggan.server.service.impl;
 
+import com.alibaba.druid.sql.SQLUtils;
 import com.google.zxing.NotFoundException;
 import com.google.zxing.WriterException;
+import com.kangyonggan.app.util.CompressorUtil;
+import com.kangyonggan.app.util.GsonUtil;
 import com.kangyonggan.app.util.XmlUtil;
+import com.kangyonggan.server.constants.Dialect;
 import com.kangyonggan.server.constants.Tool;
 import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.dto.Query;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.service.ToolService;
-import com.kangyonggan.server.util.CalendarUtil;
-import com.kangyonggan.server.util.DestinyUtil;
-import com.kangyonggan.server.util.IDCardUtil;
-import com.kangyonggan.server.util.QrCodeUtil;
+import com.kangyonggan.server.util.*;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +23,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -53,6 +56,7 @@ public class ToolServiceImpl implements ToolService {
     public void handle(Params params, Response response, MultipartFile file) {
         try {
             String code = params.getQuery().getString("code");
+            String data = params.getQuery().getString("data");
             if (Tool.qr.name().equals(code)) {
                 // 生成二维码
                 qrHandle(params, response);
@@ -71,6 +75,21 @@ public class ToolServiceImpl implements ToolService {
             } else if (Tool.gencard.name().equals(code)) {
                 // 生成身份证
                 gencardHandle(params, response);
+            } else if (Tool.sql.name().equals(code)) {
+                // 格式化SQL
+                sqlHandle(params, response);
+            } else if (Tool.json.name().equals(code)) {
+                // 格式化JSON
+                response.put(RESULT, GsonUtil.format(data));
+            } else if (Tool.js.name().equals(code)) {
+                // 压缩JS
+                jsHandle(params, response);
+            } else if (Tool.css.name().equals(code)) {
+                // 压缩CSS
+                response.put(RESULT, CompressorUtil.compressCSS(data));
+            } else if (Tool.charset.name().equals(code)) {
+                // 编码转换
+                response.put(RESULT, CharsetUtil.convert(data, params.getQuery().getString("charset")));
             } else {
                 response.failure("该工具尚未开发");
             }
@@ -81,6 +100,50 @@ public class ToolServiceImpl implements ToolService {
             log.error("工具调用异常", e);
             response.failure("输入参数错误");
         }
+    }
+
+    /**
+     * JS压缩
+     *
+     * @param params
+     * @param response
+     * @throws Exception
+     */
+    private void jsHandle(Params params, Response response) throws Exception {
+        Map<String, String> map = CompressorUtil.compressJS(params.getQuery().getString("data"));
+        StringBuilder result = new StringBuilder();
+        if (StringUtils.isNotEmpty(map.get("result"))) {
+            result.append("压缩结果：").append(map.get("result")).append("\r\n\r\n");
+        }
+        if (StringUtils.isNotEmpty(map.get("warningMsg"))) {
+            result.append("警告：").append(map.get("warningMsg")).append("\r\n\r\n");
+        }
+        if (StringUtils.isNotEmpty(map.get("errorMsg"))) {
+            result.append("错误：").append(map.get("errorMsg")).append("\r\n\r\n");
+        }
+
+        response.put(RESULT, result.toString());
+    }
+
+    /**
+     * 格式化SQL
+     *
+     * @param params
+     * @param response
+     */
+    private void sqlHandle(Params params, Response response) {
+        String dialect = params.getQuery().getString("dialect");
+        String data = params.getQuery().getString("data");
+        String result = "不支持的方言";
+        if (Dialect.MySQL.getDialect().equals(dialect)) {
+            result = SQLUtils.formatMySql(data);
+        } else if (Dialect.Oracle.getDialect().equals(dialect)) {
+            result = SQLUtils.formatOracle(data);
+        } else if (Dialect.SQLServer.getDialect().equals(dialect)) {
+            result = SQLUtils.formatSQLServer(data);
+        }
+
+        response.put(RESULT, result);
     }
 
     /**
