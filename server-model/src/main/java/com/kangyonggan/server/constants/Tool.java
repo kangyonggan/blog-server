@@ -9,5 +9,6 @@ public enum Tool {
     qr2,
     bazi,
     xml,
-    idcard
+    idcard,
+    gencard
 }

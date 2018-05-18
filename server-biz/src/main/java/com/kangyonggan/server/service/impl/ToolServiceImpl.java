@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -40,6 +41,15 @@ public class ToolServiceImpl implements ToolService {
     private static final String BR = "</br>";
 
     @Override
+    public void preHandle(Params params, Response response) {
+        String code = params.getQuery().getString("code");
+        if (Tool.gencard.name().equals(code)) {
+            // 生成身份证
+            response.put("cityCodes", IDCardUtil.getCityCodes());
+        }
+    }
+
+    @Override
     public void handle(Params params, Response response, MultipartFile file) {
         try {
             String code = params.getQuery().getString("code");
@@ -58,6 +68,9 @@ public class ToolServiceImpl implements ToolService {
             } else if (Tool.idcard.name().equals(code)) {
                 // 身份证查询
                 idcardHandle(params, response);
+            } else if (Tool.gencard.name().equals(code)) {
+                // 生成身份证
+                gencardHandle(params, response);
             } else {
                 response.failure("该工具尚未开发");
             }
@@ -71,8 +84,25 @@ public class ToolServiceImpl implements ToolService {
     }
 
     /**
+     * 生成身份证
+     *
+     * @param params
+     * @param response
+     */
+    private void gencardHandle(Params params, Response response) {
+        Query query = params.getQuery();
+        List<String> list = IDCardUtil.genIdCard(query.getString("prov"), query.getInteger("startAge", 20), query.getInteger("endAge", 60), query.getString("sec"), query.getInteger("len", -1), query.getInteger("count", 10));
+        StringBuilder result = new StringBuilder();
+        for (String card : list) {
+            result.append(card).append(BR);
+        }
+
+        response.put(RESULT, result.toString());
+    }
+
+    /**
      * 身份证查询
-     * 
+     *
      * @param params
      * @param response
      */

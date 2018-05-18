@@ -11,6 +11,14 @@ import org.springframework.web.multipart.MultipartFile;
 public interface ToolService {
 
     /**
+     * 预处理请求
+     *
+     * @param params
+     * @param response
+     */
+    void preHandle(Params params, Response response);
+
+    /**
      * 处理请求
      *
      * @param params

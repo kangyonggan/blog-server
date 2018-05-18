@@ -22,6 +22,19 @@ public class ToolController extends BaseController {
     private ToolService toolService;
 
     /**
+     * 预处理
+     *
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    public Response preSubmit() {
+        Response response = Response.getSuccessResponse();
+        toolService.preHandle(getRequestParams(), response);
+
+        return response;
+    }
+
+    /**
      * 提交
      *
      * @param file
