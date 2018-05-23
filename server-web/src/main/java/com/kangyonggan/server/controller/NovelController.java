@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -35,9 +36,10 @@ public class NovelController extends BaseController {
      * 列表
      *
      * @return
+     * @throws UnsupportedEncodingException
      */
     @RequestMapping(method = RequestMethod.GET)
-    public Response list() {
+    public Response list() throws UnsupportedEncodingException {
         Response response = Response.getSuccessResponse();
 
         List<Novel> novels = novelService.searchNovels(getRequestParams());
