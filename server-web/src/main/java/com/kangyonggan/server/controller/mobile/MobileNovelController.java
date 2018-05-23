@@ -9,7 +9,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -37,7 +36,6 @@ public class MobileNovelController extends BaseController {
 
         try {
             Params params = getRequestParams();
-            params.getQuery().put("key", decode(params.getQuery().getString("key")));
             params.setPageNum(1);
             params.setPageSize(100);
             List<Novel> novels = novelService.searchNovels(params);
