@@ -3,6 +3,7 @@ package com.kangyonggan.server.service;
 import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.model.Novel;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -21,8 +22,9 @@ public interface NovelService {
      *
      * @param params
      * @return
+     * @throws UnsupportedEncodingException
      */
-    List<Novel> searchNovels(Params params);
+    List<Novel> searchNovels(Params params) throws UnsupportedEncodingException;
 
     /**
      * 查找小说

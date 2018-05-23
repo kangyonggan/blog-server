@@ -4,14 +4,13 @@ import com.github.pagehelper.PageHelper;
 import com.kangyonggan.app.util.StringUtil;
 import com.kangyonggan.extra.core.annotation.Log;
 import com.kangyonggan.server.dto.Params;
-import com.kangyonggan.server.mapper.NovelMapper;
 import com.kangyonggan.server.model.Novel;
 import com.kangyonggan.server.service.NovelService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -22,7 +21,7 @@ import java.util.List;
 public class NovelServiceImpl extends BaseService<Novel> implements NovelService {
 
     @Override
-    public List<Novel> searchNovels(Params params) {
+    public List<Novel> searchNovels(Params params) throws UnsupportedEncodingException {
         Example example = new Example(Novel.class);
 
         Example.Criteria criteria = example.createCriteria();
@@ -32,6 +31,7 @@ public class NovelServiceImpl extends BaseService<Novel> implements NovelService
         }
 
         String key = params.getQuery().getString("key");
+        key = new String(key.getBytes("ISO-8859-1"), "UTF-8");
         if (StringUtils.isNotEmpty(key)) {
             criteria.andLike("name", StringUtil.toLike(key));
             example.or(example.createCriteria().andLike("author", StringUtil.toLike(key)));
