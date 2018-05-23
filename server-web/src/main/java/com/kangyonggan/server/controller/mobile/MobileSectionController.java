@@ -33,7 +33,7 @@ public class MobileSectionController extends BaseController {
      * @return
      */
     @RequestMapping(method = RequestMethod.POST)
-    public Response section(@RequestParam("novelCode") int novelCode, @RequestParam("code") int code) {
+    public Response section(@RequestParam(value = "novelCode", required = false, defaultValue = "0") int novelCode, @RequestParam("code") int code) {
         Response response = Response.getSuccessResponse();
 
         try {
@@ -61,7 +61,7 @@ public class MobileSectionController extends BaseController {
      * @return
      */
     @RequestMapping(value = "next", method = RequestMethod.POST)
-    public Response nextSection(@RequestParam("novelCode") int novelCode, @RequestParam("code") int code) {
+    public Response nextSection(@RequestParam(value = "novelCode", required = false, defaultValue = "0") int novelCode, @RequestParam("code") int code) {
         Response response = Response.getSuccessResponse();
 
         try {
@@ -89,7 +89,7 @@ public class MobileSectionController extends BaseController {
      * @return
      */
     @RequestMapping(value = "prev", method = RequestMethod.POST)
-    public Response prevSection(@RequestParam("novelCode") int novelCode, @RequestParam("code") int code) {
+    public Response prevSection(@RequestParam(value = "novelCode", required = false, defaultValue = "0") int novelCode, @RequestParam("code") int code) {
         Response response = Response.getSuccessResponse();
 
         try {
@@ -144,7 +144,7 @@ public class MobileSectionController extends BaseController {
      * @return
      */
     @RequestMapping(value = "cache", method = RequestMethod.POST)
-    public Response sectionCache(@RequestParam("novelCode") int novelCode, @RequestParam("code") int code) {
+    public Response sectionCache(@RequestParam(value = "novelCode", required = false, defaultValue = "0") int novelCode, @RequestParam("code") int code) {
         Response response = Response.getSuccessResponse();
 
         try {

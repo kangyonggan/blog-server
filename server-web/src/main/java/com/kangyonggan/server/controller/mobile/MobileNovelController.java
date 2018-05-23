@@ -72,11 +72,4 @@ public class MobileNovelController extends BaseController {
         return response;
     }
 
-    private String decode(String data) {
-        try {
-            return new String(data.getBytes("ISO-8859-1"), "UTF-8");
-        } catch (Exception e) {
-            return data;
-        }
-    }
 }
