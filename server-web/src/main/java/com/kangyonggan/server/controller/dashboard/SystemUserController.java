@@ -88,4 +88,17 @@ public class SystemUserController extends BaseController {
         return Response.getSuccessResponse();
     }
 
+    /**
+     * 修改密码
+     *
+     * @param user
+     * @param usernames
+     * @return
+     */
+    @RequestMapping(value = "password", method = RequestMethod.POST)
+    public Response password(User user, String usernames) {
+        userService.updatePassword(user, usernames);
+        return Response.getSuccessResponse();
+    }
+
 }
