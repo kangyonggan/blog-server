@@ -1,0 +1,49 @@
+package com.kangyonggan.server.service;
+
+import com.kangyonggan.server.dto.Params;
+import com.kangyonggan.server.model.User;
+
+import java.util.List;
+
+/**
+ * @author kangyonggan
+ * @since 2018/5/27 0027
+ */
+public interface UserService {
+
+    /**
+     * 搜索用户
+     *
+     * @param params
+     * @return
+     */
+    List<User> searchUsers(Params params);
+
+    /**
+     * 删除
+     *
+     * @param usernames
+     */
+    void delete(String usernames);
+
+    /**
+     * 恢复
+     *
+     * @param usernames
+     */
+    void recovery(String usernames);
+
+    /**
+     * 保存用户
+     *
+     * @param user
+     */
+    void saveUser(User user);
+
+    /**
+     * 更新用户
+     *
+     * @param user
+     */
+    void updateUser(User user);
+}
