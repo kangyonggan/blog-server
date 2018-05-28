@@ -1,6 +1,6 @@
 package com.kangyonggan.server.mapper;
 
-import com.kangyonggan.server.model.Novel;
+import com.kangyonggan.server.model.Guest;
 import com.kangyonggan.server.plugin.MyMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,6 +9,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2018/04/02
  */
 @Mapper
-public interface NovelMapper extends MyMapper<Novel> {
-
+public interface GuestMapper extends MyMapper<Guest> {
 }

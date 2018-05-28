@@ -3,8 +3,10 @@ package com.kangyonggan.server.constants;
 import lombok.Getter;
 
 /**
+ * 是/否
+ *
  * @author kangyonggan
- * @since 2018/5/27 0027
+ * @since 5/4/18
  */
 public enum YesNo {
 
@@ -34,5 +36,4 @@ public enum YesNo {
         this.code = code;
         this.name = name;
     }
-
 }

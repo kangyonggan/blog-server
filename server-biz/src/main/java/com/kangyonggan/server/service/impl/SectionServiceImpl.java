@@ -2,7 +2,9 @@ package com.kangyonggan.server.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.kangyonggan.app.util.HtmlUtil;
+import com.kangyonggan.app.util.StringUtil;
 import com.kangyonggan.extra.core.annotation.Log;
+import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.model.Novel;
 import com.kangyonggan.server.model.Section;
 import com.kangyonggan.server.service.NovelService;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,10 +39,17 @@ public class SectionServiceImpl extends BaseService<Section> implements SectionS
     private NovelService novelService;
 
     @Override
-    public List<Section> findAllSections(Integer novelCode) {
+    public List<Section> findAllSections(Params params) {
         Example example = new Example(Section.class);
-        example.createCriteria().andEqualTo("novelCode", novelCode);
-        example.setOrderByClause("code asc");
+        example.createCriteria().andEqualTo("novelCode", params.getQuery().getString("novelCode"));
+
+        String sort = params.getSort();
+        String order = params.getOrder();
+        if (!StringUtil.hasEmpty(sort, order)) {
+            example.setOrderByClause(sort + " " + order.toUpperCase());
+        } else {
+            example.setOrderByClause("code desc");
+        }
 
         example.selectProperties("id", "code", "novelCode", "title");
 
@@ -115,6 +125,35 @@ public class SectionServiceImpl extends BaseService<Section> implements SectionS
         }
 
         return sections.get(0);
+    }
+
+    @Override
+    public List<Section> findNext100Sections(Integer code) {
+        Section section = findSectionByCode(code);
+        if (section == null) {
+            return new ArrayList<>();
+        }
+        Example example = new Example(Section.class);
+        example.createCriteria().andEqualTo("novelCode", section.getNovelCode()).andGreaterThanOrEqualTo("code", code);
+
+        example.setOrderByClause("code asc");
+
+        PageHelper.startPage(1, 100);
+        return myMapper.selectByExample(example);
+    }
+
+    @Override
+    @Log
+    public Section findFirstSection(int novelCode) {
+        Example example = new Example(Section.class);
+
+        example.createCriteria().andEqualTo("novelCode", novelCode);
+
+        example.setOrderByClause("code asc");
+        PageHelper.startPage(1, 1);
+        List<Section> sections = myMapper.selectByExample(example);
+
+        return sections.isEmpty() ? null : sections.get(0);
     }
 
     /**

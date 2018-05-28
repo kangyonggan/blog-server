@@ -30,7 +30,22 @@ public class Query extends HashMap<String, Object> {
      * @return 返回参数值
      */
     public Integer getInteger(String name) {
-        return (Integer) get(name);
+        return Integer.parseInt(getString(name));
+    }
+
+    /**
+     * 获取int类型的值, 带有默认值
+     *
+     * @param name         参数名
+     * @param defaultValue 默认值
+     * @return 返回参数值
+     */
+    public Integer getInteger(String name, Integer defaultValue) {
+        try {
+            return Integer.parseInt(getString(name));
+        } catch (Exception e) {
+            return defaultValue;
+        }
     }
 
     /**
