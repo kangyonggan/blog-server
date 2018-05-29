@@ -50,7 +50,7 @@ public class SystemUserController extends BaseController {
         Response response = Response.getSuccessResponse();
 
         List<User> users = userService.searchUsers(getRequestParams());
-        response.put("users", users);
+        response.put("list", users);
 
         return response;
     }

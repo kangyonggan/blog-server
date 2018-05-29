@@ -31,11 +31,11 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         Example.Criteria criteria = example.createCriteria();
         String username = params.getQuery().getString("username");
         if (StringUtils.isNotEmpty(username)) {
-            criteria.andEqualTo("username", username);
+            criteria.andLike("username", StringUtil.toLike(username));
         }
         String realname = params.getQuery().getString("realname");
         if (StringUtils.isNotEmpty(realname)) {
-            criteria.andEqualTo("realname", realname);
+            criteria.andLike("realname", StringUtil.toLike(realname));
         }
         Date startCreatedTime = params.getQuery().getDate("startCreatedTime");
         if (startCreatedTime != null) {
