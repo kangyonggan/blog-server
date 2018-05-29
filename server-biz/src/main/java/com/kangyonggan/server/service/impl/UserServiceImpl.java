@@ -1,7 +1,6 @@
 package com.kangyonggan.server.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.kangyonggan.app.util.Collections3;
 import com.kangyonggan.app.util.Digests;
 import com.kangyonggan.app.util.Encodes;
 import com.kangyonggan.app.util.StringUtil;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -33,11 +31,11 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         Example.Criteria criteria = example.createCriteria();
         String username = params.getQuery().getString("username");
         if (StringUtils.isNotEmpty(username)) {
-            criteria.andLike("username", StringUtil.toLike(username));
+            criteria.andEqualTo("username", username);
         }
         String realname = params.getQuery().getString("realname");
         if (StringUtils.isNotEmpty(realname)) {
-            criteria.andLike("realname", StringUtil.toLike(realname));
+            criteria.andEqualTo("realname", realname);
         }
         Date startCreatedTime = params.getQuery().getDate("startCreatedTime");
         if (startCreatedTime != null) {

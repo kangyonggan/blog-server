@@ -41,6 +41,21 @@ public class SystemUserController extends BaseController {
     }
 
     /**
+     * 搜索用户
+     *
+     * @return
+     */
+    @RequestMapping(value = "search", method = RequestMethod.GET)
+    public Response search() {
+        Response response = Response.getSuccessResponse();
+
+        List<User> users = userService.searchUsers(getRequestParams());
+        response.put("users", users);
+
+        return response;
+    }
+
+    /**
      * 删除
      *
      * @param usernames
