@@ -330,3 +330,8 @@ INSERT INTO tb_role
 values
 ('ROLE_ADMIN', '管理员'),
 ('ROLE_USER', '普通用户');
+
+INSERT INTO tb_user_role
+(username, role_code)
+values
+('admin', 'ROLE_ADMIN');

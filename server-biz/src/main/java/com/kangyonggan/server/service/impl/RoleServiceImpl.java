@@ -4,12 +4,14 @@ import com.github.pagehelper.PageHelper;
 import com.kangyonggan.app.util.StringUtil;
 import com.kangyonggan.server.constants.YesNo;
 import com.kangyonggan.server.dto.Params;
+import com.kangyonggan.server.mapper.RoleMapper;
 import com.kangyonggan.server.model.Role;
 import com.kangyonggan.server.service.RoleService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +22,9 @@ import java.util.List;
  */
 @Service
 public class RoleServiceImpl extends BaseService<Role> implements RoleService {
+
+    @Resource
+    private RoleMapper roleMapper;
 
     @Override
     public boolean existsRoleCode(String code) {
@@ -96,5 +101,17 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 
         PageHelper.startPage(params.getPageNum(), params.getPageSize());
         return myMapper.selectByExample(example);
+    }
+
+    @Override
+    public List<Role> findUserRoles(String username) {
+        return roleMapper.selectRolesByUsername(username);
+    }
+
+    @Override
+    public List<Role> findAllRoles() {
+        Role role = new Role();
+        role.setIsDeleted(YesNo.NO.getCode());
+        return myMapper.select(role);
     }
 }

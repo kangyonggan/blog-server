@@ -62,4 +62,12 @@ public interface UserService {
      * @return
      */
     boolean existsUsername(String username);
+
+    /**
+     * 更新用户角色
+     *
+     * @param username
+     * @param roleCodes
+     */
+    void updateUserRoles(String username, String roleCodes);
 }

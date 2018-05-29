@@ -1,15 +1,15 @@
 package com.kangyonggan.server.controller.dashboard;
 
 import com.github.pagehelper.PageInfo;
+import com.kangyonggan.app.util.Collections3;
 import com.kangyonggan.server.controller.BaseController;
 import com.kangyonggan.server.dto.Response;
+import com.kangyonggan.server.model.Role;
 import com.kangyonggan.server.model.User;
+import com.kangyonggan.server.service.RoleService;
 import com.kangyonggan.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +23,9 @@ public class SystemUserController extends BaseController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
 
     /**
      * 用户列表
@@ -113,6 +116,36 @@ public class SystemUserController extends BaseController {
     @RequestMapping(value = "password", method = RequestMethod.POST)
     public Response password(User user, String usernames) {
         userService.updatePassword(user, usernames);
+        return Response.getSuccessResponse();
+    }
+
+    /**
+     * 查找用户角色
+     *
+     * @param username
+     * @return
+     */
+    @RequestMapping(value = "{username:[\\w]+}/role", method = RequestMethod.GET)
+    public Response role(@PathVariable("username") String username) {
+        Response response = Response.getSuccessResponse();
+        List<Role> roles = roleService.findUserRoles(username);
+
+        response.put("roleCodes", Collections3.extractToList(roles, "code"));
+        return response;
+    }
+
+    /**
+     * 更新用户角色
+     *
+     * @param username
+     * @param roleCodes
+     * @return
+     */
+    @RequestMapping(value = "{username:[\\w]+}/role", method = RequestMethod.POST)
+    public Response role(@PathVariable("username") String username,
+                         @RequestParam(value = "roleCodes", required = false, defaultValue = "") String roleCodes) {
+        userService.updateUserRoles(username, roleCodes);
+
         return Response.getSuccessResponse();
     }
 

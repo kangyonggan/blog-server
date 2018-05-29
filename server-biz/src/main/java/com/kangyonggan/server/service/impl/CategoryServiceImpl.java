@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl extends BaseService<Category> implements CategoryService {
 
-    @Autowired
+    @Resource
     private CategoryMapper categoryMapper;
 
     @Override

@@ -103,4 +103,16 @@ public class SystemRoleController extends BaseController {
         return Response.getSuccessResponse();
     }
 
+    /**
+     * 查找所有角色
+     *
+     * @return
+     */
+    @RequestMapping(value = "all", method = RequestMethod.GET)
+    public Response all() {
+        Response response = Response.getSuccessResponse();
+        response.put("roles", roleService.findAllRoles());
+        return response;
+    }
+
 }

@@ -7,12 +7,15 @@ import com.kangyonggan.app.util.StringUtil;
 import com.kangyonggan.server.constants.AppConstants;
 import com.kangyonggan.server.constants.YesNo;
 import com.kangyonggan.server.dto.Params;
+import com.kangyonggan.server.mapper.RoleMapper;
+import com.kangyonggan.server.mapper.UserMapper;
 import com.kangyonggan.server.model.User;
 import com.kangyonggan.server.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +26,12 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl extends BaseService<User> implements UserService {
+
+    @Resource
+    private UserMapper userMapper;
+
+    @Resource
+    private RoleMapper roleMapper;
 
     @Override
     public List<User> searchUsers(Params params) {
@@ -110,6 +119,15 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         User user = new User();
         user.setUsername(username);
         return super.exists(user);
+    }
+
+    @Override
+    public void updateUserRoles(String username, String roleCodes) {
+        roleMapper.deleteAllRolesByUsername(username);
+
+        if (StringUtils.isNotEmpty(roleCodes)) {
+            userMapper.insertUserRoles(username, Arrays.asList(roleCodes.split(",")));
+        }
     }
 
     /**
