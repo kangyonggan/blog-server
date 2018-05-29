@@ -324,3 +324,9 @@ VALUES
   ('xiaoxin9', '小新9', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
   ('xiaoxin10', '小新10', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
   ('xiaoxin11', '小新11', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd');
+
+INSERT INTO tb_role
+(code, name)
+values
+('ROLE_ADMIN', '管理员'),
+('ROLE_USER', '普通用户');
