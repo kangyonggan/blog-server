@@ -54,4 +54,12 @@ public interface UserService {
      * @param usernames
      */
     void updatePassword(User user, String usernames);
+
+    /**
+     * 判断用户名是否存在
+     *
+     * @param username
+     * @return
+     */
+    boolean existsUsername(String username);
 }

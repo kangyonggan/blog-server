@@ -107,6 +107,13 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         myMapper.updateByExampleSelective(user, example);
     }
 
+    @Override
+    public boolean existsUsername(String username) {
+        User user = new User();
+        user.setUsername(username);
+        return super.exists(user);
+    }
+
     /**
      * 设定安全的密码，生成随机的salt并经过N次 sha-1 hash
      *

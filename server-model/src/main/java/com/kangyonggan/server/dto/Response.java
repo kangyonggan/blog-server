@@ -97,6 +97,13 @@ public final class Response extends HashMap<String, Object> implements Serializa
 
     /**
      * 设置成功消息
+     */
+    public Response success() {
+        return success(Resp.SUCCESS.getRespMsg());
+    }
+
+    /**
+     * 设置成功消息
      *
      * @param msg 成功消息
      */
