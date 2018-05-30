@@ -35,7 +35,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 
     @Override
     public void updateRole(Role role) {
-        myMapper.updateByPrimaryKey(role);
+        myMapper.updateByPrimaryKeySelective(role);
     }
 
     @Override
