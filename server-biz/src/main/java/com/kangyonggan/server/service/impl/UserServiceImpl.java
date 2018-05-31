@@ -42,9 +42,9 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         if (StringUtils.isNotEmpty(username)) {
             criteria.andLike("username", StringUtil.toLike(username));
         }
-        String realname = params.getQuery().getString("realname");
-        if (StringUtils.isNotEmpty(realname)) {
-            criteria.andLike("realname", StringUtil.toLike(realname));
+        String name = params.getQuery().getString("name");
+        if (StringUtils.isNotEmpty(name)) {
+            criteria.andLike("name", StringUtil.toLike(name));
         }
         Date startCreatedTime = params.getQuery().getDate("startCreatedTime");
         if (startCreatedTime != null) {

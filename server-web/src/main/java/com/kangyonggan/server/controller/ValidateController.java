@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("validate")
-public class ValidateController {
+public class ValidateController extends BaseController {
 
     @Autowired
     private UserService userService;

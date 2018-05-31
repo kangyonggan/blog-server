@@ -18,8 +18,8 @@ CREATE TABLE tb_user
   COMMENT '主键, 自增',
   username     VARCHAR(32)                           NOT NULL
   COMMENT '用户名',
-  realname     VARCHAR(32)                           NOT NULL
-  COMMENT '真实姓名',
+  name         VARCHAR(32)                           NOT NULL
+  COMMENT '姓名',
   password     VARCHAR(64)                           NOT NULL
   COMMENT '密码',
   salt         VARCHAR(64)                           NOT NULL
@@ -135,17 +135,17 @@ IF EXISTS tb_article;
 
 CREATE TABLE tb_article
 (
-  id            BIGINT(20) PRIMARY KEY AUTO_INCREMENT NOT NULL
+  id           BIGINT(20) PRIMARY KEY AUTO_INCREMENT NOT NULL
   COMMENT '主键, 自增',
-  title         VARCHAR(128)                          NOT NULL
+  title        VARCHAR(128)                          NOT NULL
   COMMENT '文章标题',
-  content       LONGTEXT                              NOT NULL
+  content      LONGTEXT                              NOT NULL
   COMMENT '文章内容',
-  is_deleted    TINYINT                               NOT NULL                    DEFAULT 0
+  is_deleted   TINYINT                               NOT NULL                    DEFAULT 0
   COMMENT '逻辑删除:{0:未删除, 1:已删除}',
-  created_time  TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP
+  created_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP
   COMMENT '创建时间',
-  updated_time  TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  updated_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   COMMENT '更新时间'
 )
   COMMENT '文章表';
@@ -247,7 +247,6 @@ CREATE UNIQUE INDEX code_UNIQUE
 CREATE INDEX ix_novel_code
   ON tb_section (novel_code);
 
-
 -- ----------------------------
 --  Table structure for tb_guest
 -- ----------------------------
@@ -304,12 +303,11 @@ INSERT tb_guest
 VALUES
   ('康永敢', 'java@kangyonggan.com', '上海市网友', '新版博客出炉，老版本的留言没去保留。', 'COMPLETE', '');
 
-
 -- ----------------------------
 --  data for tb_user
 -- ----------------------------
 INSERT INTO tb_user
-(username, realname, password, salt)
+(username, name, password, salt)
 VALUES
   ('admin', '管理员', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
   ('xiaotiao', '小跳', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
@@ -327,11 +325,11 @@ VALUES
 
 INSERT INTO tb_role
 (code, name)
-values
-('ROLE_ADMIN', '管理员'),
-('ROLE_USER', '普通用户');
+VALUES
+  ('ROLE_ADMIN', '管理员'),
+  ('ROLE_USER', '普通用户');
 
 INSERT INTO tb_user_role
 (username, role_code)
-values
-('admin', 'ROLE_ADMIN');
+VALUES
+  ('admin', 'ROLE_ADMIN');
