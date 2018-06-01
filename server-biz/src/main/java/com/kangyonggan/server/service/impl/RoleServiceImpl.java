@@ -1,5 +1,6 @@
 package com.kangyonggan.server.service.impl;
 
+import com.kangyonggan.server.constants.Status;
 import com.kangyonggan.server.mapper.RoleMapper;
 import com.kangyonggan.server.model.Role;
 import com.kangyonggan.server.service.RoleService;
@@ -21,5 +22,13 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
     @Override
     public List<Role> findUserRoles(String username) {
         return roleMapper.selectRolesByUsername(username);
+    }
+
+    @Override
+    public List<Role> findAllRoles() {
+        Role role = new Role();
+        role.setStatus(Status.ENABLE.getCode());
+
+        return myMapper.select(role);
     }
 }

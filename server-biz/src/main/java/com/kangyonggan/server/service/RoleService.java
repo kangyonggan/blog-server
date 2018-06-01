@@ -18,4 +18,11 @@ public interface RoleService {
      */
     List<Role> findUserRoles(String username);
 
+    /**
+     * 查找所有角色
+     *
+     * @return
+     */
+    List<Role> findAllRoles();
+
 }

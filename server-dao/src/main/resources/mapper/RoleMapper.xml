@@ -19,7 +19,7 @@
         <where>
             r.code = ur.role_code
             AND ur.username = #{username}
-            AND r.is_deleted = 0
+            AND r.status = 0
             ORDER BY r.id DESC
         </where>
     </select>
