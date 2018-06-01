@@ -5,17 +5,16 @@ import com.kangyonggan.app.util.Digests;
 import com.kangyonggan.app.util.Encodes;
 import com.kangyonggan.app.util.StringUtil;
 import com.kangyonggan.server.constants.AppConstants;
-import com.kangyonggan.server.constants.YesNo;
 import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.mapper.RoleMapper;
 import com.kangyonggan.server.mapper.UserMapper;
 import com.kangyonggan.server.model.User;
 import com.kangyonggan.server.service.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
-import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -27,10 +26,10 @@ import java.util.List;
 @Service
 public class UserServiceImpl extends BaseService<User> implements UserService {
 
-    @Resource
+    @Autowired
     private UserMapper userMapper;
 
-    @Resource
+    @Autowired
     private RoleMapper roleMapper;
 
     @Override
@@ -76,16 +75,6 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     @Override
     public void updateUser(User user) {
         myMapper.updateByPrimaryKeySelective(user);
-    }
-
-    @Override
-    public void updatePassword(User user, String usernames) {
-        entryptPassword(user);
-
-        Example example = new Example(User.class);
-        example.createCriteria().andIn("username", Arrays.asList(usernames.split(",")));
-
-        myMapper.updateByExampleSelective(user, example);
     }
 
     @Override

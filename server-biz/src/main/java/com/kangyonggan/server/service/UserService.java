@@ -34,14 +34,6 @@ public interface UserService {
     void updateUser(User user);
 
     /**
-     * 修改密码
-     *
-     * @param user
-     * @param usernames
-     */
-    void updatePassword(User user, String usernames);
-
-    /**
      * 判断用户名是否存在
      *
      * @param username

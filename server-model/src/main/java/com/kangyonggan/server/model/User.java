@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * @author kangyonggan
- * @since  2018/04/02
+ * @since 2018/04/02
  */
 @Table(name = "tb_user")
 @Data
@@ -41,10 +41,9 @@ public class User implements Serializable {
     private String salt;
 
     /**
-     * 逻辑删除:{0:未删除, 1:已删除}
+     * 状态:{0:可用, 1:禁用}
      */
-    @Column(name = "is_deleted")
-    private Byte isDeleted;
+    private Byte status;
 
     /**
      * 创建时间

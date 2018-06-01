@@ -6,11 +6,8 @@ package com.kangyonggan.server.constants;
  */
 public interface AppConstants {
 
-    /**
-     * Shiro常量
-     */
-    String HASH_ALGORITHM = "SHA-1";
     int HASH_INTERATIONS = 2;
+
     int SALT_SIZE = 8;
 
 

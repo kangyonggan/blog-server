@@ -3,31 +3,28 @@ package com.kangyonggan.server.constants;
 import lombok.Getter;
 
 /**
+ * 状态枚举
+ *
  * @author kangyonggan
  * @date 5/5/17
  */
 public enum Status {
 
     /**
-     * 待审核
+     * 可用
      */
-    WAITING("WAITING", "待审核"),
+    ENABLE((byte) 0, "可用"),
 
     /**
-     * 审核通过
+     * 禁用
      */
-    COMPLETE("COMPLETE", "审核通过"),
+    DISABLE((byte) 1, "禁用");
 
     /**
-     * 拒绝
-     */
-    REJECT("REJECT", "拒绝");
-
-    /**
-     * 状态
+     * 状态代码
      */
     @Getter
-    private final String status;
+    private final byte code;
 
     /**
      * 状态名称
@@ -35,8 +32,8 @@ public enum Status {
     @Getter
     private final String name;
 
-    Status(String status, String name) {
-        this.status = status;
+    Status(byte code, String name) {
+        this.code = code;
         this.name = name;
     }
 

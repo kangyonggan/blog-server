@@ -24,8 +24,8 @@ CREATE TABLE tb_user
   COMMENT '密码',
   salt         VARCHAR(64)                           NOT NULL
   COMMENT '密码盐',
-  is_deleted   TINYINT                               NOT NULL                    DEFAULT 0
-  COMMENT '逻辑删除:{0:未删除, 1:已删除}',
+  status       TINYINT                               NOT NULL                    DEFAULT 0
+  COMMENT '状态:{0:可用, 1:禁用}',
   created_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP
   COMMENT '创建时间',
   updated_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -49,11 +49,11 @@ CREATE TABLE tb_role
   COMMENT '角色代码',
   name         VARCHAR(32)                           NOT NULL
   COMMENT '角色名称',
-  is_deleted   TINYINT                               NOT NULL                DEFAULT 0
-  COMMENT '逻辑删除:{0:未删除, 1:已删除}',
-  created_time TIMESTAMP                             NOT NULL                DEFAULT CURRENT_TIMESTAMP
+  status       TINYINT                               NOT NULL                    DEFAULT 0
+  COMMENT '状态:{0:可用, 1:禁用}',
+  created_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP
   COMMENT '创建时间',
-  updated_time TIMESTAMP                             NOT NULL                DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  updated_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   COMMENT '更新时间'
 )
   COMMENT '角色表';
@@ -74,19 +74,19 @@ CREATE TABLE tb_menu
   COMMENT '菜单代码',
   name         VARCHAR(32)                           NOT NULL
   COMMENT '菜单名称',
-  pcode        VARCHAR(32)                           NOT NULL                DEFAULT ''
+  pcode        VARCHAR(32)                           NOT NULL                    DEFAULT ''
   COMMENT '父菜单代码',
-  url          VARCHAR(128)                          NOT NULL                DEFAULT ''
+  url          VARCHAR(128)                          NOT NULL                    DEFAULT ''
   COMMENT '菜单地址',
-  sort         INT(11)                               NOT NULL                DEFAULT 0
+  sort         INT(11)                               NOT NULL                    DEFAULT 0
   COMMENT '菜单排序(从0开始)',
-  icon         VARCHAR(128)                          NOT NULL                DEFAULT ''
+  icon         VARCHAR(128)                          NOT NULL                    DEFAULT ''
   COMMENT '菜单图标的样式',
-  is_deleted   TINYINT                               NOT NULL                DEFAULT 0
-  COMMENT '逻辑删除:{0:未删除, 1:已删除}',
-  created_time TIMESTAMP                             NOT NULL                DEFAULT CURRENT_TIMESTAMP
+  status       TINYINT                               NOT NULL                    DEFAULT 0
+  COMMENT '状态:{0:可用, 1:禁用}',
+  created_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP
   COMMENT '创建时间',
-  updated_time TIMESTAMP                             NOT NULL                DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  updated_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   COMMENT '更新时间'
 )
   COMMENT '菜单表';
@@ -126,182 +126,6 @@ CREATE TABLE tb_role_menu
   PRIMARY KEY (role_code, menu_code)
 )
   COMMENT '角色菜单表';
-
--- ----------------------------
---  Table structure for tb_article
--- ----------------------------
-DROP TABLE
-IF EXISTS tb_article;
-
-CREATE TABLE tb_article
-(
-  id           BIGINT(20) PRIMARY KEY AUTO_INCREMENT NOT NULL
-  COMMENT '主键, 自增',
-  title        VARCHAR(128)                          NOT NULL
-  COMMENT '文章标题',
-  content      LONGTEXT                              NOT NULL
-  COMMENT '文章内容',
-  is_deleted   TINYINT                               NOT NULL                    DEFAULT 0
-  COMMENT '逻辑删除:{0:未删除, 1:已删除}',
-  created_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP
-  COMMENT '创建时间',
-  updated_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-  COMMENT '更新时间'
-)
-  COMMENT '文章表';
-
--- ----------------------------
---  Table structure for tb_category
--- ----------------------------
-DROP TABLE
-IF EXISTS tb_category;
-
-CREATE TABLE tb_category
-(
-  id           BIGINT(20) PRIMARY KEY AUTO_INCREMENT NOT NULL
-  COMMENT '主键, 自增',
-  code         VARCHAR(32)                           NOT NULL
-  COMMENT '栏目代码',
-  name         VARCHAR(32)                           NOT NULL
-  COMMENT '栏目名称',
-  type         VARCHAR(16)                           NOT NULL
-  COMMENT '栏目类型',
-  sort         INT(11)                               NOT NULL                    DEFAULT 0
-  COMMENT '栏目排序(从0开始)',
-  is_deleted   TINYINT                               NOT NULL                    DEFAULT 0
-  COMMENT '逻辑删除:{0:未删除, 1:已删除}',
-  created_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP
-  COMMENT '创建时间',
-  updated_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-  COMMENT '更新时间'
-)
-  COMMENT '栏目表';
-CREATE UNIQUE INDEX code_type_UNIQUE
-  ON tb_category (code, type);
-CREATE INDEX id_type
-  ON tb_category (type);
-
--- ----------------------------
---  Table structure for tb_novel
--- ----------------------------
-DROP TABLE
-IF EXISTS tb_novel;
-
-CREATE TABLE tb_novel
-(
-  id            BIGINT(20) PRIMARY KEY AUTO_INCREMENT NOT NULL
-  COMMENT '主键, 自增',
-  name          VARCHAR(32)                           NOT NULL
-  COMMENT '书名',
-  author        VARCHAR(32)                           NOT NULL
-  COMMENT '作者',
-  category_code VARCHAR(32)                           NOT NULL
-  COMMENT '分类代码',
-  pic_url       VARCHAR(256)                          NOT NULL                    DEFAULT '/upload/default-book.png'
-  COMMENT '封面图片地址',
-  code          INT(11)                               NOT NULL
-  COMMENT '书籍代码',
-  descp         VARCHAR(2048)                         NOT NULL
-  COMMENT '描述',
-  is_deleted    TINYINT                               NOT NULL                    DEFAULT 0
-  COMMENT '逻辑删除:{0:未删除, 1:已删除}',
-  created_time  TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP
-  COMMENT '创建时间',
-  updated_time  TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-  COMMENT '更新时间'
-)
-  COMMENT '书籍表';
-CREATE UNIQUE INDEX code_UNIQUE
-  ON tb_novel (code);
-CREATE INDEX ix_category_code
-  ON tb_novel (category_code);
-
--- ----------------------------
---  Table structure for tb_section
--- ----------------------------
-DROP TABLE
-IF EXISTS tb_section;
-
-CREATE TABLE tb_section
-(
-  id           BIGINT(20) PRIMARY KEY AUTO_INCREMENT NOT NULL
-  COMMENT '主键, 自增',
-  code         INT(11)                               NOT NULL
-  COMMENT '章节代码',
-  title        VARCHAR(64)                           NOT NULL
-  COMMENT '标题',
-  content      LONGTEXT                              NOT NULL
-  COMMENT '内容',
-  novel_code   INT(11)                               NOT NULL
-  COMMENT '小说代码',
-  is_deleted   TINYINT                               NOT NULL                    DEFAULT 0
-  COMMENT '逻辑删除:{0:未删除, 1:已删除}',
-  created_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP
-  COMMENT '创建时间',
-  updated_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-  COMMENT '更新时间'
-)
-  COMMENT '章节表';
-CREATE UNIQUE INDEX code_UNIQUE
-  ON tb_section (code);
-CREATE INDEX ix_novel_code
-  ON tb_section (novel_code);
-
--- ----------------------------
---  Table structure for tb_guest
--- ----------------------------
-DROP TABLE
-IF EXISTS tb_guest;
-
-CREATE TABLE tb_guest
-(
-  id              BIGINT(20) PRIMARY KEY AUTO_INCREMENT NOT NULL
-  COMMENT '主键, 自增',
-  realname        VARCHAR(32)                           NOT NULL
-  COMMENT '昵称',
-  email           VARCHAR(64)                           NOT NULL
-  COMMENT '邮箱',
-  content         VARCHAR(2048)                         NOT NULL
-  COMMENT '内容',
-  status          VARCHAR(16)                           NOT NULL                    DEFAULT 'WAITING'
-  COMMENT '状态:{"WAITING":"待审核", "REJECT":"拒绝", "COMPLETE":"审核通过"}',
-  adjust_username VARCHAR(16)                           NOT NULL                    DEFAULT ''
-  COMMENT '审核人',
-  ip              VARCHAR(32)                           NOT NULL                    DEFAULT ''
-  COMMENT 'IP',
-  ip_info         VARCHAR(32)                           NOT NULL                    DEFAULT ''
-  COMMENT 'IP信息',
-  reply_message   LONGTEXT                              NOT NULL
-  COMMENT '回复信息',
-  reply_username  VARCHAR(16)                           NOT NULL                    DEFAULT ''
-  COMMENT '回复人',
-  is_deleted      TINYINT                               NOT NULL                    DEFAULT '0'
-  COMMENT '逻辑删除:{0:未删除, 1:已删除}',
-  created_time    TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP
-  COMMENT '创建时间',
-  updated_time    TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-  COMMENT '更新时间'
-)
-  COMMENT '留言表';
-CREATE INDEX id_status
-  ON tb_guest (status);
-
-INSERT INTO tb_category
-(code, name, type, sort)
-VALUES
-  ('xuanhuan', '玄幻', 'NOVEL', 0),
-  ('dushi', '都市', 'NOVEL', 1),
-  ('xiuzhen', '修真', 'NOVEL', 2),
-  ('lishi', '历史', 'NOVEL', 3),
-  ('yanqing', '言情', 'NOVEL', 4),
-  ('wangyou', '网游', 'NOVEL', 5),
-  ('kehuan', '科幻', 'NOVEL', 6),
-  ('qita', '其他', 'NOVEL', 7);
-
-INSERT tb_guest
-(realname, email, ip_info, content, status, reply_message)
-VALUES
-  ('康永敢', 'java@kangyonggan.com', '上海市网友', '新版博客出炉，老版本的留言没去保留。', 'COMPLETE', '');
 
 -- ----------------------------
 --  data for tb_user

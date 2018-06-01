@@ -2,7 +2,7 @@ package com.kangyonggan.server.controller.dashboard;
 
 import com.github.pagehelper.PageInfo;
 import com.kangyonggan.app.util.Collections3;
-import com.kangyonggan.server.constants.YesNo;
+import com.kangyonggan.server.constants.Status;
 import com.kangyonggan.server.controller.BaseController;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.Role;
@@ -45,31 +45,16 @@ public class SystemUserController extends BaseController {
     }
 
     /**
-     * 删除
+     * 恢复/禁用
      *
      * @param id
      * @return
      */
-    @RequestMapping(value = "{id:[\\d]+}/delete", method = RequestMethod.GET)
-    public Response delete(@PathVariable("id") Long id) {
+    @RequestMapping(value = "{id:[\\d]+}/status/{status:\\b0\\b|\\b1\\b}", method = RequestMethod.GET)
+    public Response status(@PathVariable("id") Long id, @PathVariable("status") byte status) {
         User user = new User();
         user.setId(id);
-        user.setIsDeleted(YesNo.YES.getCode());
-        userService.updateUser(user);
-        return Response.getSuccessResponse();
-    }
-
-    /**
-     * 恢复
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "{id:[\\d]+}/recovery", method = RequestMethod.GET)
-    public Response recovery(@PathVariable("id") Long id) {
-        User user = new User();
-        user.setId(id);
-        user.setIsDeleted(YesNo.NO.getCode());
+        user.setStatus(status);
         userService.updateUser(user);
         return Response.getSuccessResponse();
     }
@@ -95,19 +80,6 @@ public class SystemUserController extends BaseController {
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public Response update(User user) {
         userService.updateUser(user);
-        return Response.getSuccessResponse();
-    }
-
-    /**
-     * 修改密码
-     *
-     * @param user
-     * @param usernames
-     * @return
-     */
-    @RequestMapping(value = "password", method = RequestMethod.POST)
-    public Response password(User user, String usernames) {
-        userService.updatePassword(user, usernames);
         return Response.getSuccessResponse();
     }
 

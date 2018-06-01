@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
-import java.util.regex.Pattern;
 
 /**
  * 基础controller
@@ -20,11 +19,6 @@ import java.util.regex.Pattern;
  */
 @Log4j2
 public class BaseController {
-
-    /**
-     * 正则匹配：单词
-     */
-    private static final Pattern PATTERN_WORD = Pattern.compile("[A-Z]([a-z\\d]+)?");
 
     /**
      * 异常捕获

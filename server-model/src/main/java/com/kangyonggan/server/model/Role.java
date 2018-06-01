@@ -31,10 +31,9 @@ public class Role implements Serializable {
     private String name;
 
     /**
-     * 逻辑删除:{0:未删除, 1:已删除}
+     * 状态:{0:可用, 1:禁用}
      */
-    @Column(name = "is_deleted")
-    private Byte isDeleted;
+    private Byte status;
 
     /**
      * 创建时间
