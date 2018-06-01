@@ -1,5 +1,6 @@
 package com.kangyonggan.server.controller;
 
+import com.kangyonggan.app.util.StringUtil;
 import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.dto.Query;
 import com.kangyonggan.server.dto.Response;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -61,7 +61,7 @@ public class BaseController {
         params.setPageNum(pageNum);
 
         String sort = getStringParam("sort");
-        params.setSort(camelToUnderLine(sort));
+        params.setSort(StringUtil.camelToUnderLine(sort));
         params.setOrder(getStringParam("order", "asc"));
 
         // 其他查询条件
@@ -136,31 +136,4 @@ public class BaseController {
         }
     }
 
-    /**
-     * 驼峰字符串转下划线字符串
-     *
-     * @param str 驼峰字符串
-     * @return 下划线字符串
-     */
-    private static String camelToUnderLine(String str) {
-        if (str == null || str.trim().length() == 0) {
-            return "";
-        }
-
-        str = String.valueOf(str.charAt(0)).toUpperCase().concat(str.substring(1));
-
-        StringBuilder sb = new StringBuilder();
-        Matcher matcher = PATTERN_WORD.matcher(str);
-        while (matcher.find()) {
-            String word = matcher.group();
-            sb.append(word.toUpperCase());
-            sb.append("_");
-        }
-
-        if (sb.length() > 0) {
-            sb.deleteCharAt(sb.length() - 1);
-        }
-
-        return sb.toString();
-    }
 }
