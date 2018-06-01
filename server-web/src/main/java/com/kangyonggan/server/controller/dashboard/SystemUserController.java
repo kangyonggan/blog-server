@@ -125,4 +125,18 @@ public class SystemUserController extends BaseController {
         return Response.getSuccessResponse();
     }
 
+    /**
+     * 更新密码
+     *
+     * @param id
+     * @param password
+     * @return
+     */
+    @RequestMapping(value = "{id:[\\d]+}/password", method = RequestMethod.POST)
+    public Response role(@PathVariable("id") Long id, @RequestParam("password") String password) {
+        userService.updatePassword(id, password);
+
+        return Response.getSuccessResponse();
+    }
+
 }

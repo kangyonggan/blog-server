@@ -56,4 +56,11 @@ public interface UserService {
      */
     void deleteUser(Long id);
 
+    /**
+     * 更新密码
+     *
+     * @param id
+     * @param password
+     */
+    void updatePassword(Long id, String password);
 }

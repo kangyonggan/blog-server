@@ -98,6 +98,16 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         myMapper.deleteByPrimaryKey(id);
     }
 
+    @Override
+    public void updatePassword(Long id, String password) {
+        User user = new User();
+        user.setId(id);
+        user.setPassword(password);
+
+        entryptPassword(user);
+        myMapper.updateByPrimaryKeySelective(user);
+    }
+
     /**
      * 设定安全的密码，生成随机的salt并经过N次 sha-1 hash
      *
