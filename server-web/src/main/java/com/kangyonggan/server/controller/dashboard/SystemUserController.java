@@ -2,7 +2,6 @@ package com.kangyonggan.server.controller.dashboard;
 
 import com.github.pagehelper.PageInfo;
 import com.kangyonggan.app.util.Collections3;
-import com.kangyonggan.server.constants.Status;
 import com.kangyonggan.server.controller.BaseController;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.Role;
@@ -48,6 +47,7 @@ public class SystemUserController extends BaseController {
      * 恢复/禁用
      *
      * @param id
+     * @param status
      * @return
      */
     @RequestMapping(value = "{id:[\\d]+}/status/{status:\\b0\\b|\\b1\\b}", method = RequestMethod.GET)
@@ -56,6 +56,18 @@ public class SystemUserController extends BaseController {
         user.setId(id);
         user.setStatus(status);
         userService.updateUser(user);
+        return Response.getSuccessResponse();
+    }
+
+    /**
+     * 删除
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "{id:[\\d]+}/delete", method = RequestMethod.GET)
+    public Response delete(@PathVariable("id") Long id) {
+        userService.deleteUser(id);
         return Response.getSuccessResponse();
     }
 

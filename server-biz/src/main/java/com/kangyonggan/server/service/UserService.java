@@ -48,4 +48,12 @@ public interface UserService {
      * @param roleCodes
      */
     void updateUserRoles(String username, String roleCodes);
+
+    /**
+     * 删除用户
+     *
+     * @param id
+     */
+    void deleteUser(Long id);
+
 }
