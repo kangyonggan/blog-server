@@ -20,20 +20,6 @@ public interface UserService {
     List<User> searchUsers(Params params);
 
     /**
-     * 删除
-     *
-     * @param usernames
-     */
-    void delete(String usernames);
-
-    /**
-     * 恢复
-     *
-     * @param usernames
-     */
-    void recovery(String usernames);
-
-    /**
      * 保存用户
      *
      * @param user

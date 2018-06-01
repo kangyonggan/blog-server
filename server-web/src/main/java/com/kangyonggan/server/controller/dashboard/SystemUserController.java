@@ -2,6 +2,7 @@ package com.kangyonggan.server.controller.dashboard;
 
 import com.github.pagehelper.PageInfo;
 import com.kangyonggan.app.util.Collections3;
+import com.kangyonggan.server.constants.YesNo;
 import com.kangyonggan.server.controller.BaseController;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.Role;
@@ -46,24 +47,30 @@ public class SystemUserController extends BaseController {
     /**
      * 删除
      *
-     * @param usernames
+     * @param id
      * @return
      */
-    @RequestMapping(value = "delete", method = RequestMethod.POST)
-    public Response delete(@RequestParam("usernames") String usernames) {
-        userService.delete(usernames);
+    @RequestMapping(value = "{id:[\\d]+}/delete", method = RequestMethod.GET)
+    public Response delete(@PathVariable("id") Long id) {
+        User user = new User();
+        user.setId(id);
+        user.setIsDeleted(YesNo.YES.getCode());
+        userService.updateUser(user);
         return Response.getSuccessResponse();
     }
 
     /**
      * 恢复
      *
-     * @param usernames
+     * @param id
      * @return
      */
-    @RequestMapping(value = "recovery", method = RequestMethod.POST)
-    public Response recovery(@RequestParam("usernames") String usernames) {
-        userService.recovery(usernames);
+    @RequestMapping(value = "{id:[\\d]+}/recovery", method = RequestMethod.GET)
+    public Response recovery(@PathVariable("id") Long id) {
+        User user = new User();
+        user.setId(id);
+        user.setIsDeleted(YesNo.NO.getCode());
+        userService.updateUser(user);
         return Response.getSuccessResponse();
     }
 

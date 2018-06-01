@@ -68,32 +68,6 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
-    public void delete(String usernames) {
-        if (StringUtils.isEmpty(usernames)) {
-            return;
-        }
-        User user = new User();
-        user.setIsDeleted(YesNo.YES.getCode());
-        Example example = new Example(User.class);
-        example.createCriteria().andIn("username", Arrays.asList(usernames.split(",")));
-
-        myMapper.updateByExampleSelective(user, example);
-    }
-
-    @Override
-    public void recovery(String usernames) {
-        if (StringUtils.isEmpty(usernames)) {
-            return;
-        }
-        User user = new User();
-        user.setIsDeleted(YesNo.NO.getCode());
-        Example example = new Example(User.class);
-        example.createCriteria().andIn("username", Arrays.asList(usernames.split(",")));
-
-        myMapper.updateByExampleSelective(user, example);
-    }
-
-    @Override
     public void saveUser(User user) {
         entryptPassword(user);
         myMapper.insertSelective(user);
