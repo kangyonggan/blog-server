@@ -1,8 +1,12 @@
 package com.kangyonggan.server.controller;
 
 import com.kangyonggan.server.dto.Response;
+import com.kangyonggan.server.interceptor.ParamsInterceptor;
 import com.kangyonggan.server.model.User;
+import com.kangyonggan.server.service.UserService;
+import com.kangyonggan.server.util.AuthUtil;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,22 +19,22 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 public class LoginController extends BaseController {
 
+    @Autowired
+    private UserService userService;
+
     /**
      * 登录
      *
-     * @param username
+     * @param user
      * @return
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public Response login(String username) {
-        log.info(username);
-        log.info(getRequestParams());
+    public Response login(User user) {
         Response response = Response.getSuccessResponse();
-        if ("admin".equals(username)) {
-            response.put("token", username);
-        } else {
-            response.failure("用户名或密码错误");
-        }
+
+        String token = AuthUtil.login(user);
+        response.put("token", token);
+
         return response;
     }
 

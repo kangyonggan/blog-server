@@ -1,15 +1,22 @@
 package com.kangyonggan.server.interceptor;
 
+import com.alibaba.fastjson.JSONObject;
+import com.kangyonggan.server.constants.Resp;
+import com.kangyonggan.server.dto.Response;
+import com.kangyonggan.server.util.AuthUtil;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.util.Map;
 
 /**
  * @author kangyonggan
  * @since 5/15/18
  */
+@Log4j2
 public class ParamsInterceptor extends HandlerInterceptorAdapter {
 
     /**
@@ -19,9 +26,41 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        boolean isLogin = AuthUtil.isLogin(request);
+        if (!isLogin) {
+            boolean inBlackList = AuthUtil.inBlackList(request.getRequestURI());
+            if (!inBlackList) {
+                Response resp = Response.getFailureResponse(Resp.INVALID_LOGIN.getRespCo(), Resp.INVALID_LOGIN.getRespMsg());
+                writeResponse(response, resp);
+                return false;
+            }
+        }
+
         // 保存当前请求
         currentRequest.set(request);
         return super.preHandle(request, response, handler);
+    }
+
+    /**
+     * 写响应
+     *
+     * @param response
+     * @param resp
+     */
+    private void writeResponse(HttpServletResponse response, Response resp) {
+        response.setCharacterEncoding("utf-8");
+        PrintWriter writer = null;
+        try {
+            writer = response.getWriter();
+            writer.write(JSONObject.toJSONString(resp));
+            writer.flush();
+        } catch (Exception e) {
+            log.error("写响应异常", e);
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
+        }
     }
 
     @Override
