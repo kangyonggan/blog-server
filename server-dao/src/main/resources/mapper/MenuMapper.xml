@@ -19,7 +19,7 @@
 
     <select id="selectMenusByUsername" resultMap="BaseResultMap">
         SELECT
-        DISTINCT m.code
+        DISTINCT m.*
         FROM tb_menu m, tb_role_menu rm, tb_user_role ur
         <where>
             m.code = rm.menu_code

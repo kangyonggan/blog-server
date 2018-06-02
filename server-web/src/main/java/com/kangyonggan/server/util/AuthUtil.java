@@ -18,7 +18,7 @@ public final class AuthUtil {
     /**
      * 用户登录信息
      */
-    private static Map<String, Long> userIds = new HashMap<>();
+    private static Map<String, User> users = new HashMap<>();
 
     /**
      * 白名单
@@ -48,7 +48,7 @@ public final class AuthUtil {
      */
     public static String saveLoginUser(User user) {
         String token = "sid" + String.valueOf(Math.random()).substring(2);
-        userIds.put(token, user.getId());
+        users.put(token, user);
         return token;
     }
 
@@ -61,7 +61,7 @@ public final class AuthUtil {
         String token = ParamsInterceptor.getRequest().getHeader("x-access-token");
         if (StringUtils.isEmpty(token)) {
             return false;
-        } else if (!userIds.containsKey(token)) {
+        } else if (!users.containsKey(token)) {
             return false;
         }
 
@@ -83,15 +83,30 @@ public final class AuthUtil {
      */
     public static void logout() {
         String token = ParamsInterceptor.getRequest().getHeader("x-access-token");
-        userIds.remove(token);
+        users.remove(token);
+    }
+
+    /**
+     * 获取当前登录的用户
+     */
+    public static User currentUser() {
+        String token = ParamsInterceptor.getRequest().getHeader("x-access-token");
+        return users.get(token);
     }
 
     /**
      * 获取当前登录的用户ID
      */
     public static Long currentUserId() {
-        String token = ParamsInterceptor.getRequest().getHeader("x-access-token");
-        Long id = userIds.get(token);
-        return id != null ? id : 0L;
+        User user = currentUser();
+        return user != null ? user.getId() : 0L;
+    }
+
+    /**
+     * 获取当前登录的用户名
+     */
+    public static String currentUsername() {
+        User user = currentUser();
+        return user != null ? user.getUsername() : null;
     }
 }

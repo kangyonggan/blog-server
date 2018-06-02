@@ -4,9 +4,12 @@ import com.kangyonggan.extra.core.annotation.Log;
 import com.kangyonggan.server.mapper.MenuMapper;
 import com.kangyonggan.server.model.Menu;
 import com.kangyonggan.server.service.MenuService;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +25,34 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
     @Override
     @Log
     public List<Menu> findMenusByUsername(String username) {
-        return menuMapper.selectMenusByUsername(username);
+        List<Menu> menus = menuMapper.selectMenusByUsername(username);
+
+        return recursionList(menus, new ArrayList(), StringUtils.EMPTY);
     }
 
+    /**
+     * 递归找出 parentCode 下边的所有子节点
+     *
+     * @param from
+     * @param toList
+     * @param pcode
+     * @return
+     */
+    private List<Menu> recursionList(List<Menu> from, List<Menu> toList, String pcode) {
+        if (CollectionUtils.isEmpty(from)) {
+            return toList;
+        }
+
+        for (int i = 0; i < from.size(); i++) {
+            Menu menu = from.get(i);
+            if (pcode.equals(menu.getPcode())) {
+                List<Menu> leaf = new ArrayList();
+                menu.setLeaf(leaf);
+                toList.add(menu);
+                recursionList(from, leaf, menu.getCode());
+            }
+        }
+
+        return toList;
+    }
 }

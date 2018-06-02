@@ -1,6 +1,5 @@
 package com.kangyonggan.server.controller;
 
-import com.kangyonggan.app.util.Collections3;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.User;
 import com.kangyonggan.server.service.MenuService;
@@ -69,10 +68,20 @@ public class LoginController extends BaseController {
     public Response info() {
         Response response = Response.getSuccessResponse();
         User user = userService.findUserById(AuthUtil.currentUserId());
-        if (user != null) {
-            response.put("access", Collections3.extractToList(menuService.findMenusByUsername(user.getUsername()), "code"));
-        }
         response.put("user", user);
+        return response;
+    }
+
+    /**
+     * 获取用户菜单
+     *
+     * @return
+     */
+    @RequestMapping(value = "menus", method = RequestMethod.GET)
+    public Response menus() {
+        Response response = Response.getSuccessResponse();
+
+        response.put("menus", menuService.findMenusByUsername(AuthUtil.currentUsername()));
         return response;
     }
 
