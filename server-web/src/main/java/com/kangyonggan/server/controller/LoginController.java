@@ -1,7 +1,9 @@
 package com.kangyonggan.server.controller;
 
+import com.kangyonggan.app.util.Collections3;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.User;
+import com.kangyonggan.server.service.MenuService;
 import com.kangyonggan.server.service.UserService;
 import com.kangyonggan.server.util.AuthUtil;
 import lombok.extern.log4j.Log4j2;
@@ -20,6 +22,9 @@ public class LoginController extends BaseController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MenuService menuService;
 
     /**
      * 登录
@@ -63,7 +68,11 @@ public class LoginController extends BaseController {
     @RequestMapping(value = "user/info", method = RequestMethod.GET)
     public Response info() {
         Response response = Response.getSuccessResponse();
-        response.put("user", userService.findUserById(AuthUtil.currentUserId()));
+        User user = userService.findUserById(AuthUtil.currentUserId());
+        if (user != null) {
+            response.put("access", Collections3.extractToList(menuService.findMenusByUsername(user.getUsername()), "code"));
+        }
+        response.put("user", user);
         return response;
     }
 

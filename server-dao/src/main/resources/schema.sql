@@ -157,3 +157,13 @@ INSERT INTO tb_user_role
 (username, role_code)
 VALUES
   ('admin', 'ROLE_ADMIN');
+
+insert into tb_menu (code, pcode, name, url, icon, sort)
+values
+('system', '', '系统', 'system', 'gear-b', 0),
+('user', 'system', '用户', 'system', '', 0),
+('role', 'system', '角色', 'role', '', 1),
+('menu', 'system', '菜单', 'menu', '', 2);
+
+INSERT INTO tb_role_menu (role_code, menu_code)
+SELECT 'ROLE_ADMIN', code FROM tb_menu;
