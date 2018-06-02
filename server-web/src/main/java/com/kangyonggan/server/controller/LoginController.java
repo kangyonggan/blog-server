@@ -1,7 +1,6 @@
 package com.kangyonggan.server.controller;
 
 import com.kangyonggan.server.dto.Response;
-import com.kangyonggan.server.interceptor.ParamsInterceptor;
 import com.kangyonggan.server.model.User;
 import com.kangyonggan.server.service.UserService;
 import com.kangyonggan.server.util.AuthUtil;
@@ -32,8 +31,13 @@ public class LoginController extends BaseController {
     public Response login(User user) {
         Response response = Response.getSuccessResponse();
 
-        String token = AuthUtil.login(user);
-        response.put("token", token);
+        user = userService.login(user);
+        if (user != null) {
+            String token = AuthUtil.saveLoginUser(user);
+            response.put("token", token);
+        } else {
+            response.failure("用户名或密码错误！");
+        }
 
         return response;
     }
@@ -47,6 +51,7 @@ public class LoginController extends BaseController {
     public Response logout() {
         log.info(getRequestParams());
         Response response = Response.getSuccessResponse();
+        AuthUtil.logout();
         return response;
     }
 
@@ -58,13 +63,7 @@ public class LoginController extends BaseController {
     @RequestMapping(value = "user/info", method = RequestMethod.GET)
     public Response info() {
         Response response = Response.getSuccessResponse();
-        log.info(getRequestParams());
-
-        User user = new User();
-        user.setUsername("admin");
-        user.setName("管理员");
-        response.put("user", user);
-
+        response.put("user", userService.findUserById(AuthUtil.currentUserId()));
         return response;
     }
 

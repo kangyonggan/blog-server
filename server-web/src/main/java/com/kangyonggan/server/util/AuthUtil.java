@@ -1,9 +1,9 @@
 package com.kangyonggan.server.util;
 
+import com.kangyonggan.server.interceptor.ParamsInterceptor;
 import com.kangyonggan.server.model.User;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,14 +18,15 @@ public final class AuthUtil {
     /**
      * 用户登录信息
      */
-    private static Map<String, User> users = new HashMap<>();
+    private static Map<String, Long> userIds = new HashMap<>();
 
     /**
      * 白名单
      */
     private static List<String> balckList = new ArrayList<>();
 
-    private AuthUtil() {}
+    private AuthUtil() {
+    }
 
     static {
         initBlackList();
@@ -45,23 +46,22 @@ public final class AuthUtil {
      * @param user
      * @return
      */
-    public static String login(User user) {
+    public static String saveLoginUser(User user) {
         String token = "sid" + String.valueOf(Math.random()).substring(2);
-        users.put(token, user);
+        userIds.put(token, user.getId());
         return token;
     }
 
     /**
      * 判断是否登录
      *
-     * @param request
      * @return
      */
-    public static boolean isLogin(HttpServletRequest request) {
-        String token = request.getHeader("x-access-token");
+    public static boolean isLogin() {
+        String token = ParamsInterceptor.getRequest().getHeader("x-access-token");
         if (StringUtils.isEmpty(token)) {
             return false;
-        } else if (!users.containsKey(token)) {
+        } else if (!userIds.containsKey(token)) {
             return false;
         }
 
@@ -76,5 +76,22 @@ public final class AuthUtil {
      */
     public static boolean inBlackList(String url) {
         return balckList.contains(url);
+    }
+
+    /**
+     * 登出
+     */
+    public static void logout() {
+        String token = ParamsInterceptor.getRequest().getHeader("x-access-token");
+        userIds.remove(token);
+    }
+
+    /**
+     * 获取当前登录的用户ID
+     */
+    public static Long currentUserId() {
+        String token = ParamsInterceptor.getRequest().getHeader("x-access-token");
+        Long id = userIds.get(token);
+        return id != null ? id : 0L;
     }
 }

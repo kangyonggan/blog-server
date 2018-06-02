@@ -63,4 +63,28 @@ public interface UserService {
      * @param password
      */
     void updatePassword(Long id, String password);
+
+    /**
+     * 根据用户名查找用户
+     *
+     * @param username
+     * @return
+     */
+    User findUserByUsername(String username);
+
+    /**
+     * 根据用户名查找用户
+     *
+     * @param id
+     * @return
+     */
+    User findUserById(Long id);
+
+    /**
+     * 登录
+     *
+     * @param user
+     * @return
+     */
+    User login(User user);
 }

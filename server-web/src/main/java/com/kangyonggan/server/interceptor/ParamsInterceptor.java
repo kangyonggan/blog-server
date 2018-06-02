@@ -26,8 +26,13 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        boolean isLogin = AuthUtil.isLogin(request);
+        // 保存当前请求
+        currentRequest.set(request);
+
+        // 判断是否登录
+        boolean isLogin = AuthUtil.isLogin();
         if (!isLogin) {
+            // 判断是不是在白名单中
             boolean inBlackList = AuthUtil.inBlackList(request.getRequestURI());
             if (!inBlackList) {
                 Response resp = Response.getFailureResponse(Resp.INVALID_LOGIN.getRespCo(), Resp.INVALID_LOGIN.getRespMsg());
@@ -35,9 +40,6 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
                 return false;
             }
         }
-
-        // 保存当前请求
-        currentRequest.set(request);
         return super.preHandle(request, response, handler);
     }
 

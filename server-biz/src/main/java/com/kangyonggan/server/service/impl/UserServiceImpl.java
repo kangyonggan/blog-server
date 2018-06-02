@@ -5,6 +5,7 @@ import com.kangyonggan.app.util.Digests;
 import com.kangyonggan.app.util.Encodes;
 import com.kangyonggan.app.util.StringUtil;
 import com.kangyonggan.server.constants.AppConstants;
+import com.kangyonggan.server.constants.Status;
 import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.mapper.RoleMapper;
 import com.kangyonggan.server.mapper.UserMapper;
@@ -106,6 +107,36 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
         entryptPassword(user);
         myMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public User findUserByUsername(String username) {
+        User user = new User();
+        user.setUsername(username);
+        user.setStatus(Status.ENABLE.getCode());
+
+        return myMapper.selectOne(user);
+    }
+
+    @Override
+    public User findUserById(Long id) {
+        User user = new User();
+        user.setId(id);
+        user.setStatus(Status.ENABLE.getCode());
+
+        return myMapper.selectOne(user);
+    }
+
+    @Override
+    public User login(User user) {
+        User dbUser = findUserByUsername(user.getUsername());
+        if (dbUser == null) {
+            return null;
+        }
+        byte[] salt = Encodes.decodeHex(dbUser.getSalt());
+        byte[] hashPassword = Digests.sha1(user.getPassword().getBytes(), salt, AppConstants.HASH_INTERATIONS);
+        String password = Encodes.encodeHex(hashPassword);
+        return dbUser.getPassword().equals(password) ? dbUser : null;
     }
 
     /**
