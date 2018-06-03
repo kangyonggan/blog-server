@@ -3,8 +3,8 @@ package com.kangyonggan.server.controller;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +25,7 @@ public class ValidateController extends BaseController {
      * @param username
      * @return
      */
-    @RequestMapping(value = "user", method = RequestMethod.GET)
+    @GetMapping(value = "user")
     public Response user(@RequestParam("username") String username) {
         Response response = Response.getSuccessResponse();
         if (userService.existsUsername(username)) {

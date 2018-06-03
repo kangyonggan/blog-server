@@ -34,7 +34,7 @@ public class SystemUserController extends BaseController {
      *
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     @PermissionMenu("user")
     public Response list() {
         Response response = Response.getSuccessResponse();
@@ -53,7 +53,7 @@ public class SystemUserController extends BaseController {
      * @param status
      * @return
      */
-    @RequestMapping(value = "{id:[\\d]+}/status/{status:\\b0\\b|\\b1\\b}", method = RequestMethod.GET)
+    @PutMapping(value = "{id:[\\d]+}/status/{status:\\b0\\b|\\b1\\b}")
     @PermissionMenu("user")
     public Response status(@PathVariable("id") Long id, @PathVariable("status") byte status) {
         User user = new User();
@@ -69,7 +69,7 @@ public class SystemUserController extends BaseController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "{id:[\\d]+}/delete", method = RequestMethod.GET)
+    @DeleteMapping(value = "{id:[\\d]+}")
     @PermissionMenu("user")
     @PermissionUser("admin")
     public Response delete(@PathVariable("id") Long id) {
@@ -83,7 +83,7 @@ public class SystemUserController extends BaseController {
      * @param user
      * @return
      */
-    @RequestMapping(value = "save", method = RequestMethod.POST)
+    @PostMapping
     @PermissionMenu("user")
     public Response save(User user) {
         userService.saveUser(user);
@@ -96,7 +96,7 @@ public class SystemUserController extends BaseController {
      * @param user
      * @return
      */
-    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @PutMapping
     @PermissionMenu("user")
     public Response update(User user) {
         User u = new User();
@@ -112,7 +112,7 @@ public class SystemUserController extends BaseController {
      * @param username
      * @return
      */
-    @RequestMapping(value = "{username:[\\w]+}/role", method = RequestMethod.GET)
+    @GetMapping(value = "{username:[\\w]+}/role")
     @PermissionMenu("user")
     public Response role(@PathVariable("username") String username) {
         Response response = Response.getSuccessResponse();
@@ -129,7 +129,7 @@ public class SystemUserController extends BaseController {
      * @param roleCodes
      * @return
      */
-    @RequestMapping(value = "{username:[\\w]+}/role", method = RequestMethod.POST)
+    @PutMapping(value = "{username:[\\w]+}/role")
     @PermissionMenu("user")
     public Response role(@PathVariable("username") String username,
                          @RequestParam(value = "roleCodes", required = false, defaultValue = "") String roleCodes) {
@@ -145,7 +145,7 @@ public class SystemUserController extends BaseController {
      * @param password
      * @return
      */
-    @RequestMapping(value = "{id:[\\d]+}/password", method = RequestMethod.POST)
+    @PutMapping(value = "{id:[\\d]+}/password")
     @PermissionMenu("user")
     @PermissionUser("admin")
     public Response role(@PathVariable("id") Long id, @RequestParam("password") String password) {

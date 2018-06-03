@@ -7,8 +7,8 @@ import com.kangyonggan.server.service.UserService;
 import com.kangyonggan.server.util.AuthUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -31,7 +31,7 @@ public class LoginController extends BaseController {
      * @param user
      * @return
      */
-    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @PostMapping(value = "login")
     public Response login(User user) {
         Response response = Response.getSuccessResponse();
 
@@ -51,7 +51,7 @@ public class LoginController extends BaseController {
      *
      * @return
      */
-    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    @GetMapping(value = "logout")
     public Response logout() {
         log.info(getRequestParams());
         Response response = Response.getSuccessResponse();
@@ -60,11 +60,11 @@ public class LoginController extends BaseController {
     }
 
     /**
-     * 获取用户信息
+     * 获取当前用户信息
      *
      * @return
      */
-    @RequestMapping(value = "user/info", method = RequestMethod.GET)
+    @GetMapping(value = "info")
     public Response info() {
         Response response = Response.getSuccessResponse();
         User user = userService.findUserById(AuthUtil.currentUserId());
@@ -77,7 +77,7 @@ public class LoginController extends BaseController {
      *
      * @return
      */
-    @RequestMapping(value = "menus", method = RequestMethod.GET)
+    @GetMapping(value = "menus")
     public Response menus() {
         Response response = Response.getSuccessResponse();
 
