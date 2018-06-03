@@ -37,11 +37,6 @@ public class Menu implements Serializable {
     private String pcode;
 
     /**
-     * 菜单地址
-     */
-    private String url;
-
-    /**
      * 菜单排序(从0开始)
      */
     private Integer sort;
