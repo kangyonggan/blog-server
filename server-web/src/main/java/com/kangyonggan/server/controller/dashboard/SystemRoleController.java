@@ -1,5 +1,6 @@
 package com.kangyonggan.server.controller.dashboard;
 
+import com.kangyonggan.server.annotation.PermissionMenu;
 import com.kangyonggan.server.controller.BaseController;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.service.RoleService;
@@ -25,6 +26,7 @@ public class SystemRoleController extends BaseController {
      * @return
      */
     @RequestMapping(value = "all", method = RequestMethod.GET)
+    @PermissionMenu({"role", "user"})
     public Response all() {
         Response response = Response.getSuccessResponse();
 
