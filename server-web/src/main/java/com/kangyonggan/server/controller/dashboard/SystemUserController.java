@@ -53,6 +53,7 @@ public class SystemUserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "{id:[\\d]+}/status/{status:\\b0\\b|\\b1\\b}", method = RequestMethod.GET)
+    @PermissionMenu("user")
     public Response status(@PathVariable("id") Long id, @PathVariable("status") byte status) {
         User user = new User();
         user.setId(id);
@@ -68,6 +69,7 @@ public class SystemUserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "{id:[\\d]+}/delete", method = RequestMethod.GET)
+    @PermissionMenu("user")
     public Response delete(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return Response.getSuccessResponse();
@@ -80,6 +82,7 @@ public class SystemUserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "save", method = RequestMethod.POST)
+    @PermissionMenu("user")
     public Response save(User user) {
         userService.saveUser(user);
         return Response.getSuccessResponse();
@@ -92,6 +95,7 @@ public class SystemUserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
+    @PermissionMenu("user")
     public Response update(User user) {
         userService.updateUser(user);
         return Response.getSuccessResponse();
@@ -104,6 +108,7 @@ public class SystemUserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "{username:[\\w]+}/role", method = RequestMethod.GET)
+    @PermissionMenu("user")
     public Response role(@PathVariable("username") String username) {
         Response response = Response.getSuccessResponse();
         List<Role> roles = roleService.findUserRoles(username);
@@ -120,6 +125,7 @@ public class SystemUserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "{username:[\\w]+}/role", method = RequestMethod.POST)
+    @PermissionMenu("user")
     public Response role(@PathVariable("username") String username,
                          @RequestParam(value = "roleCodes", required = false, defaultValue = "") String roleCodes) {
         userService.updateUserRoles(username, roleCodes);
@@ -135,6 +141,7 @@ public class SystemUserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "{id:[\\d]+}/password", method = RequestMethod.POST)
+    @PermissionMenu("user")
     public Response role(@PathVariable("id") Long id, @RequestParam("password") String password) {
         userService.updatePassword(id, password);
 
