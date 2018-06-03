@@ -27,11 +27,6 @@ public class Menu implements Serializable {
     private String code;
 
     /**
-     * 菜单名称
-     */
-    private String name;
-
-    /**
      * 父菜单代码
      */
     private String pcode;

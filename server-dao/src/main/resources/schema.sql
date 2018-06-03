@@ -72,8 +72,6 @@ CREATE TABLE tb_menu
   COMMENT '主键, 自增',
   code         VARCHAR(32)                           NOT NULL
   COMMENT '菜单代码',
-  name         VARCHAR(32)                           NOT NULL
-  COMMENT '菜单名称',
   pcode        VARCHAR(32)                           NOT NULL                    DEFAULT ''
   COMMENT '父菜单代码',
   sort         INT(11)                               NOT NULL                    DEFAULT 0
@@ -158,12 +156,12 @@ VALUES
   ('admin', 'ROLE_ADMIN'),
   ('guest', 'ROLE_ADMIN'),
 
-insert into tb_menu (code, pcode, name, icon, sort)
+insert into tb_menu (code, pcode, icon, sort)
 values
-('system', '', '系统', 'gear-b', 0),
-('user', 'system', '用户管理', '', 0),
-('role', 'system', '角色管理', '', 1),
-('menu', 'system', '菜单管理', '', 2);
+('system', '', 'gear-b', 0),
+('user', 'system', '', 0),
+('role', 'system', '', 1),
+('menu', 'system', '', 2);
 
 INSERT INTO tb_role_menu (role_code, menu_code)
 SELECT 'ROLE_ADMIN', code FROM tb_menu;
