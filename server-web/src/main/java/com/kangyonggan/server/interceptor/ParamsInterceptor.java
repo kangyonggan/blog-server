@@ -1,15 +1,21 @@
 package com.kangyonggan.server.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
+import com.kangyonggan.server.annotation.PermissionMenu;
 import com.kangyonggan.server.constants.Resp;
 import com.kangyonggan.server.dto.Response;
+import com.kangyonggan.server.service.MenuService;
+import com.kangyonggan.server.service.impl.MenuServiceImpl;
 import com.kangyonggan.server.util.AuthUtil;
+import com.kangyonggan.server.util.SpringUtils;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,6 +46,22 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
                 return false;
             }
         }
+
+        // 判断是否有权限访问
+        if (handler instanceof HandlerMethod && isLogin) {
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            PermissionMenu permissionMenu = handlerMethod.getMethodAnnotation(PermissionMenu.class);
+            if (permissionMenu != null) {
+                MenuService menuService = SpringUtils.getBean(MenuServiceImpl.class);
+                List<String> menuCodes = menuService.findMenuCodesByUsername(AuthUtil.currentUsername());
+                if (!hasPermissionMenu(menuCodes, permissionMenu.value())) {
+                    Response resp = Response.getFailureResponse(Resp.PERMISSION_DENIED.getRespCo(), Resp.PERMISSION_DENIED.getRespMsg());
+                    writeResponse(response, resp);
+                    return false;
+                }
+            }
+        }
+
         return super.preHandle(request, response, handler);
     }
 
@@ -109,6 +131,22 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
     public static String getParameter(String name, String defaultValue) {
         String value = currentRequest.get().getParameter(name);
         return value == null ? defaultValue : value;
+    }
+
+    /**
+     * 判断是否有权限
+     *
+     * @param menuCodes 用户拥有的权限
+     * @param menus     请求资源需要的权限
+     * @return
+     */
+    public static boolean hasPermissionMenu(List<String> menuCodes, String[] menus) {
+        for (String menuCode : menus) {
+            if (menuCodes.contains(menuCode)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.kangyonggan.server.service.impl;
 
+import com.kangyonggan.app.util.Collections3;
 import com.kangyonggan.extra.core.annotation.Log;
 import com.kangyonggan.server.mapper.MenuMapper;
 import com.kangyonggan.server.model.Menu;
@@ -28,6 +29,12 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
         List<Menu> menus = menuMapper.selectMenusByUsername(username);
 
         return recursionList(menus, new ArrayList(), StringUtils.EMPTY);
+    }
+
+    @Override
+    public List<String> findMenuCodesByUsername(String username) {
+        List<Menu> menus = menuMapper.selectMenusByUsername(username);
+        return Collections3.extractToList(menus, "code");
     }
 
     /**

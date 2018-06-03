@@ -2,6 +2,7 @@ package com.kangyonggan.server.controller.dashboard;
 
 import com.github.pagehelper.PageInfo;
 import com.kangyonggan.app.util.Collections3;
+import com.kangyonggan.server.annotation.PermissionMenu;
 import com.kangyonggan.server.controller.BaseController;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.Role;
@@ -33,6 +34,7 @@ public class SystemUserController extends BaseController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)
+    @PermissionMenu("user")
     public Response list() {
         Response response = Response.getSuccessResponse();
 

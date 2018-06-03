@@ -17,4 +17,12 @@ public interface MenuService {
      * @return
      */
     List<Menu> findMenusByUsername(String username);
+
+    /**
+     * 查找用户菜单代码
+     *
+     * @param username
+     * @return
+     */
+    List<String> findMenuCodesByUsername(String username);
 }

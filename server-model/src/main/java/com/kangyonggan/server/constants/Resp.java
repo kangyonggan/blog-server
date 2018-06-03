@@ -14,6 +14,11 @@ public enum Resp {
     SUCCESS("0000", "操作成功"),
 
     /**
+     * 权限不足
+     */
+    PERMISSION_DENIED("9997", "您无权访问所请求的资源！"),
+
+    /**
      * 登录已失效
      */
     INVALID_LOGIN("9998", "您尚未登录或登录已失效！"),
