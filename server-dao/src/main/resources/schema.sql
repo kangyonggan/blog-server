@@ -132,6 +132,7 @@ INSERT INTO tb_user
 (username, name, password, salt)
 VALUES
   ('admin', '管理员', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
+  ('guest', '客官', '8a8b4ffab94f2e6e8be81da4abbc88afd05d92a2', 'a6e45978475aebf7'),
   ('xiaotiao', '小跳', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
   ('xiaoxin', '小新', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
   ('xiaoxin2', '小新2', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
@@ -154,7 +155,8 @@ VALUES
 INSERT INTO tb_user_role
 (username, role_code)
 VALUES
-  ('admin', 'ROLE_ADMIN');
+  ('admin', 'ROLE_ADMIN'),
+  ('guest', 'ROLE_ADMIN'),
 
 insert into tb_menu (code, pcode, name, icon, sort)
 values
