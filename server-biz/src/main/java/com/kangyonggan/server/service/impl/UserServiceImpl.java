@@ -46,13 +46,13 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         if (StringUtils.isNotEmpty(name)) {
             criteria.andLike("name", StringUtil.toLike(name));
         }
-        Date startCreatedTime = params.getQuery().getDate("startCreatedTime");
-        if (startCreatedTime != null) {
-            criteria.andGreaterThanOrEqualTo("createdTime", startCreatedTime);
+        Date startDate = params.getQuery().getDate("startDate");
+        if (startDate != null) {
+            criteria.andGreaterThanOrEqualTo("createdTime", startDate);
         }
-        Date endCreatedTime = params.getQuery().getDate("endCreatedTime");
-        if (endCreatedTime != null) {
-            criteria.andLessThanOrEqualTo("createdTime", endCreatedTime);
+        Date endDate = params.getQuery().getDate("endDate");
+        if (endDate != null) {
+            criteria.andLessThanOrEqualTo("createdTime", endDate);
         }
 
         String sort = params.getSort();
