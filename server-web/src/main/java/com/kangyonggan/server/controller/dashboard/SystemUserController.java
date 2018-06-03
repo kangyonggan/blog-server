@@ -99,6 +99,9 @@ public class SystemUserController extends BaseController {
     @RequestMapping(value = "update", method = RequestMethod.POST)
     @PermissionMenu("user")
     public Response update(User user) {
+        User u = new User();
+        u.setId(user.getId());
+        u.setName(user.getName());
         userService.updateUser(user);
         return Response.getSuccessResponse();
     }
