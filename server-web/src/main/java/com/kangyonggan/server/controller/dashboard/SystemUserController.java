@@ -3,6 +3,7 @@ package com.kangyonggan.server.controller.dashboard;
 import com.github.pagehelper.PageInfo;
 import com.kangyonggan.app.util.Collections3;
 import com.kangyonggan.server.annotation.PermissionMenu;
+import com.kangyonggan.server.annotation.PermissionUser;
 import com.kangyonggan.server.controller.BaseController;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.Role;
@@ -70,6 +71,7 @@ public class SystemUserController extends BaseController {
      */
     @RequestMapping(value = "{id:[\\d]+}/delete", method = RequestMethod.GET)
     @PermissionMenu("user")
+    @PermissionUser("admin")
     public Response delete(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return Response.getSuccessResponse();
@@ -142,6 +144,7 @@ public class SystemUserController extends BaseController {
      */
     @RequestMapping(value = "{id:[\\d]+}/password", method = RequestMethod.POST)
     @PermissionMenu("user")
+    @PermissionUser("admin")
     public Response role(@PathVariable("id") Long id, @RequestParam("password") String password) {
         userService.updatePassword(id, password);
 
