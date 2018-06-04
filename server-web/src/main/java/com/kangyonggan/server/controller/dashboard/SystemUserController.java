@@ -102,7 +102,7 @@ public class SystemUserController extends BaseController {
         User u = new User();
         u.setId(user.getId());
         u.setName(user.getName());
-        userService.updateUser(user);
+        userService.updateUser(u);
         return Response.getSuccessResponse();
     }
 
