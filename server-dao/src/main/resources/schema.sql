@@ -154,7 +154,7 @@ INSERT INTO tb_user_role
 (username, role_code)
 VALUES
   ('admin', 'ROLE_ADMIN'),
-  ('guest', 'ROLE_ADMIN'),
+  ('guest', 'ROLE_ADMIN');
 
 insert into tb_menu (code, pcode, icon, sort)
 values
