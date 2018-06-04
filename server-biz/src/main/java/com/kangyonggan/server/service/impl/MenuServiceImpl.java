@@ -96,7 +96,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
             Menu menu = from.get(i);
             if (pcode.equals(menu.getPcode())) {
                 List<Menu> leaf = new ArrayList();
-                menu.setLeaf(leaf);
+                menu.setChildren(leaf);
                 toList.add(menu);
                 recursionList(from, leaf, menu.getCode());
             }

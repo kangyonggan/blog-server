@@ -62,7 +62,7 @@ public class Menu implements Serializable {
      * 子菜单
      */
     @Transient
-    private List<Menu> leaf;
+    private List<Menu> children;
 
     private static final long serialVersionUID = 1L;
 }

@@ -128,7 +128,7 @@ public class SystemRoleController extends BaseController {
         Response response = Response.getSuccessResponse();
         List<String> codes = menuService.findMenuCodesByRoleCode(code);
 
-        response.put("codes", codes);
+        response.put("selectedCodes", codes);
         return response;
     }
 
