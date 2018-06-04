@@ -47,4 +47,18 @@ public interface MenuService {
      * @return
      */
     boolean existsMenuCode(String code);
+
+    /**
+     * 删除菜单
+     *
+     * @param code
+     */
+    void deleteMenu(String code);
+
+    /**
+     * 更新菜单
+     *
+     * @param menu
+     */
+    void updateMenu(Menu menu);
 }

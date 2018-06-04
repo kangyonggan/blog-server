@@ -6,10 +6,7 @@ import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.Menu;
 import com.kangyonggan.server.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author kangyonggan
@@ -46,6 +43,32 @@ public class SystemMenuController extends BaseController {
     @PermissionMenu("menu")
     public Response save(Menu menu) {
         menuService.saveMenu(menu);
+        return Response.getSuccessResponse();
+    }
+
+    /**
+     * 删除
+     *
+     * @param code
+     * @return
+     */
+    @DeleteMapping
+    @PermissionMenu("menu")
+    public Response delete(@RequestParam("code") String code) {
+        menuService.deleteMenu(code);
+        return Response.getSuccessResponse();
+    }
+
+    /**
+     * 更新
+     *
+     * @param menu
+     * @return
+     */
+    @PutMapping
+    @PermissionMenu("menu")
+    public Response update(Menu menu) {
+        menuService.updateMenu(menu);
         return Response.getSuccessResponse();
     }
 }

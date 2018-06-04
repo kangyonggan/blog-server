@@ -76,9 +76,9 @@ public class SystemRoleController extends BaseController {
      * @param id
      * @return
      */
-    @DeleteMapping(value = "{id:[\\d]+}")
+    @DeleteMapping
     @PermissionMenu("role")
-    public Response delete(@PathVariable("id") Long id) {
+    public Response delete(@RequestParam("id") Long id) {
         roleService.deleteRole(id);
         return Response.getSuccessResponse();
     }

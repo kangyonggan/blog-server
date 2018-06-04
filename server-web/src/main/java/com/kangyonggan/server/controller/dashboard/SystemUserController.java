@@ -69,10 +69,10 @@ public class SystemUserController extends BaseController {
      * @param id
      * @return
      */
-    @DeleteMapping(value = "{id:[\\d]+}")
+    @DeleteMapping
     @PermissionMenu("user")
     @PermissionUser("admin")
-    public Response delete(@PathVariable("id") Long id) {
+    public Response delete(@RequestParam("id") Long id) {
         userService.deleteUser(id);
         return Response.getSuccessResponse();
     }

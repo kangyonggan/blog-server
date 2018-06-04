@@ -59,6 +59,20 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
         return exists(menu);
     }
 
+    @Override
+    public void deleteMenu(String code) {
+        if (StringUtils.isNotEmpty(code)) {
+            Menu menu = new Menu();
+            menu.setCode(code);
+            myMapper.delete(menu);
+        }
+    }
+
+    @Override
+    public void updateMenu(Menu menu) {
+        myMapper.updateByPrimaryKeySelective(menu);
+    }
+
     /**
      * 递归找出 parentCode 下边的所有子节点
      *
