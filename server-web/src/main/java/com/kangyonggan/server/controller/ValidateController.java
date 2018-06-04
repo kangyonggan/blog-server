@@ -3,6 +3,7 @@ package com.kangyonggan.server.controller;
 import com.kangyonggan.server.constants.Resp;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.User;
+import com.kangyonggan.server.service.MenuService;
 import com.kangyonggan.server.service.RoleService;
 import com.kangyonggan.server.service.UserService;
 import com.kangyonggan.server.util.AuthUtil;
@@ -22,6 +23,9 @@ public class ValidateController extends BaseController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private MenuService menuService;
 
     /**
      * 判断是否存在用户名
@@ -48,6 +52,21 @@ public class ValidateController extends BaseController {
     public Response role(@RequestParam("code") String code) {
         Response response = Response.getSuccessResponse();
         if (roleService.existsRoleCode(code)) {
+            response.failure();
+        }
+        return response;
+    }
+
+    /**
+     * 判断是否存在菜单代码
+     *
+     * @param code
+     * @return
+     */
+    @GetMapping(value = "menu")
+    public Response menu(@RequestParam("code") String code) {
+        Response response = Response.getSuccessResponse();
+        if (menuService.existsMenuCode(code)) {
             response.failure();
         }
         return response;

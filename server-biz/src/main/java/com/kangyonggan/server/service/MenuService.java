@@ -25,4 +25,26 @@ public interface MenuService {
      * @return
      */
     List<String> findMenuCodesByUsername(String username);
+
+    /**
+     * 查找所有菜单
+     *
+     * @return
+     */
+    List<Menu> findAllMenus();
+
+    /**
+     * 保存菜单
+     *
+     * @param menu
+     */
+    void saveMenu(Menu menu);
+
+    /**
+     * 校验菜单代码是否存在
+     *
+     * @param code
+     * @return
+     */
+    boolean existsMenuCode(String code);
 }
