@@ -1,5 +1,6 @@
 package com.kangyonggan.server.controller;
 
+import com.kangyonggan.server.constants.Resp;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.User;
 import com.kangyonggan.server.service.MenuService;
@@ -40,7 +41,7 @@ public class LoginController extends BaseController {
             String token = AuthUtil.saveLoginUser(user);
             response.put("token", token);
         } else {
-            response.failure("用户名或密码错误！");
+            response.failure(Resp.USERNAME_PASSWORD_ERROR.getRespCo(), Resp.USERNAME_PASSWORD_ERROR.getRespMsg());
         }
 
         return response;

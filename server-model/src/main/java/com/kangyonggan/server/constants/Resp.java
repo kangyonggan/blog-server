@@ -14,6 +14,16 @@ public enum Resp {
     SUCCESS("0000", "操作成功"),
 
     /**
+     * 密码错误
+     */
+    PASSWORD_ERROR("1002", "密码错误，如果忘记密码请清除Cookie！"),
+
+    /**
+     * 用户名或密码错误
+     */
+    USERNAME_PASSWORD_ERROR("1001", "用户名或密码错误！"),
+
+    /**
      * 权限不足
      */
     PERMISSION_DENIED("9997", "您无权访问所请求的资源！"),
