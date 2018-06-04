@@ -20,12 +20,12 @@ public class SystemMenuController extends BaseController {
     private MenuService menuService;
 
     /**
-     * 查找所有角色
+     * 查找所有菜单
      *
      * @return
      */
     @GetMapping
-    @PermissionMenu("menu")
+    @PermissionMenu({"menu", "role"})
     public Response list() {
         Response response = Response.getSuccessResponse();
 

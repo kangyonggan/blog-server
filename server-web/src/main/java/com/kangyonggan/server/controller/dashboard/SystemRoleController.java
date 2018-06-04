@@ -5,6 +5,7 @@ import com.kangyonggan.server.annotation.PermissionMenu;
 import com.kangyonggan.server.controller.BaseController;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.Role;
+import com.kangyonggan.server.service.MenuService;
 import com.kangyonggan.server.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,9 @@ public class SystemRoleController extends BaseController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private MenuService menuService;
 
     /**
      * 查找所有角色
@@ -109,6 +113,37 @@ public class SystemRoleController extends BaseController {
         r.setId(role.getId());
         r.setName(role.getName());
         roleService.updateRole(r);
+        return Response.getSuccessResponse();
+    }
+
+    /**
+     * 获取角色菜单
+     *
+     * @param code
+     * @return
+     */
+    @GetMapping("{code:[\\w]+}/menu")
+    @PermissionMenu("role")
+    public Response getRoleMenus(@PathVariable("code") String code) {
+        Response response = Response.getSuccessResponse();
+        List<String> codes = menuService.findMenuCodesByRoleCode(code);
+
+        response.put("codes", codes);
+        return response;
+    }
+
+    /**
+     * 更新角色菜单
+     *
+     * @param code
+     * @param menuCodes
+     * @return
+     */
+    @PutMapping("{code:[\\w]+}/menu")
+    @PermissionMenu("role")
+    public Response updateRoleMenus(@PathVariable("code") String code, @RequestParam("menuCodes") String menuCodes) {
+        roleService.updateRoleMenus(code, menuCodes);
+
         return Response.getSuccessResponse();
     }
 

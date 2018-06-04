@@ -20,4 +20,11 @@ public interface MenuMapper extends MyMapper<Menu> {
      */
     List<Menu> selectMenusByUsername(@Param("username") String username);
 
+    /**
+     * 查找角色菜单
+     *
+     * @param code
+     * @return
+     */
+    List<Menu> selectMenusByRoleCode(@Param("code") String code);
 }

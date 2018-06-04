@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -92,5 +93,14 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
         Role role = new Role();
         role.setCode(code);
         return exists(role);
+    }
+
+    @Override
+    public void updateRoleMenus(String code, String menuCodes) {
+        roleMapper.deleteRoleMenus(code);
+
+        if (StringUtils.isNotEmpty(menuCodes)) {
+            roleMapper.insertRoleMenus(code, Arrays.asList(menuCodes.split(",")));
+        }
     }
 }

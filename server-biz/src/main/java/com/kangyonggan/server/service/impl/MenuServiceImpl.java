@@ -73,6 +73,12 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
         myMapper.updateByPrimaryKeySelective(menu);
     }
 
+    @Override
+    public List<String> findMenuCodesByRoleCode(String code) {
+        List<Menu> menus = menuMapper.selectMenusByRoleCode(code);
+        return Collections3.extractToList(menus, "code");
+    }
+
     /**
      * 递归找出 parentCode 下边的所有子节点
      *

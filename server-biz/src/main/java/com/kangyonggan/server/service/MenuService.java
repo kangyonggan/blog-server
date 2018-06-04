@@ -61,4 +61,13 @@ public interface MenuService {
      * @param menu
      */
     void updateMenu(Menu menu);
+
+    /**
+     * 查找角色菜单
+     *
+     * @param code
+     * @return
+     */
+    List<String> findMenuCodesByRoleCode(String code);
+
 }

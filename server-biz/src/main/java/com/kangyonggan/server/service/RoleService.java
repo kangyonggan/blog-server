@@ -62,4 +62,12 @@ public interface RoleService {
      * @return
      */
     boolean existsRoleCode(String code);
+
+    /**
+     * 更新角色菜单
+     *
+     * @param code
+     * @param menuCodes
+     */
+    void updateRoleMenus(String code, String menuCodes);
 }

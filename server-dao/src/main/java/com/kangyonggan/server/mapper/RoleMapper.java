@@ -26,4 +26,19 @@ public interface RoleMapper extends MyMapper<Role> {
      * @param username
      */
     void deleteAllRolesByUsername(@Param("username") String username);
+
+    /**
+     * 删除角色菜单
+     *
+     * @param code
+     */
+    void deleteRoleMenus(@Param("code") String code);
+
+    /**
+     * 插入角色菜单
+     *
+     * @param code      角色代码
+     * @param menuCodes 菜单代码
+     */
+    void insertRoleMenus(@Param("code") String code, @Param("menuCodes") List<String> menuCodes);
 }

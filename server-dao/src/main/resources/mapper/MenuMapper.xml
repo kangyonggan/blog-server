@@ -27,4 +27,16 @@
             ORDER BY m.sort ASC
         </where>
     </select>
+
+    <select id="selectMenusByRoleCode" resultMap="BaseResultMap">
+        SELECT
+        DISTINCT m.*
+        FROM tb_menu m, tb_role_menu rm
+        <where>
+            m.code = rm.menu_code
+            AND rm.role_code = #{code}
+            AND m.status = 0
+            ORDER BY m.sort ASC
+        </where>
+    </select>
 </mapper>
