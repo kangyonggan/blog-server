@@ -18,31 +18,32 @@
         <result column="name" jdbcType="VARCHAR" property="createdName"/>
     </resultMap>
 
-    <select id="searchArticles" parameterType="Map" resultMap="BaseResultMap">
+    <select id="searchArticles" resultMap="BaseResultMap">
         SELECT
         a.id, a.title, a.created_username, a.apply_status, a.reply_msg, a.status, a.created_time, b.name
         FROM tb_article a
         LEFT JOIN tb_user b ON a.created_username = b.username
-        WHERE
-        a.created_username = #{username}
-        <if test="title != null and title != ''">
-            AND a.title LIKE CONCAT('%', #{title}, '%')
-        </if>
-        <if test="applyStatus != null and applyStatus != ''">
-            AND a.apply_status LIKE #{applyStatus}
-        </if>
-        <if test="applyStatus != null and applyStatus != ''">
-            AND a.apply_status LIKE #{applyStatus}
-        </if>
-        <if test="startDate != null and startDate != ''">
-            AND a.created_time &gt;= #{startDate}
-        </if>
-        <if test="endDate != null and endDate != ''">
-            AND a.created_time &lt;= #{endDate}
-        </if>
-        <if test="appSort != null and appSort != '">
-            <if test="appOrder != null and appOrder != '">
-              ORDER BY ${appSort} ${appOrder}
+        <where>
+            a.created_username = #{query.username}
+            <if test="query.title != null and query.title != ''">
+                AND a.title LIKE CONCAT('%', #{query.title}, '%')
+            </if>
+            <if test="query.applyStatus != null and query.applyStatus != ''">
+                AND a.apply_status LIKE #{query.applyStatus}
+            </if>
+            <if test="query.applyStatus != null and query.applyStatus != ''">
+                AND a.apply_status LIKE #{query.applyStatus}
+            </if>
+            <if test="query.startDate != null and query.startDate != ''">
+                AND a.created_time &gt;= #{startDate}
+            </if>
+            <if test="query.endDate != null and query.endDate != ''">
+                AND a.created_time &lt;= #{endDate}
+            </if>
+        </where>
+        <if test="query.appSort != null and query.appSort != ''">
+            <if test="query.appOrder != null and query.appOrder != ''">
+                ORDER BY ${query.appSort} ${query.appOrder}
             </if>
         </if>
     </select>
