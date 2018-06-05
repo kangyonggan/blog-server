@@ -55,8 +55,8 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
             criteria.andLessThanOrEqualTo("createdTime", endDate);
         }
 
-        String sort = params.getSort();
-        String order = params.getOrder();
+        String sort = params.getAppSort();
+        String order = params.getAppOrder();
         if (!StringUtil.hasEmpty(sort, order)) {
             example.setOrderByClause(sort + " " + order.toUpperCase());
         } else {

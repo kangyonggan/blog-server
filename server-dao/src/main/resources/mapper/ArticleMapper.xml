@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kangyonggan.server.mapper.ArticleMapper">
+    <resultMap id="BaseResultMap" type="com.kangyonggan.server.model.Article">
+        <!--
+          WARNING - @mbggenerated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="created_username" jdbcType="VARCHAR" property="createdUsername"/>
+        <result column="apply_status" jdbcType="VARCHAR" property="applyStatus"/>
+        <result column="reply_msg" jdbcType="VARCHAR" property="replyMsg"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+
+        <result column="name" jdbcType="VARCHAR" property="createdName"/>
+    </resultMap>
+
+    <select id="searchArticles" parameterType="Map" resultMap="BaseResultMap">
+        SELECT
+        a.id, a.title, a.created_username, a.apply_status, a.reply_msg, a.status, a.created_time, b.name
+        FROM tb_article a
+        LEFT JOIN tb_user b ON a.created_username = b.username
+        WHERE
+        a.created_username = #{username}
+        <if test="title != null and title != ''">
+            AND a.title LIKE CONCAT('%', #{title}, '%')
+        </if>
+        <if test="applyStatus != null and applyStatus != ''">
+            AND a.apply_status LIKE #{applyStatus}
+        </if>
+        <if test="applyStatus != null and applyStatus != ''">
+            AND a.apply_status LIKE #{applyStatus}
+        </if>
+        <if test="startDate != null and startDate != ''">
+            AND a.created_time &gt;= #{startDate}
+        </if>
+        <if test="endDate != null and endDate != ''">
+            AND a.created_time &lt;= #{endDate}
+        </if>
+        <if test="appSort != null and appSort != '">
+            <if test="appOrder != null and appOrder != '">
+              ORDER BY ${appSort} ${appOrder}
+            </if>
+        </if>
+    </select>
+</mapper>

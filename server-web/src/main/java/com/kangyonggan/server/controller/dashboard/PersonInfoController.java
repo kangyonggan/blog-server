@@ -21,8 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
  * @since 6/5/18
  */
 @RestController
-@RequestMapping("consumer/info")
-public class ConsumerInfoController extends BaseController {
+@RequestMapping("person/info")
+public class PersonInfoController extends BaseController {
 
     @Autowired
     private UserService userService;

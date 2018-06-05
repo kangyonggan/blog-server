@@ -54,9 +54,9 @@ public class BaseController {
         int pageNum = getIntegerParam("pageNum", offset / params.getPageSize() + 1);
         params.setPageNum(pageNum);
 
-        String sort = getStringParam("sort");
-        params.setSort(StringUtil.camelToUnderLine(sort));
-        params.setOrder(getStringParam("order", "asc"));
+        String sort = getStringParam("_sort");
+        params.setAppSort(StringUtil.camelToUnderLine(sort));
+        params.setAppOrder(getStringParam("_order", "asc"));
 
         // 其他查询条件
         params.setQuery(getQuery());

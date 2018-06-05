@@ -126,6 +126,35 @@ CREATE TABLE tb_role_menu
   COMMENT '角色菜单表';
 
 -- ----------------------------
+--  Table structure for tb_article
+-- ----------------------------
+DROP TABLE
+IF EXISTS tb_article;
+
+CREATE TABLE tb_article
+(
+  id               BIGINT(20) PRIMARY KEY AUTO_INCREMENT NOT NULL
+  COMMENT '主键, 自增',
+  title            VARCHAR(128)                          NOT NULL
+  COMMENT '文章标题',
+  content          LONGTEXT                              NOT NULL
+  COMMENT '文章内容',
+  created_username VARCHAR(32)                           NOT NULL
+  COMMENT '创建人',
+  apply_status     VARCHAR(32)                           NOT NULL
+  COMMENT '申请状态',
+  reply_msg        VARCHAR(64)                           NOT NULL                    DEFAULT ''
+  COMMENT '审批信息',
+  status           TINYINT                               NOT NULL                    DEFAULT 0
+  COMMENT '状态:{0:可用, 1:禁用}',
+  created_time     TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP
+  COMMENT '创建时间',
+  updated_time     TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  COMMENT '更新时间'
+)
+  COMMENT '文章表';
+
+-- ----------------------------
 --  data for tb_user
 -- ----------------------------
 INSERT INTO tb_user
@@ -163,7 +192,10 @@ VALUES
   ('system', '', 'gear-b', 0),
   ('user', 'system', '', 0),
   ('role', 'system', '', 1),
-  ('menu', 'system', '', 2);
+  ('menu', 'system', '', 2),
+  ('person', '', 'person', 1),
+  ('info', 'person', '', 0),
+  ('article', 'person', '', 1);
 
 INSERT INTO tb_role_menu (role_code, menu_code)
   SELECT
