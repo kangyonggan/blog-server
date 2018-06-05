@@ -24,7 +24,7 @@
         FROM tb_article a
         LEFT JOIN tb_user b ON a.created_username = b.username
         <where>
-            a.created_username = #{query.username}
+            a.created_username = #{query.createdUsername}
             <if test="query.title != null and query.title != ''">
                 AND a.title LIKE CONCAT('%', #{query.title}, '%')
             </if>
