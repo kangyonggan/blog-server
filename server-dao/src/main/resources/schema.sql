@@ -139,9 +139,9 @@ CREATE TABLE tb_article
   COMMENT '文章标题',
   content          LONGTEXT                              NOT NULL
   COMMENT '文章内容',
-  created_username VARCHAR(32)                           NOT NULL
+  created_username VARCHAR(32)                           NOT NULL                    DEFAULT ''
   COMMENT '创建人',
-  apply_status     VARCHAR(32)                           NOT NULL
+  apply_status     VARCHAR(32)                           NOT NULL                    DEFAULT ''
   COMMENT '申请状态',
   reply_msg        VARCHAR(64)                           NOT NULL                    DEFAULT ''
   COMMENT '审批信息',
