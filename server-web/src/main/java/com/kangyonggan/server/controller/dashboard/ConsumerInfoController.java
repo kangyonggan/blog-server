@@ -5,6 +5,7 @@ import com.kangyonggan.server.controller.BaseController;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.User;
 import com.kangyonggan.server.service.UserService;
+import com.kangyonggan.server.util.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,7 @@ public class ConsumerInfoController extends BaseController {
     @PermissionMenu("info")
     public Response updateInfo(User user) {
         Response response = Response.getSuccessResponse();
+        user.setId(AuthUtil.currentUserId());
         user.setUsername(null);
         userService.updateUser(user);
 
