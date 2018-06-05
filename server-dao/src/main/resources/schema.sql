@@ -129,20 +129,20 @@ CREATE TABLE tb_role_menu
 INSERT INTO tb_user
 (username, name, password, salt)
 VALUES
-  ('admin', '管理员', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
-  ('guest', '客官', '8a8b4ffab94f2e6e8be81da4abbc88afd05d92a2', 'a6e45978475aebf7'),
-  ('xiaotiao', '小跳', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
-  ('xiaoxin', '小新', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
-  ('xiaoxin2', '小新2', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
-  ('xiaoxin3', '小新3', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
-  ('xiaoxin4', '小新4', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
-  ('xiaoxin5', '小新5', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
-  ('xiaoxin6', '小新6', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
-  ('xiaoxin7', '小新7', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
-  ('xiaoxin8', '小新8', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
-  ('xiaoxin9', '小新9', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
-  ('xiaoxin10', '小新10', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd'),
-  ('xiaoxin11', '小新11', 'df9e06125caf2f421535bc725b9c96d329ae377b', '5cf6b1a302cabcbd');
+  ('admin', '管理员', 'e592a7cd1ea88a2abb369efe7fd7e3fb5f854030', 'bedabd281e33df9f'),
+  ('guest', '客官', 'e592a7cd1ea88a2abb369efe7fd7e3fb5f854030', 'bedabd281e33df9f'),
+  ('xiaotiao', '小跳', 'e592a7cd1ea88a2abb369efe7fd7e3fb5f854030', 'bedabd281e33df9f'),
+  ('xiaoxin', '小新', 'e592a7cd1ea88a2abb369efe7fd7e3fb5f854030', 'bedabd281e33df9f'),
+  ('xiaoxin2', '小新2', 'e592a7cd1ea88a2abb369efe7fd7e3fb5f854030', 'bedabd281e33df9f'),
+  ('xiaoxin3', '小新3', 'e592a7cd1ea88a2abb369efe7fd7e3fb5f854030', 'bedabd281e33df9f'),
+  ('xiaoxin4', '小新4', 'e592a7cd1ea88a2abb369efe7fd7e3fb5f854030', 'bedabd281e33df9f'),
+  ('xiaoxin5', '小新5', 'e592a7cd1ea88a2abb369efe7fd7e3fb5f854030', 'bedabd281e33df9f'),
+  ('xiaoxin6', '小新6', 'e592a7cd1ea88a2abb369efe7fd7e3fb5f854030', 'bedabd281e33df9f'),
+  ('xiaoxin7', '小新7', 'e592a7cd1ea88a2abb369efe7fd7e3fb5f854030', 'bedabd281e33df9f'),
+  ('xiaoxin8', '小新8', 'e592a7cd1ea88a2abb369efe7fd7e3fb5f854030', 'bedabd281e33df9f'),
+  ('xiaoxin9', '小新9', 'e592a7cd1ea88a2abb369efe7fd7e3fb5f854030', 'bedabd281e33df9f'),
+  ('xiaoxin10', '小新10', 'e592a7cd1ea88a2abb369efe7fd7e3fb5f854030', 'bedabd281e33df9f'),
+  ('xiaoxin11', '小新11', 'e592a7cd1ea88a2abb369efe7fd7e3fb5f854030', 'bedabd281e33df9f');
 
 INSERT INTO tb_role
 (code, name)
