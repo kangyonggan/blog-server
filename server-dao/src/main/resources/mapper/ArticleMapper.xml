@@ -29,16 +29,16 @@
                 AND a.title LIKE CONCAT('%', #{query.title}, '%')
             </if>
             <if test="query.applyStatus != null and query.applyStatus != ''">
-                AND a.apply_status LIKE #{query.applyStatus}
+                AND a.apply_status = #{query.applyStatus}
             </if>
             <if test="query.applyStatus != null and query.applyStatus != ''">
-                AND a.apply_status LIKE #{query.applyStatus}
+                AND a.apply_status = #{query.applyStatus}
             </if>
             <if test="query.startDate != null and query.startDate != ''">
-                AND a.created_time &gt;= #{startDate}
+                AND a.created_time &gt;= #{query.startDate}
             </if>
             <if test="query.endDate != null and query.endDate != ''">
-                AND a.created_time &lt;= #{endDate}
+                AND a.created_time &lt;= #{query.endDate}
             </if>
         </where>
         <if test="query.appSort != null and query.appSort != ''">
