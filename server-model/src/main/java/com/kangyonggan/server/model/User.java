@@ -41,6 +41,11 @@ public class User implements Serializable {
     private String salt;
 
     /**
+     * 头像
+     */
+    private String avatar;
+
+    /**
      * 状态:{0:可用, 1:禁用}
      */
     private Byte status;

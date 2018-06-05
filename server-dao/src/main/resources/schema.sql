@@ -24,6 +24,8 @@ CREATE TABLE tb_user
   COMMENT '密码',
   salt         VARCHAR(64)                           NOT NULL
   COMMENT '密码盐',
+  avatar       VARCHAR(256)                          NOT NULL                    DEFAULT ''
+  COMMENT '头像',
   status       TINYINT                               NOT NULL                    DEFAULT 0
   COMMENT '状态:{0:可用, 1:禁用}',
   created_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP
@@ -156,12 +158,15 @@ VALUES
   ('admin', 'ROLE_ADMIN'),
   ('guest', 'ROLE_ADMIN');
 
-insert into tb_menu (code, pcode, icon, sort)
-values
-('system', '', 'gear-b', 0),
-('user', 'system', '', 0),
-('role', 'system', '', 1),
-('menu', 'system', '', 2);
+INSERT INTO tb_menu (code, pcode, icon, sort)
+VALUES
+  ('system', '', 'gear-b', 0),
+  ('user', 'system', '', 0),
+  ('role', 'system', '', 1),
+  ('menu', 'system', '', 2);
 
 INSERT INTO tb_role_menu (role_code, menu_code)
-SELECT 'ROLE_ADMIN', code FROM tb_menu;
+  SELECT
+    'ROLE_ADMIN',
+    code
+  FROM tb_menu;
