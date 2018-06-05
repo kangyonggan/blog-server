@@ -75,6 +75,9 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
     @Override
     public void updateUser(User user) {
+        if (StringUtils.isNotEmpty(user.getPassword())) {
+            entryptPassword(user);
+        }
         myMapper.updateByPrimaryKeySelective(user);
     }
 
