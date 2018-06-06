@@ -36,7 +36,10 @@ public class ArticleServiceImpl extends BaseService<Article> implements ArticleS
 
     @Override
     public Article findArticleById(Long id) {
-        return myMapper.selectByPrimaryKey(id);
+        Article article = new Article();
+        article.setId(id);
+        article.setStatus(Status.ENABLE.getCode());
+        return myMapper.selectOne(article);
     }
 
     @Override
@@ -52,5 +55,10 @@ public class ArticleServiceImpl extends BaseService<Article> implements ArticleS
         article.setStatus(Status.DISABLE.getCode());
 
         myMapper.updateByPrimaryKeySelective(article);
+    }
+
+    @Override
+    public Article getArticle(Long id) {
+        return myMapper.selectByPrimaryKey(id);
     }
 }

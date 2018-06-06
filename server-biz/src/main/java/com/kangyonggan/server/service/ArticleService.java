@@ -46,4 +46,12 @@ public interface ArticleService {
      * @param id
      */
     void deleteArticle(Long id);
+
+    /**
+     * 获取文章
+     *
+     * @param id
+     * @return
+     */
+    Article getArticle(Long id);
 }

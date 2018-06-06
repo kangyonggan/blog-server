@@ -1,6 +1,7 @@
 package com.kangyonggan.server.controller.dashboard;
 
 import com.github.pagehelper.PageInfo;
+import com.kangyonggan.app.util.MarkdownUtil;
 import com.kangyonggan.server.annotation.PermissionMenu;
 import com.kangyonggan.server.annotation.PermissionUser;
 import com.kangyonggan.server.controller.BaseController;
@@ -60,16 +61,16 @@ public class PersonArticleController extends BaseController {
     }
 
     /**
-     * 查找文章
+     * 编辑文章
      *
      * @param id
      * @return
      */
-    @GetMapping("{id:[\\d]+}")
+    @GetMapping("{id:[\\d]+}/edit")
     @PermissionMenu("article")
-    public Response get(@PathVariable("id") Long id) {
+    public Response edit(@PathVariable("id") Long id) {
         Response response = Response.getSuccessResponse();
-        response.put("article", articleService.findArticleById(id));
+        response.put("article", articleService.getArticle(id));
         return response;
     }
 
@@ -99,6 +100,22 @@ public class PersonArticleController extends BaseController {
     public Response update(@RequestParam("id") Long id) {
         articleService.deleteArticle(id);
         return Response.getSuccessResponse();
+    }
+
+    /**
+     * 查找文章
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("{id:[\\d]+}")
+    @PermissionMenu("article")
+    public Response get(@PathVariable("id") Long id) {
+        Response response = Response.getSuccessResponse();
+        Article article = articleService.findArticleById(id);
+        article.setContent(MarkdownUtil.markdownToHtml(article.getContent()));
+        response.put("article", article);
+        return response;
     }
 
 }
