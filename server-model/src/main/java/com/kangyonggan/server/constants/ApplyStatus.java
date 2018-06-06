@@ -16,11 +16,6 @@ public enum ApplyStatus {
     APPLY("APPLY", "待审批"),
 
     /**
-     * 已退回
-     */
-    BACK("BACK", "已退回"),
-
-    /**
      * 已拒绝
      */
     REJECT("REJECT", "已拒绝"),
