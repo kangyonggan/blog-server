@@ -41,9 +41,9 @@
                 AND a.created_time &lt;= #{query.endDate}
             </if>
         </where>
-        <if test="query.appSort != null and query.appSort != ''">
-            <if test="query.appOrder != null and query.appOrder != ''">
-                ORDER BY ${query.appSort} ${query.appOrder}
+        <if test="query._sort != null and query._sort != ''">
+            <if test="query._order != null and query._order != ''">
+                ORDER BY ${query._sort} ${query._order}
             </if>
         </if>
     </select>

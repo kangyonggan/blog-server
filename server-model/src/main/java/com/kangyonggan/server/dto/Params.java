@@ -26,12 +26,12 @@ public class Params implements Serializable {
     /**
      * 排序字段
      */
-    private String appSort;
+    private String sort;
 
     /**
      * 升序/降序
      */
-    private String appOrder;
+    private String order;
 
     /**
      * 查询条件
