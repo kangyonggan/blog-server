@@ -20,7 +20,7 @@
 
     <select id="searchArticles" resultMap="BaseResultMap">
         SELECT
-        a.id, a.title, a.created_username, a.apply_status, a.reply_msg, a.status, a.created_time, b.name
+        a.id, a.title, a.created_username, a.apply_status, a.reply_msg, a.status, a.created_time, a.updated_time, b.name
         FROM tb_article a
         LEFT JOIN tb_user b ON a.created_username = b.username
         <where>
