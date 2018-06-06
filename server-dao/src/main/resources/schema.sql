@@ -193,9 +193,11 @@ VALUES
   ('user', 'system', '', 0),
   ('role', 'system', '', 1),
   ('menu', 'system', '', 2),
-  ('person', '', 'person', 1),
+  ('person', '', 'person', 99),
   ('info', 'person', '', 0),
-  ('article', 'person', '', 1);
+  ('article', 'person', '', 1),
+  ('content', '', 'laptop', 1),
+  ('articleCheck', 'content', '', 0);
 
 INSERT INTO tb_role_menu (role_code, menu_code)
   SELECT
