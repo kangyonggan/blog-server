@@ -41,7 +41,7 @@
         </where>
         <if test="query._sort != null and query._sort != ''">
             <if test="query._order != null and query._order != ''">
-                ORDER BY ${query._sort} ${query.appOrder}
+                ORDER BY ${query._sort} ${query._order}
             </if>
         </if>
     </select>
