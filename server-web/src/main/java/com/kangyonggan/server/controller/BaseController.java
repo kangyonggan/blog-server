@@ -48,6 +48,9 @@ public class BaseController {
     protected Params getRequestParams() {
         Params params = new Params();
 
+        // 所有查询条件
+        params.setQuery(getQuery());
+
         // 分页相关参数
         params.setPageSize(getIntegerParam("pageSize", getIntegerParam("limit", 10)));
         int offset = getIntegerParam("offset", 0);
@@ -57,9 +60,8 @@ public class BaseController {
         String sort = getStringParam("_sort");
         params.setSort(StringUtil.camelToUnderLine(sort));
         params.setOrder(getStringParam("_order", "asc"));
-
-        // 其他查询条件
-        params.setQuery(getQuery());
+        params.getQuery().put("_sort", params.getSort());
+        params.getQuery().put("_order", params.getOrder());
 
         return params;
     }
