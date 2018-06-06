@@ -25,11 +25,9 @@
         LEFT JOIN tb_user b ON a.created_username = b.username
         <where>
             a.created_username = #{query.createdUsername}
+            AND a.status = 0
             <if test="query.title != null and query.title != ''">
                 AND a.title LIKE CONCAT('%', #{query.title}, '%')
-            </if>
-            <if test="query.applyStatus != null and query.applyStatus != ''">
-                AND a.apply_status = #{query.applyStatus}
             </if>
             <if test="query.applyStatus != null and query.applyStatus != ''">
                 AND a.apply_status = #{query.applyStatus}
@@ -43,7 +41,7 @@
         </where>
         <if test="query._sort != null and query._sort != ''">
             <if test="query._order != null and query._order != ''">
-                ORDER BY ${query._sort} ${query._order}
+                ORDER BY ${query._sort} ${query.appOrder}
             </if>
         </if>
     </select>

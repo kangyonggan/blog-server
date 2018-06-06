@@ -40,4 +40,10 @@ public interface ArticleService {
      */
     void updateArticle(Article article);
 
+    /**
+     * 删除文章
+     *
+     * @param id
+     */
+    void deleteArticle(Long id);
 }

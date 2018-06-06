@@ -87,4 +87,18 @@ public class PersonArticleController extends BaseController {
         return Response.getSuccessResponse();
     }
 
+    /**
+     * 删除
+     *
+     * @param id
+     * @return
+     */
+    @DeleteMapping
+    @PermissionMenu("article")
+    @PermissionUser("admin")
+    public Response update(@RequestParam("id") Long id) {
+        articleService.deleteArticle(id);
+        return Response.getSuccessResponse();
+    }
+
 }
