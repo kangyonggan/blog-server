@@ -17,4 +17,27 @@ public interface ArticleService {
      * @return
      */
     List<Article> searchArticles(Params params);
+
+    /**
+     * 保存文章
+     *
+     * @param article
+     */
+    void saveArticle(Article article);
+
+    /**
+     * 查找文章
+     *
+     * @param id
+     * @return
+     */
+    Article findArticleById(Long id);
+
+    /**
+     * 更新文章
+     *
+     * @param article
+     */
+    void updateArticle(Article article);
+
 }

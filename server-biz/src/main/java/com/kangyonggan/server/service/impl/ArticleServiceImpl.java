@@ -1,6 +1,7 @@
 package com.kangyonggan.server.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.kangyonggan.server.constants.ApplyStatus;
 import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.mapper.ArticleMapper;
 import com.kangyonggan.server.model.Article;
@@ -24,5 +25,22 @@ public class ArticleServiceImpl extends BaseService<Article> implements ArticleS
     public List<Article> searchArticles(Params params) {
         PageHelper.startPage(params.getPageNum(), params.getPageSize());
         return articleMapper.searchArticles(params.getQuery());
+    }
+
+    @Override
+    public void saveArticle(Article article) {
+        article.setApplyStatus(ApplyStatus.APPLY.getCode());
+        myMapper.insertSelective(article);
+    }
+
+    @Override
+    public Article findArticleById(Long id) {
+        return myMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void updateArticle(Article article) {
+        article.setApplyStatus(ApplyStatus.APPLY.getCode());
+        myMapper.updateByPrimaryKeySelective(article);
     }
 }
