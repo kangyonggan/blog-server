@@ -1,4 +1,4 @@
-package com.kangyonggan.server.controller.dashboard;
+package com.kangyonggan.server.controller.admin;
 
 import com.github.pagehelper.PageInfo;
 import com.kangyonggan.server.annotation.PermissionMenu;
@@ -17,7 +17,7 @@ import java.util.List;
  * @date 2018/5/27 0027
  */
 @RestController
-@RequestMapping("system/role")
+@RequestMapping("admin/system/role")
 public class SystemRoleController extends BaseController {
 
     @Autowired

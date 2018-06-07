@@ -1,4 +1,4 @@
-package com.kangyonggan.server.controller.dashboard;
+package com.kangyonggan.server.controller.admin;
 
 import com.github.pagehelper.PageInfo;
 import com.kangyonggan.app.util.Collections3;
@@ -20,7 +20,7 @@ import java.util.List;
  * @date 2018/5/27 0027
  */
 @RestController
-@RequestMapping("system/user")
+@RequestMapping("admin/system/user")
 public class SystemUserController extends BaseController {
 
     @Autowired

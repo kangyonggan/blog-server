@@ -1,4 +1,4 @@
-package com.kangyonggan.server.controller.dashboard;
+package com.kangyonggan.server.controller.admin;
 
 import com.kangyonggan.server.annotation.PermissionMenu;
 import com.kangyonggan.server.controller.BaseController;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 6/4/18
  */
 @RestController
-@RequestMapping("system/menu")
+@RequestMapping("admin/system/menu")
 public class SystemMenuController extends BaseController {
 
     @Autowired

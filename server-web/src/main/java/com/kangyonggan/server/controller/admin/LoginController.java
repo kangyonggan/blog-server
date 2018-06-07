@@ -1,6 +1,7 @@
-package com.kangyonggan.server.controller;
+package com.kangyonggan.server.controller.admin;
 
 import com.kangyonggan.server.constants.Resp;
+import com.kangyonggan.server.controller.BaseController;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.User;
 import com.kangyonggan.server.service.MenuService;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author kangyonggan
  * @since 5/31/18
  */
-@RestController("/")
+@RestController("admin")
 @Log4j2
 public class LoginController extends BaseController {
 

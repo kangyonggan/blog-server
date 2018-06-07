@@ -1,4 +1,4 @@
-package com.kangyonggan.server.controller.dashboard;
+package com.kangyonggan.server.controller.admin;
 
 import com.kangyonggan.app.util.FileUpload;
 import com.kangyonggan.server.annotation.PermissionMenu;
@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @since 6/5/18
  */
 @RestController
-@RequestMapping("person/info")
+@RequestMapping("admin/person/info")
 public class PersonInfoController extends BaseController {
 
     @Autowired

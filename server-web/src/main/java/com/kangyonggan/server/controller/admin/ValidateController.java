@@ -1,6 +1,7 @@
-package com.kangyonggan.server.controller;
+package com.kangyonggan.server.controller.admin;
 
 import com.kangyonggan.server.constants.Resp;
+import com.kangyonggan.server.controller.BaseController;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.User;
 import com.kangyonggan.server.service.MenuService;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 5/29/18
  */
 @RestController
-@RequestMapping("validate")
+@RequestMapping("admin/validate")
 public class ValidateController extends BaseController {
 
     @Autowired

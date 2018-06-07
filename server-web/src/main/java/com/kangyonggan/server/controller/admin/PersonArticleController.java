@@ -1,4 +1,4 @@
-package com.kangyonggan.server.controller.dashboard;
+package com.kangyonggan.server.controller.admin;
 
 import com.github.pagehelper.PageInfo;
 import com.kangyonggan.app.util.MarkdownUtil;
@@ -20,7 +20,7 @@ import java.util.List;
  * @since 6/5/18
  */
 @RestController
-@RequestMapping("person/article")
+@RequestMapping("admin/person/article")
 public class PersonArticleController extends BaseController {
 
     @Autowired
