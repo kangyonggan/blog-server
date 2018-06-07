@@ -57,7 +57,7 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
         }
 
         // 判断是否有权限访问
-        if (handler instanceof HandlerMethod && isLogin) {
+        if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             if (!validMenu(response, handlerMethod)) {
                 return false;
