@@ -30,4 +30,11 @@ public class NovelServiceImpl extends BaseService<Novel> implements NovelService
     public void updateNovel(Novel novel) {
         myMapper.updateByPrimaryKeySelective(novel);
     }
+
+    @Override
+    public Novel findNovelByCode(Integer code) {
+        Novel novel = new Novel();
+        novel.setCode(code);
+        return myMapper.selectOne(novel);
+    }
 }

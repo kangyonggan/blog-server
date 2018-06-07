@@ -30,4 +30,12 @@ public interface NovelService {
      * @param novel
      */
     void updateNovel(Novel novel);
+
+    /**
+     * 根据小说代码查找小说
+     *
+     * @param code
+     * @return
+     */
+    Novel findNovelByCode(Integer code);
 }

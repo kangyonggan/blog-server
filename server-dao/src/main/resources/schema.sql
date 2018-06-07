@@ -200,7 +200,7 @@ CREATE TABLE tb_novel
   author        VARCHAR(32)                           NOT NULL
   COMMENT '作者',
   category_code VARCHAR(32)                           NOT NULL
-  COMMENT '分类代码',
+  COMMENT '栏目代码',
   pic_url       VARCHAR(256)                          NOT NULL                    DEFAULT ''
   COMMENT '封面图片地址',
   code          INT(11)                               NOT NULL

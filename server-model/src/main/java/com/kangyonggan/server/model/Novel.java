@@ -30,7 +30,7 @@ public class Novel implements Serializable {
     private String author;
 
     /**
-     * 分类代码
+     * 栏目代码
      */
     @Column(name = "category_code")
     private String categoryCode;
