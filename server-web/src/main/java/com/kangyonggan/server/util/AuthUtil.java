@@ -4,9 +4,7 @@ import com.kangyonggan.server.interceptor.ParamsInterceptor;
 import com.kangyonggan.server.model.User;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,24 +18,7 @@ public final class AuthUtil {
      */
     private static Map<String, User> users = new HashMap<>();
 
-    /**
-     * 白名单
-     */
-    private static List<String> balckList = new ArrayList<>();
-
     private AuthUtil() {
-    }
-
-    static {
-        initBlackList();
-    }
-
-    /**
-     * 初始化白名单
-     */
-    private static void initBlackList() {
-        balckList.add("/login");
-        balckList.add("/logout");
     }
 
     /**
@@ -66,16 +47,6 @@ public final class AuthUtil {
         }
 
         return true;
-    }
-
-    /**
-     * 判断是否在白名单中
-     *
-     * @param url
-     * @return
-     */
-    public static boolean inBlackList(String url) {
-        return balckList.contains(url);
     }
 
     /**

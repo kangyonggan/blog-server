@@ -43,13 +43,9 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
         // 判断是否登录
         boolean isLogin = AuthUtil.isLogin();
         if (!isLogin) {
-            // 判断是不是在白名单中
-            boolean inBlackList = AuthUtil.inBlackList(request.getRequestURI());
-            if (!inBlackList) {
-                Response resp = Response.getFailureResponse(Resp.INVALID_LOGIN.getRespCo(), Resp.INVALID_LOGIN.getRespMsg());
-                writeResponse(response, resp);
-                return false;
-            }
+            Response resp = Response.getFailureResponse(Resp.INVALID_LOGIN.getRespCo(), Resp.INVALID_LOGIN.getRespMsg());
+            writeResponse(response, resp);
+            return false;
         }
 
         // 判断是否有权限访问
