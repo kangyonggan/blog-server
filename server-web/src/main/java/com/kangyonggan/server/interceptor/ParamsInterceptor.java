@@ -37,6 +37,7 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        log.info("url:{}", request.getRequestURI());
         // 保存当前请求
         currentRequest.set(request);
 
