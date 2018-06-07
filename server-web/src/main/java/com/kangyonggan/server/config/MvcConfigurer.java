@@ -28,11 +28,8 @@ public class MvcConfigurer implements WebMvcConfigurer {
      * 初始化白名单
      */
     private static void initBlackList() {
-        balckList.add("/");
         balckList.add("/login");
         balckList.add("/logout");
-        balckList.add("/admin/**");
-        balckList.add("/static/**");
     }
 
     @Override

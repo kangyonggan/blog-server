@@ -37,7 +37,6 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("url:{}", request.getRequestURI());
         // 保存当前请求
         currentRequest.set(request);
 
@@ -49,21 +48,11 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
         // 判断是否登录
         boolean isLogin = AuthUtil.isLogin();
         if (!isLogin) {
-            boolean isCommonReq = !(
-                    (request.getHeader("accept") != null && request.getHeader("accept").contains("application/json"))
-                    || (request.getHeader("X-Requested-With") != null && request.getHeader("X-Requested-With").contains("XMLHttpRequest")));
-            if (isCommonReq) {
-                log.info("重定向到首页");
-                // 乱七八糟的请求全部重定向到首页
-                response.sendRedirect("/");
-                return false;
-            } else {
-                log.info("登录失效");
-                // 9998: 登录失效
-                Response resp = Response.getFailureResponse(Resp.INVALID_LOGIN.getRespCo(), Resp.INVALID_LOGIN.getRespMsg());
-                writeResponse(response, resp);
-                return false;
-            }
+            log.info("登录失效");
+            // 9998: 登录失效
+            Response resp = Response.getFailureResponse(Resp.INVALID_LOGIN.getRespCo(), Resp.INVALID_LOGIN.getRespMsg());
+            writeResponse(response, resp);
+            return false;
         }
 
         // 判断是否有权限访问
