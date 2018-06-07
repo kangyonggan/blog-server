@@ -1,5 +1,6 @@
-package com.kangyonggan.server.controller;
+package com.kangyonggan.server.controller.web;
 
+import com.kangyonggan.server.controller.BaseController;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.Category;
 import com.kangyonggan.server.service.CategoryService;
@@ -16,7 +17,7 @@ import java.util.List;
  * @since 6/7/18
  */
 @RestController
-@RequestMapping("category")
+@RequestMapping("web/category")
 public class CategoryController extends BaseController {
 
     @Autowired

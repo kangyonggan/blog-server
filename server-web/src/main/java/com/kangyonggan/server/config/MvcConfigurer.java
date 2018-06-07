@@ -31,8 +31,6 @@ public class MvcConfigurer implements WebMvcConfigurer {
         balckList.add("/");
         balckList.add("/login");
         balckList.add("/logout");
-        balckList.add("/web/**");
-        balckList.add("/admin/**");
         balckList.add("/static/**");
     }
 

@@ -40,6 +40,11 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
         // 保存当前请求
         currentRequest.set(request);
 
+        // 放过前端请求
+        if (request.getRequestURI().startsWith("/web/")) {
+            return super.preHandle(request, response, handler);
+        }
+
         // 判断是否登录
         boolean isLogin = AuthUtil.isLogin();
         if (!isLogin) {

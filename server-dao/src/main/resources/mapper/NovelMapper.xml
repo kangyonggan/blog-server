@@ -36,6 +36,10 @@
             <if test="query.author != null and query.author != ''">
                 AND a.author LIKE CONCAT('%', #{query.author}, '%')
             </if>
+            <if test="query.key != null and query.key != ''">
+                AND
+                (a.author LIKE CONCAT('%', #{query.key}, '%') OR a.name LIKE CONCAT('%', #{query.key}, '%'))
+            </if>
             <if test="query.categoryCode != null and query.categoryCode != ''">
                 AND a.category_code = #{query.categoryCode}
             </if>
