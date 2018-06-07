@@ -81,7 +81,7 @@ public class PersonArticleController extends BaseController {
      * @return
      */
     @PutMapping
-    @PermissionMenu("article")
+    @PermissionMenu({"article", "articleCheck"})
     @PermissionUser("admin")
     public Response update(Article article) {
         articleService.updateArticle(article);
@@ -109,7 +109,7 @@ public class PersonArticleController extends BaseController {
      * @return
      */
     @GetMapping("{id:[\\d]+}")
-    @PermissionMenu("article")
+    @PermissionMenu({"article", "articleCheck"})
     public Response get(@PathVariable("id") Long id) {
         Response response = Response.getSuccessResponse();
         Article article = articleService.findArticleById(id);
