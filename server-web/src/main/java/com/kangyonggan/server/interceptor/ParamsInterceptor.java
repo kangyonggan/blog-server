@@ -48,8 +48,9 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
         // 判断是否登录
         boolean isLogin = AuthUtil.isLogin();
         if (!isLogin) {
-            boolean isCommonReq = !(request.getHeader("accept").contains("application/json") || (request.getHeader("X-Requested-With") != null && request
-                    .getHeader("X-Requested-With").contains("XMLHttpRequest")));
+            boolean isCommonReq = !(
+                    (request.getHeader("accept") != null && request.getHeader("accept").contains("application/json"))
+                    || (request.getHeader("X-Requested-With") != null && request.getHeader("X-Requested-With").contains("XMLHttpRequest")));
             if (isCommonReq) {
                 // 乱七八糟的请求全部重定向到首页
                 response.sendRedirect("/");
