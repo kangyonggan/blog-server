@@ -2,6 +2,7 @@ package com.kangyonggan.server.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.kangyonggan.app.util.StringUtil;
+import com.kangyonggan.extra.core.annotation.Log;
 import com.kangyonggan.server.constants.Status;
 import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.mapper.RoleMapper;
@@ -27,11 +28,13 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
     private RoleMapper roleMapper;
 
     @Override
+    @Log
     public List<Role> findUserRoles(String username) {
         return roleMapper.selectRolesByUsername(username);
     }
 
     @Override
+    @Log
     public List<Role> findAllRoles() {
         Role role = new Role();
         role.setStatus(Status.ENABLE.getCode());
@@ -74,21 +77,25 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
     }
 
     @Override
+    @Log
     public void updateRole(Role role) {
         myMapper.updateByPrimaryKeySelective(role);
     }
 
     @Override
+    @Log
     public void deleteRole(Long id) {
         myMapper.deleteByPrimaryKey(id);
     }
 
     @Override
+    @Log
     public void saveRole(Role role) {
         myMapper.insertSelective(role);
     }
 
     @Override
+    @Log
     public boolean existsRoleCode(String code) {
         Role role = new Role();
         role.setCode(code);
@@ -96,6 +103,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
     }
 
     @Override
+    @Log
     public void updateRoleMenus(String code, String menuCodes) {
         roleMapper.deleteRoleMenus(code);
 

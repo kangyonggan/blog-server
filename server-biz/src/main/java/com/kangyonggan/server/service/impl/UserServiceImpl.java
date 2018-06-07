@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.kangyonggan.app.util.Digests;
 import com.kangyonggan.app.util.Encodes;
 import com.kangyonggan.app.util.StringUtil;
+import com.kangyonggan.extra.core.annotation.Log;
 import com.kangyonggan.server.constants.AppConstants;
 import com.kangyonggan.server.constants.Status;
 import com.kangyonggan.server.dto.Params;
@@ -68,12 +69,14 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
+    @Log
     public void saveUser(User user) {
         entryptPassword(user);
         myMapper.insertSelective(user);
     }
 
     @Override
+    @Log
     public void updateUser(User user) {
         if (StringUtils.isNotEmpty(user.getPassword())) {
             entryptPassword(user);
@@ -82,6 +85,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
+    @Log
     public boolean existsUsername(String username) {
         User user = new User();
         user.setUsername(username);
@@ -89,6 +93,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
+    @Log
     public void updateUserRoles(String username, String roleCodes) {
         roleMapper.deleteAllRolesByUsername(username);
 
@@ -98,11 +103,13 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
+    @Log
     public void deleteUser(Long id) {
         myMapper.deleteByPrimaryKey(id);
     }
 
     @Override
+    @Log
     public void updatePassword(Long id, String password) {
         User user = new User();
         user.setId(id);
@@ -113,6 +120,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
+    @Log
     public User findUserByUsername(String username) {
         User user = new User();
         user.setUsername(username);
@@ -122,6 +130,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
+    @Log
     public User findUserById(Long id) {
         User user = new User();
         user.setId(id);
@@ -131,6 +140,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
+    @Log
     public User login(User user) {
         User dbUser = findUserByUsername(user.getUsername());
         if (dbUser == null) {

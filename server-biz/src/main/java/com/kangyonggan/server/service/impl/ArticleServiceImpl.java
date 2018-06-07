@@ -1,6 +1,7 @@
 package com.kangyonggan.server.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.kangyonggan.extra.core.annotation.Log;
 import com.kangyonggan.server.constants.ApplyStatus;
 import com.kangyonggan.server.constants.Status;
 import com.kangyonggan.server.dto.Params;
@@ -31,12 +32,14 @@ public class ArticleServiceImpl extends BaseService<Article> implements ArticleS
     }
 
     @Override
+    @Log
     public void saveArticle(Article article) {
         article.setApplyStatus(ApplyStatus.APPLY.getCode());
         myMapper.insertSelective(article);
     }
 
     @Override
+    @Log
     public Article findArticleById(Long id) {
         Article article = new Article();
         article.setId(id);
@@ -45,12 +48,14 @@ public class ArticleServiceImpl extends BaseService<Article> implements ArticleS
     }
 
     @Override
+    @Log
     public void updateArticle(Article article) {
         article.setApplyStatus(ApplyStatus.APPLY.getCode());
         myMapper.updateByPrimaryKeySelective(article);
     }
 
     @Override
+    @Log
     public void deleteArticle(Long id) {
         Article article = new Article();
         article.setId(id);
@@ -60,11 +65,13 @@ public class ArticleServiceImpl extends BaseService<Article> implements ArticleS
     }
 
     @Override
+    @Log
     public Article getArticle(Long id) {
         return myMapper.selectByPrimaryKey(id);
     }
 
     @Override
+    @Log
     public void replyArticles(String ids, String type, String replyMsg) {
         Article article = new Article();
         article.setReplyMsg(replyMsg);

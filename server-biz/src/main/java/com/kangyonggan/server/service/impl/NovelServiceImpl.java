@@ -1,6 +1,7 @@
 package com.kangyonggan.server.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.kangyonggan.extra.core.annotation.Log;
 import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.mapper.NovelMapper;
 import com.kangyonggan.server.model.Novel;
@@ -21,17 +22,20 @@ public class NovelServiceImpl extends BaseService<Novel> implements NovelService
     private NovelMapper novelMapper;
 
     @Override
+    @Log
     public List<Novel> searchNovels(Params params) {
         PageHelper.startPage(params.getPageNum(), params.getPageSize());
         return novelMapper.searchNovels(params.getQuery());
     }
 
     @Override
+    @Log
     public void updateNovel(Novel novel) {
         myMapper.updateByPrimaryKeySelective(novel);
     }
 
     @Override
+    @Log
     public Novel findNovelByCode(Integer code) {
         Novel novel = new Novel();
         novel.setCode(code);

@@ -20,7 +20,7 @@
         <plugin type="com.kangyonggan.server.plugin.LombokPlugin"/>
 
         <!--jdbc driver-->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/blog_db"
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/server"
                         userId="root" password="123456"/>
 
         <!--TableName.java-->

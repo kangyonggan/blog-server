@@ -33,12 +33,14 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
     }
 
     @Override
+    @Log
     public List<String> findMenuCodesByUsername(String username) {
         List<Menu> menus = menuMapper.selectMenusByUsername(username);
         return Collections3.extractToList(menus, "code");
     }
 
     @Override
+    @Log
     public List<Menu> findAllMenus() {
         Example example = new Example(Menu.class);
         example.setOrderByClause("sort asc");
@@ -48,11 +50,13 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
     }
 
     @Override
+    @Log
     public void saveMenu(Menu menu) {
         menuMapper.insertSelective(menu);
     }
 
     @Override
+    @Log
     public boolean existsMenuCode(String code) {
         Menu menu = new Menu();
         menu.setCode(code);
@@ -60,6 +64,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
     }
 
     @Override
+    @Log
     public void deleteMenu(String code) {
         if (StringUtils.isNotEmpty(code)) {
             Menu menu = new Menu();
@@ -69,11 +74,13 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
     }
 
     @Override
+    @Log
     public void updateMenu(Menu menu) {
         myMapper.updateByPrimaryKeySelective(menu);
     }
 
     @Override
+    @Log
     public List<String> findMenuCodesByRoleCode(String code) {
         List<Menu> menus = menuMapper.selectMenusByRoleCode(code);
         return Collections3.extractToList(menus, "code");

@@ -1,3 +1,5 @@
+USE server;
+
 INSERT INTO `tb_article`
 (id, title, content, status, created_time, updated_time)
 VALUES (1, 'Ubuntu14.0.4安装及配置系列-dubbo-admin的安装配置',

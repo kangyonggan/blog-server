@@ -1,10 +1,10 @@
-DROP DATABASE IF EXISTS blog_db;
+DROP DATABASE IF EXISTS server;
 
-CREATE DATABASE blog_db
+CREATE DATABASE server
   DEFAULT CHARACTER SET utf8
   COLLATE utf8_general_ci;
 
-USE blog_db;
+USE server;
 
 -- ----------------------------
 --  Table structure for tb_user

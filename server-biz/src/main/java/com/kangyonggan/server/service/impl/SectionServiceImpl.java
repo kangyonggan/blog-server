@@ -47,6 +47,7 @@ public class SectionServiceImpl extends BaseService<Section> implements SectionS
     }
 
     @Override
+    @Log
     public Section findSectionByCode(Integer sectionCode) {
         Section section = new Section();
         section.setCode(sectionCode);
