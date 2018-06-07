@@ -9,7 +9,9 @@ import com.kangyonggan.server.model.Article;
 import com.kangyonggan.server.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -60,5 +62,19 @@ public class ArticleServiceImpl extends BaseService<Article> implements ArticleS
     @Override
     public Article getArticle(Long id) {
         return myMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void replyArticles(String ids, String type, String replyMsg) {
+        Article article = new Article();
+        article.setReplyMsg(replyMsg);
+        article.setApplyStatus(type);
+
+        Example example = new Example(Article.class);
+        example.createCriteria().andEqualTo("applyStatus", ApplyStatus.APPLY.getCode())
+                .andIn("id", Arrays.asList(ids.split(",")));
+
+        myMapper.updateByExampleSelective(article, example);
+
     }
 }

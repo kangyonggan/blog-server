@@ -54,4 +54,13 @@ public interface ArticleService {
      * @return
      */
     Article getArticle(Long id);
+
+    /**
+     * 审批
+     *
+     * @param ids
+     * @param type
+     * @param replyMsg
+     */
+    void replyArticles(String ids, String type, String replyMsg);
 }

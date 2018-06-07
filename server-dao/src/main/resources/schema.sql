@@ -144,7 +144,7 @@ CREATE TABLE tb_article
   apply_status     VARCHAR(32)                           NOT NULL                    DEFAULT ''
   COMMENT '申请状态',
   reply_msg        VARCHAR(64)                           NOT NULL                    DEFAULT ''
-  COMMENT '审批信息',
+  COMMENT '审批意见',
   status           TINYINT                               NOT NULL                    DEFAULT 0
   COMMENT '状态:{0:可用, 1:禁用}',
   created_time     TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP

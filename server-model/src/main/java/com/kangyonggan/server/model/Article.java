@@ -43,7 +43,7 @@ public class Article implements Serializable {
     private String applyStatus;
 
     /**
-     * 审批信息
+     * 审批意见
      */
     @Column(name = "reply_msg")
     private String replyMsg;

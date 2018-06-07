@@ -15,19 +15,18 @@
         <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
         <result column="content" jdbcType="LONGVARCHAR" property="content"/>
 
-        <result column="name" jdbcType="VARCHAR" property="createdName"/>
+        <result column="created_name" jdbcType="VARCHAR" property="createdName"/>
     </resultMap>
 
     <select id="searchArticles" resultMap="BaseResultMap">
         SELECT
-        a.id, a.title, a.created_username, a.apply_status, a.reply_msg, a.status, a.created_time, a.updated_time, b.name
+        a.id, a.title, a.created_username, a.apply_status, a.reply_msg, a.status, a.created_time, a.updated_time, b.name AS created_name
         FROM tb_article a
         LEFT JOIN tb_user b ON a.created_username = b.username
         <where>
-            a.created_username = #{query.createdUsername}
             AND a.status = 0
-            <if test="query.title != null and query.title != ''">
-                AND a.title LIKE CONCAT('%', #{query.title}, '%')
+            <if test="query.createdUsername != null and query.createdUsername != ''">
+                AND a.created_username = #{query.createdUsername}
             </if>
             <if test="query.applyStatus != null and query.applyStatus != ''">
                 AND a.apply_status = #{query.applyStatus}
@@ -37,6 +36,12 @@
             </if>
             <if test="query.endDate != null and query.endDate != ''">
                 AND a.created_time &lt;= #{query.endDate}
+            </if>
+            <if test="query.title != null and query.title != ''">
+                AND a.title LIKE CONCAT('%', #{query.title}, '%')
+            </if>
+            <if test="query.createdName != null and query.createdName != ''">
+                AND b.name LIKE CONCAT('%', #{query.createdName}, '%')
             </if>
         </where>
         <if test="query._sort != null and query._sort != ''">
