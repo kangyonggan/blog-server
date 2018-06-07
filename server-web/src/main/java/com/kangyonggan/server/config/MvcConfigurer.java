@@ -29,11 +29,10 @@ public class MvcConfigurer implements WebMvcConfigurer {
      */
     private static void initBlackList() {
         balckList.add("/");
-        balckList.add("/index.html");
-        balckList.add("/admin");
-        balckList.add("/admin.html");
         balckList.add("/login");
         balckList.add("/logout");
+        balckList.add("/web/**");
+        balckList.add("/admin/**");
         balckList.add("/static/**");
     }
 

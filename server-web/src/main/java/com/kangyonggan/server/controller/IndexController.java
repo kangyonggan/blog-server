@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController extends BaseController {
 
     /**
-     * 首页
+     * 门户
      *
      * @return
      */
     @GetMapping
     @RequestMapping("/")
     public String index() {
-        return "index.html";
+        return "web/index.html";
     }
 
     /**
@@ -31,7 +31,7 @@ public class IndexController extends BaseController {
     @GetMapping
     @RequestMapping("admin")
     public String admin() {
-        return "admin.html";
+        return "admin/index.html";
     }
 
 }
