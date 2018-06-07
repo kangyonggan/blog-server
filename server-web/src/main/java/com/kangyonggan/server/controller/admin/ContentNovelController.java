@@ -18,7 +18,7 @@ import java.util.List;
  * @since 6/7/18
  */
 @RestController
-@RequestMapping("admin/content/novel")
+@RequestMapping("api/content/novel")
 public class ContentNovelController extends BaseController {
 
     @Autowired

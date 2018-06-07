@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 6/4/18
  */
 @RestController
-@RequestMapping("admin/system/menu")
+@RequestMapping("api/system/menu")
 public class SystemMenuController extends BaseController {
 
     @Autowired

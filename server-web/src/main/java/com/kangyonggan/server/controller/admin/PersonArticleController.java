@@ -20,7 +20,7 @@ import java.util.List;
  * @since 6/5/18
  */
 @RestController
-@RequestMapping("admin/person/article")
+@RequestMapping("api/person/article")
 public class PersonArticleController extends BaseController {
 
     @Autowired

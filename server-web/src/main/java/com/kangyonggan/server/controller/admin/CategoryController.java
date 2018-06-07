@@ -17,7 +17,7 @@ import java.util.List;
  * @since 6/7/18
  */
 @RestController
-@RequestMapping("admin/category")
+@RequestMapping("api/category")
 public class CategoryController extends BaseController {
 
     @Autowired

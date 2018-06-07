@@ -20,7 +20,7 @@ import java.util.List;
  * @date 2018/5/27 0027
  */
 @RestController
-@RequestMapping("admin/system/user")
+@RequestMapping("api/system/user")
 public class SystemUserController extends BaseController {
 
     @Autowired

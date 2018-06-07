@@ -17,7 +17,7 @@ import java.util.List;
  * @date 2018/5/27 0027
  */
 @RestController
-@RequestMapping("admin/system/role")
+@RequestMapping("api/system/role")
 public class SystemRoleController extends BaseController {
 
     @Autowired

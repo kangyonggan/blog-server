@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 5/29/18
  */
 @RestController
-@RequestMapping("admin/validate")
+@RequestMapping("api/validate")
 public class ValidateController extends BaseController {
 
     @Autowired

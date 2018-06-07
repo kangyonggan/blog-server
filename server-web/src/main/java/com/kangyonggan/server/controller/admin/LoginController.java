@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author kangyonggan
  * @since 5/31/18
  */
-@RestController("admin")
+@RestController("api")
 @Log4j2
 public class LoginController extends BaseController {
 

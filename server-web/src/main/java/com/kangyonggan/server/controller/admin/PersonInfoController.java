@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @since 6/5/18
  */
 @RestController
-@RequestMapping("admin/person/info")
+@RequestMapping("api/person/info")
 public class PersonInfoController extends BaseController {
 
     @Autowired
