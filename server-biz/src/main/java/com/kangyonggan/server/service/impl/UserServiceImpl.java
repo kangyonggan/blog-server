@@ -122,6 +122,9 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     @Override
     @Log
     public User findUserByUsername(String username) {
+        if (username == null) {
+            return null;
+        }
         User user = new User();
         user.setUsername(username);
         user.setStatus(Status.ENABLE.getCode());
