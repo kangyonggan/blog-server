@@ -57,7 +57,6 @@ public class LoginController extends BaseController {
      */
     @GetMapping(value = "logout")
     public Response logout() {
-        log.info(getRequestParams());
         Response response = Response.getSuccessResponse();
         AuthUtil.logout();
         return response;
