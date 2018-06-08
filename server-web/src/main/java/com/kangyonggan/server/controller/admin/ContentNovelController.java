@@ -55,7 +55,7 @@ public class ContentNovelController extends BaseController {
     public Response sections(@PathVariable("novelCode") Integer novelCode) {
         Response response = Response.getSuccessResponse();
         Novel novel = novelService.findNovelByCode(novelCode);
-        List<Section> sections = sectionService.findNovelSections(novelCode);
+        List<Section> sections = sectionService.findNovelSections(getRequestParams());
 
         response.put("novel", novel);
         response.put("sections", sections);
