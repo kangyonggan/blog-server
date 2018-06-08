@@ -2,7 +2,9 @@ package com.kangyonggan.server.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.kangyonggan.app.util.HtmlUtil;
+import com.kangyonggan.app.util.StringUtil;
 import com.kangyonggan.extra.core.annotation.Log;
+import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.model.Novel;
 import com.kangyonggan.server.model.Section;
 import com.kangyonggan.server.service.NovelService;
@@ -38,11 +40,17 @@ public class SectionServiceImpl extends BaseService<Section> implements SectionS
     private static Map<Integer, Boolean> flagMap = new HashMap<>();
 
     @Override
-    public List<Section> findNovelSections(Integer novelCode) {
+    public List<Section> findNovelSections(Params params) {
         Example example = new Example(Section.class);
-        example.createCriteria().andEqualTo("novelCode", novelCode);
+        example.createCriteria().andEqualTo("novelCode", params.getQuery().getInteger("novelCode"));
 
         example.selectProperties("id", "code", "title", "novelCode", "createdTime");
+
+        String sort = params.getSort();
+        String order = params.getOrder();
+        if (!StringUtil.hasEmpty(sort, order)) {
+            example.setOrderByClause(sort + " " + order.toUpperCase());
+        }
         return myMapper.selectByExample(example);
     }
 

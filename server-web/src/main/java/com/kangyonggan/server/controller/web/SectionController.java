@@ -31,7 +31,7 @@ public class SectionController extends BaseController {
     @GetMapping
     public Response list() {
         Response response = Response.getSuccessResponse();
-        List<Section> sections = sectionService.findNovelSections(getIntegerParam("novelCode"));
+        List<Section> sections = sectionService.findNovelSections(getRequestParams());
 
         response.put("list", sections);
         return response;

@@ -1,5 +1,6 @@
 package com.kangyonggan.server.service;
 
+import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.model.Section;
 
 import java.util.List;
@@ -12,10 +13,10 @@ public interface SectionService {
     /**
      * 查找小说全部章节
      *
-     * @param novelCode
+     * @param params
      * @return
      */
-    List<Section> findNovelSections(Integer novelCode);
+    List<Section> findNovelSections(Params params);
 
     /**
      * 查找章节详情
