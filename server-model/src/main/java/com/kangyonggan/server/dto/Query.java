@@ -20,7 +20,7 @@ public class Query extends HashMap<String, Object> {
      * @return 返回参数值
      */
     public String getString(String name) {
-        return (String) get(name);
+        return String.valueOf(get(name));
     }
 
     /**

@@ -53,7 +53,8 @@ public class ContentNovelController extends BaseController {
      */
     @GetMapping("{novelCode:[\\d]+}/sections")
     @PermissionMenu("novel")
-    public Response sections(@PathVariable("novelCode") Integer novelCode) { Response response = Response.getSuccessResponse();
+    public Response sections(@PathVariable("novelCode") Integer novelCode) {
+        Response response = Response.getSuccessResponse();
         Novel novel = novelService.findNovelByCode(novelCode);
         Params params = getRequestParams();
         params.getQuery().put("novelCode", novelCode);
