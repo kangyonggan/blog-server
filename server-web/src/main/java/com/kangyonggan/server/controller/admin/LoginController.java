@@ -72,19 +72,7 @@ public class LoginController extends BaseController {
         Response response = Response.getSuccessResponse();
         User user = userService.findUserById(AuthUtil.currentUserId());
         response.put("user", user);
-        return response;
-    }
-
-    /**
-     * 获取用户菜单
-     *
-     * @return
-     */
-    @GetMapping(value = "menus")
-    public Response menus() {
-        Response response = Response.getSuccessResponse();
-
-        response.put("menus", menuService.findMenusByUsername(AuthUtil.currentUsername()));
+        response.put("menus", menuService.findMenusByUsername(user.getUsername()));
         return response;
     }
 
