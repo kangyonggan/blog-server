@@ -40,6 +40,7 @@ public class SectionServiceImpl extends BaseService<Section> implements SectionS
     private static Map<Integer, Boolean> flagMap = new HashMap<>();
 
     @Override
+    @Log
     public List<Section> findNovelSections(Params params) {
         Example example = new Example(Section.class);
         example.createCriteria().andEqualTo("novelCode", params.getQuery().get("novelCode"));
