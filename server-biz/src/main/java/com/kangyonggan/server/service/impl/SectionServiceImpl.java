@@ -43,7 +43,7 @@ public class SectionServiceImpl extends BaseService<Section> implements SectionS
     @Log
     public List<Section> findNovelSections(Params params) {
         Example example = new Example(Section.class);
-        example.createCriteria().andEqualTo("novelCode", params.getQuery().get("novelCode"));
+        example.createCriteria().andEqualTo("novelCode", params.getQuery().getInteger("novelCode"));
 
         example.selectProperties("id", "code", "title", "novelCode", "createdTime");
 

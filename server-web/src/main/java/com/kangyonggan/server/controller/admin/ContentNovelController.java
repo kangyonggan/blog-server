@@ -3,6 +3,7 @@ package com.kangyonggan.server.controller.admin;
 import com.github.pagehelper.PageInfo;
 import com.kangyonggan.server.annotation.PermissionMenu;
 import com.kangyonggan.server.controller.BaseController;
+import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.Novel;
 import com.kangyonggan.server.model.Section;
@@ -55,7 +56,9 @@ public class ContentNovelController extends BaseController {
     public Response sections(@PathVariable("novelCode") Integer novelCode) {
         Response response = Response.getSuccessResponse();
         Novel novel = novelService.findNovelByCode(novelCode);
-        List<Section> sections = sectionService.findNovelSections(getRequestParams());
+        Params params = getRequestParams();
+        params.getQuery().put("novelCode", novelCode);
+        List<Section> sections = sectionService.findNovelSections(params);
 
         response.put("novel", novel);
         response.put("sections", sections);
