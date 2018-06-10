@@ -108,6 +108,17 @@ public class SectionServiceImpl extends BaseService<Section> implements SectionS
     }
 
     @Override
+    public void updateNovelSections(List<Integer> novelCodes) {
+        for (Integer novelCode : novelCodes) {
+            try {
+                pullSections(novelCode);
+            } catch (Exception e) {
+                log.warn("更新小说{}章节异常", novelCode, e);
+            }
+        }
+    }
+
+    @Override
     @Log
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public void updateSections(Integer novelCode) {

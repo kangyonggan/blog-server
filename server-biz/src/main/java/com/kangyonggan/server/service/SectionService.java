@@ -48,4 +48,11 @@ public interface SectionService {
      * @return
      */
     Section findNextSectionByCode(Integer code);
+
+    /**
+     * 更新书籍章节
+     *
+     * @param novelCodes
+     */
+    void updateNovelSections(List<Integer> novelCodes);
 }
