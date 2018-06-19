@@ -63,4 +63,11 @@ public interface ArticleService {
      * @param replyMsg
      */
     void replyArticles(String ids, String type, String replyMsg);
+
+    /**
+     * 生成RSS
+     * 
+     * @param username
+     */
+    void genRss(String username);
 }

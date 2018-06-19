@@ -31,6 +31,7 @@ public class MvcConfigurer implements WebMvcConfigurer {
     private static void initBlackList() {
         balckList.add("/api/login");
         balckList.add("/api/logout");
+        balckList.add("/api/person/article/rss");
         balckList.add("/web/**");
     }
 

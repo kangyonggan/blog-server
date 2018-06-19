@@ -89,6 +89,17 @@ public class PersonArticleController extends BaseController {
     }
 
     /**
+     * 生成RSS
+     *
+     * @return
+     */
+    @GetMapping("rss")
+    public Response rss() {
+        articleService.genRss("admin");
+        return Response.getSuccessResponse();
+    }
+
+    /**
      * 删除
      *
      * @param id
