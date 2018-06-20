@@ -147,6 +147,40 @@ public class ArticleServiceImpl extends BaseService<Article> implements ArticleS
         }
     }
 
+    @Override
+    public Article findPrevArticle(Long id) {
+        Example example = new Example(Article.class);
+
+        example.createCriteria().andEqualTo("status", Status.ENABLE.getCode()).andLessThan("id", id);
+        example.setOrderByClause("id desc");
+        example.selectProperties("id", "title");
+
+        PageHelper.startPage(1, 1);
+        List<Article> articles = myMapper.selectByExample(example);
+        if (articles.isEmpty()) {
+            return null;
+        }
+
+        return articles.get(0);
+    }
+
+    @Override
+    public Article findNextArticle(Long id) {
+        Example example = new Example(Article.class);
+
+        example.createCriteria().andEqualTo("status", Status.ENABLE.getCode()).andGreaterThan("id", id);
+        example.setOrderByClause("id asc");
+        example.selectProperties("id", "title");
+
+        PageHelper.startPage(1, 1);
+        List<Article> articles = myMapper.selectByExample(example);
+        if (articles.isEmpty()) {
+            return null;
+        }
+
+        return articles.get(0);
+    }
+
     private String formatXmlDate(Date date) {
         return new SimpleDateFormat("yyyy-MM-dd").format(date) + "T" + new SimpleDateFormat("HH:mm:ss.SSS").format(date) + "Z";
     }

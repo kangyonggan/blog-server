@@ -50,6 +50,11 @@ public class ArticleController extends BaseController {
         Article article = articleService.findArticleById(id);
         if (article != null) {
             article.setContent(MarkdownUtil.markdownToHtml(article.getContent()));
+            Article prevArticle = articleService.findPrevArticle(id);
+            Article nextArticle = articleService.findNextArticle(id);
+
+            response.put("prevArticle", prevArticle);
+            response.put("nextArticle", nextArticle);
         }
 
         response.put("article", article);

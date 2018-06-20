@@ -70,4 +70,20 @@ public interface ArticleService {
      * @param username
      */
     void genRss(String username);
+
+    /**
+     * 查找上一篇文章
+     *
+     * @param id
+     * @return
+     */
+    Article findPrevArticle(Long id);
+
+    /**
+     * 查找下一篇文章
+     *
+     * @param id
+     * @return
+     */
+    Article findNextArticle(Long id);
 }
