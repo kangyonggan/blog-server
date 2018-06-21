@@ -101,7 +101,9 @@ public class ArticleServiceImpl extends BaseService<Article> implements ArticleS
     @Override
     public void genRss(String username) {
         Example example = new Example(Article.class);
-        example.createCriteria().andEqualTo("status", Status.ENABLE.getCode()).andEqualTo("createdUsername", username);
+        example.createCriteria().andEqualTo("status", Status.ENABLE.getCode())
+                .andEqualTo("applyStatus", ApplyStatus.COMPLETE.getCode())
+                .andEqualTo("createdUsername", username);
         example.setOrderByClause("id desc");
         List<Article> articles = myMapper.selectByExample(example);
 
