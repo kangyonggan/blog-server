@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.kangyonggan.app.util.MarkdownUtil;
 import com.kangyonggan.server.constants.ApplyStatus;
 import com.kangyonggan.server.controller.BaseController;
+import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.Article;
 import com.kangyonggan.server.service.ArticleService;
@@ -32,9 +33,10 @@ public class ArticleController extends BaseController {
     @GetMapping
     public Response list() {
         Response response = Response.getSuccessResponse();
-        getRequestParams().getQuery().put("applyStatus", ApplyStatus.COMPLETE.getCode());
+        Params params = getRequestParams();
+        params.getQuery().put("applyStatus", ApplyStatus.COMPLETE.getCode());
 
-        List<Article> articles = articleService.searchArticles(getRequestParams());
+        List<Article> articles = articleService.searchArticles(params);
         PageInfo pageInfo = new PageInfo<>(articles);
 
         response.put("pageInfo", pageInfo);
