@@ -2,10 +2,12 @@ package com.kangyonggan.server.controller.web;
 
 import com.github.pagehelper.PageInfo;
 import com.kangyonggan.app.util.MarkdownUtil;
+import com.kangyonggan.server.constants.ApplyStatus;
 import com.kangyonggan.server.controller.BaseController;
 import com.kangyonggan.server.dto.Response;
 import com.kangyonggan.server.model.Article;
 import com.kangyonggan.server.service.ArticleService;
+import com.kangyonggan.server.util.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +32,7 @@ public class ArticleController extends BaseController {
     @GetMapping
     public Response list() {
         Response response = Response.getSuccessResponse();
+        getRequestParams().getQuery().put("applyStatus", ApplyStatus.COMPLETE.getCode());
 
         List<Article> articles = articleService.searchArticles(getRequestParams());
         PageInfo pageInfo = new PageInfo<>(articles);

@@ -55,6 +55,7 @@ public class ArticleServiceImpl extends BaseService<Article> implements ArticleS
     public Article findArticleById(Long id) {
         Article article = new Article();
         article.setId(id);
+        article.setApplyStatus(ApplyStatus.COMPLETE.getCode());
         article.setStatus(Status.ENABLE.getCode());
         return myMapper.selectOne(article);
     }

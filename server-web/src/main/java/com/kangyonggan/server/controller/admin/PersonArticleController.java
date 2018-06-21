@@ -123,7 +123,7 @@ public class PersonArticleController extends BaseController {
     @PermissionMenu({"article", "articleCheck"})
     public Response get(@PathVariable("id") Long id) {
         Response response = Response.getSuccessResponse();
-        Article article = articleService.findArticleById(id);
+        Article article = articleService.getArticle(id);
         article.setContent(MarkdownUtil.markdownToHtml(article.getContent()));
         response.put("article", article);
         return response;
