@@ -19,7 +19,7 @@ public class MvcConfigurer implements WebMvcConfigurer {
     /**
      * 白名单
      */
-    private static List<String> balckList = new ArrayList<>();
+    private static List<String> whiteList = new ArrayList<>();
 
     static {
         initBlackList();
@@ -29,10 +29,10 @@ public class MvcConfigurer implements WebMvcConfigurer {
      * 初始化白名单
      */
     private static void initBlackList() {
-        balckList.add("/api/login");
-        balckList.add("/api/logout");
-        balckList.add("/api/person/article/rss");
-        balckList.add("/web/**");
+        whiteList.add("/api/login");
+        whiteList.add("/api/logout");
+        whiteList.add("/api/person/article/rss");
+        whiteList.add("/web/**");
     }
 
     @Override
@@ -40,6 +40,6 @@ public class MvcConfigurer implements WebMvcConfigurer {
         // 处理请求
         registry.addInterceptor(new ParamsInterceptor()).addPathPatterns("/**");
         // 登录认证、身份认证
-        registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/**").excludePathPatterns(balckList);
+        registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/**").excludePathPatterns(whiteList);
     }
 }
