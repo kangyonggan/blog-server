@@ -39,6 +39,7 @@ public class WxController {
             log.info("接收到的xml：{}", xml);
         } catch (IOException e) {
             log.error("读取输入流异常", e);
+            return "success";
         }
 
         // 2. 报文解密
@@ -49,7 +50,8 @@ public class WxController {
             doc = XmlUtil.parseText(xml);
             log.info("xml解析成功");
         } catch (DocumentException e) {
-            e.printStackTrace();
+            log.error("xml解析失败", e);
+            return "success";
         }
 
         Element root = doc.getRootElement();
