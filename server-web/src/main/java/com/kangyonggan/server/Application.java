@@ -12,7 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @SpringBootApplication
 @MapperScan("com.kangyonggan.server.mapper")
-@PropertySource("app.properties")
+@PropertySource("classpath:app.properties")
 @EnableScheduling
 public class Application {
 

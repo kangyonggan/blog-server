@@ -19,6 +19,7 @@
     <properties>
         <plugin.compiler.version>3.2</plugin.compiler.version>
         <plugin.compiler.level>1.8</plugin.compiler.level>
+        <plugin.surefire.version>2.18.1</plugin.surefire.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-boot.version>2.0.0.RELEASE</spring-boot.version>
         <lombok.version>1.16.8</lombok.version>
@@ -47,6 +48,15 @@
                         <source>${plugin.compiler.level}</source>
                         <target>${plugin.compiler.level}</target>
                         <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+                <!--ignore test plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${plugin.surefire.version}</version>
+                    <configuration>
+                        <skip>true</skip>
                     </configuration>
                 </plugin>
                 <!--MBG plugin-->
