@@ -22,7 +22,7 @@ public class PhrasalTest extends AbstractTest {
      */
     @Test
     public void testInitDb() throws IOException {
-        phrasalService.importPhrasals("/Users/kyg/code/kyg2/server/server-web/src/test/resources/成语.txt");
+        phrasalService.importPhrasals("/Users/kyg/data/成语.txt");
     }
 
 }
