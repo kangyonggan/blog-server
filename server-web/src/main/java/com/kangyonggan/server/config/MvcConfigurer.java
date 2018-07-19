@@ -22,17 +22,18 @@ public class MvcConfigurer implements WebMvcConfigurer {
     private static List<String> whiteList = new ArrayList<>();
 
     static {
-        initBlackList();
+        initWhiteList();
     }
 
     /**
      * 初始化白名单
      */
-    private static void initBlackList() {
+    private static void initWhiteList() {
         whiteList.add("/api/login");
         whiteList.add("/api/logout");
         whiteList.add("/api/person/article/rss");
         whiteList.add("/web/**");
+        whiteList.add("/wx/**");
     }
 
     @Override
