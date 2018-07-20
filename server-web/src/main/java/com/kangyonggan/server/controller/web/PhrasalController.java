@@ -50,7 +50,7 @@ public class PhrasalController extends BaseController {
     public Response detail(@PathVariable("id") Long id) {
         Response response = Response.getSuccessResponse();
         Phrasal phrasal = phrasalService.findPhrasalById(id);
-        List<Phrasal> phrasalList = phrasalService.searchPhrasalsStartWith(phrasal.getName().substring(0, 1));
+        List<Phrasal> phrasalList = phrasalService.searchPhrasalsStartWith(phrasal.getName().substring(phrasal.getName().length() - 1));
 
         response.put("phrasal", phrasal);
         response.put("phrasalList", phrasalList);
