@@ -1,18 +1,21 @@
 package com.kangyonggan.server.service.impl;
 
-import com.kangyonggan.server.mapper.PhrasalMapper;
+import com.github.pagehelper.PageHelper;
+import com.kangyonggan.app.util.StringUtil;
+import com.kangyonggan.server.dto.Params;
 import com.kangyonggan.server.model.Phrasal;
 import com.kangyonggan.server.service.PhrasalService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,10 +26,8 @@ import java.util.List;
 @Log4j2
 public class PhrasalServiceImpl extends BaseService<Phrasal> implements PhrasalService {
 
-    @Autowired
-    private PhrasalMapper phrasalMapper;
-
     @Override
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public void importPhrasals(String path) throws IOException {
         File file = new File(path);
         if (!file.exists()) {
@@ -35,7 +36,6 @@ public class PhrasalServiceImpl extends BaseService<Phrasal> implements PhrasalS
         }
 
         BufferedReader reader = null;
-        List<Phrasal> successList = new ArrayList<>();
         int failureCount = 0;
         try {
             reader = new BufferedReader(new FileReader(file));
@@ -47,7 +47,7 @@ public class PhrasalServiceImpl extends BaseService<Phrasal> implements PhrasalS
                     if (phrasal == null) {
                         failureCount++;
                     } else {
-                        successList.add(phrasal);
+                        savePhrasal(phrasal);
                     }
                 }
             }
@@ -59,12 +59,69 @@ public class PhrasalServiceImpl extends BaseService<Phrasal> implements PhrasalS
             }
         }
 
-        // 批量保存成语
-        if (!successList.isEmpty()) {
-            phrasalMapper.savePhrasals(successList);
+
+        log.info("成语导入完成，一共解析失败{}行", failureCount);
+    }
+
+    @Override
+    public List<Phrasal> searchPhrasals(Params params) {
+        Example example = new Example(Phrasal.class);
+
+        Example.Criteria criteria = example.createCriteria();
+        String wordLen = params.getQuery().getString("wordLen");
+        if (StringUtils.isNotEmpty(wordLen)) {
+            criteria.andEqualTo("wordLen", wordLen);
+        }
+        String capitalWord = params.getQuery().getString("capitalWord");
+        if (StringUtils.isNotEmpty(capitalWord)) {
+            criteria.andEqualTo("capitalWord", capitalWord);
+        }
+        String type = params.getQuery().getString("type");
+        if (StringUtils.isNotEmpty(type)) {
+            criteria.andEqualTo("type", type);
+        }
+        String name = params.getQuery().getString("name");
+        if (StringUtils.isNotEmpty(name)) {
+            criteria.andLike("name", StringUtil.toLike(name));
         }
 
-        log.info("成语导入完成，一共解析失败{}行, 解析成功{}行, 空行不算！", failureCount, successList.size());
+        String sort = params.getSort();
+        String order = params.getOrder();
+        if (!StringUtil.hasEmpty(sort, order)) {
+            example.setOrderByClause(sort + " " + order.toUpperCase());
+        } else {
+            example.setOrderByClause("id desc");
+        }
+
+        PageHelper.startPage(params.getPageNum(), params.getPageSize());
+        return myMapper.selectByExample(example);
+    }
+
+    @Override
+    public Phrasal findPhrasalById(Long id) {
+        return myMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<Phrasal> searchPhrasalsStartWith(String name) {
+        Example example = new Example(Phrasal.class);
+
+        Example.Criteria criteria = example.createCriteria();
+        if (StringUtils.isNotEmpty(name)) {
+            criteria.andLike("name", name + "%");
+        }
+
+        example.setOrderByClause("id desc");
+        PageHelper.startPage(1, 20);
+        return myMapper.selectByExample(example);
+    }
+
+    private void savePhrasal(Phrasal phrasal) {
+        try {
+            myMapper.insertSelective(phrasal);
+        } catch (Exception e) {
+            log.error("保存成语失败, 可能已存在", e);
+        }
     }
 
     private Phrasal processLine(String line) {
@@ -72,11 +129,9 @@ public class PhrasalServiceImpl extends BaseService<Phrasal> implements PhrasalS
             Phrasal phrasal = new Phrasal();
             String name = line.substring(0, line.indexOf("拼音：")).trim();
             int wordLen = name.length();
-            // TODO
-            String type = "";
-            // TODO
-            String capitalWord = "";
+            String type = getType(name);
             String spelling = line.substring(line.indexOf("拼音：") + 3, line.indexOf("释义：")).trim();
+            String capitalWord = spelling.substring(0, 1).toUpperCase();
             String definition = line.substring(line.indexOf("释义：") + 3).trim();
 
             phrasal.setName(name);
@@ -88,8 +143,38 @@ public class PhrasalServiceImpl extends BaseService<Phrasal> implements PhrasalS
 
             return phrasal;
         } catch (Exception e) {
-            log.error("解析成语异常", e);
+            log.error("解析成语异常,line={}", line, e);
             return null;
         }
+    }
+
+    private String getType(String name) {
+        if (StringUtils.isEmpty(name)) {
+            return "";
+        }
+
+        StringBuilder type = new StringBuilder();
+        char[] typeWords = new char[name.length()];
+        int index, len = 0;
+        for (int i = 0; i < name.toCharArray().length; i++) {
+            if ((index = getCharIndex(typeWords, name.charAt(i))) != -1) {
+                type.append(Character.valueOf((char) (65 + index)));
+            } else {
+                type.append(Character.valueOf((char) (65 + len)));
+                typeWords[len++] = name.charAt(i);
+            }
+        }
+
+        return type.toString();
+    }
+
+    private int getCharIndex(char[] typeWords, char ch) {
+        for (int i = 0; i < typeWords.length; i++) {
+            if (ch == typeWords[i]) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }

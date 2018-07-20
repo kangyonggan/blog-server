@@ -1,6 +1,10 @@
 package com.kangyonggan.server.service;
 
+import com.kangyonggan.server.dto.Params;
+import com.kangyonggan.server.model.Phrasal;
+
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author kangyonggan
@@ -14,4 +18,28 @@ public interface PhrasalService {
      * @throws IOException 可能会抛异常
      */
     void importPhrasals(String path) throws IOException;
+
+    /**
+     * 搜索成语
+     *
+     * @param params 参数
+     * @return 返回成语列表
+     */
+    List<Phrasal> searchPhrasals(Params params);
+
+    /**
+     * 根据ID查找成语
+     *
+     * @param id ID
+     * @return 返回成语
+     */
+    Phrasal findPhrasalById(Long id);
+
+    /**
+     * 查找以XXX开头的成语
+     *
+     * @param name 开头的字
+     * @return 返回成语列表
+     */
+    List<Phrasal> searchPhrasalsStartWith(String name);
 }

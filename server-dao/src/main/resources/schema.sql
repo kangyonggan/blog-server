@@ -265,7 +265,7 @@ CREATE TABLE tb_phrasal
   COMMENT '成语名称',
   word_len     INT(11)                               NOT NULL
   COMMENT '字数',
-  type         CHAR(4)                               NOT NULL                    DEFAULT ''
+  type         VARCHAR(20)                           NOT NULL                    DEFAULT ''
   COMMENT '类型',
   capital_word CHAR(1)                               NOT NULL
   COMMENT '首字母',

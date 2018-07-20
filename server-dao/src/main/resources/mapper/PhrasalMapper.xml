@@ -16,12 +16,4 @@
         <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
         <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
     </resultMap>
-
-    <insert id="savePhrasals">
-        INSERT INTO tb_phrasal ('name', 'word_len', 'type', 'capital_word', 'spelling', 'definition')
-        VALUES
-        <foreach collection="phrasals" item="phrasal" separator=",">
-            (#{phrasal.name}, #{phrasal.wordLen}, #{phrasal.type}, #{phrasal.capitalWord}, #{phrasal.spelling}, #{phrasal.definition})
-        </foreach>
-    </insert>
 </mapper>
