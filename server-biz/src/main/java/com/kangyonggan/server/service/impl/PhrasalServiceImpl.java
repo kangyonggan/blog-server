@@ -136,7 +136,9 @@ public class PhrasalServiceImpl extends BaseService<Phrasal> implements PhrasalS
             String type = getType(name);
             String spelling = line.substring(line.indexOf("拼音：") + 3, line.indexOf("释义：")).trim();
             String capitalWord = spelling.substring(0, 1).toUpperCase();
-            String definition = line.substring(line.indexOf("释义：") + 3).trim();
+            String definition = line.substring(line.indexOf("释义：") + 3, line.indexOf("出处：")).trim();
+            String source = line.substring(line.indexOf("出处：") + 3, line.indexOf("示例：")).trim();
+            String example = line.substring(line.indexOf("示例：") + 3).trim();
 
             phrasal.setName(name);
             phrasal.setWordLen(wordLen);
@@ -144,6 +146,8 @@ public class PhrasalServiceImpl extends BaseService<Phrasal> implements PhrasalS
             phrasal.setCapitalWord(capitalWord);
             phrasal.setSpelling(spelling);
             phrasal.setDefinition(definition);
+            phrasal.setSource(source);
+            phrasal.setExample(example);
 
             return phrasal;
         } catch (Exception e) {

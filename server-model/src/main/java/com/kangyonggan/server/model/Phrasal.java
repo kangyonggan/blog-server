@@ -5,10 +5,6 @@ import java.util.Date;
 import javax.persistence.*;
 import lombok.Data;
 
-/**
- * @author kangyonggan
- * @since 2018/04/02
- */
 @Table(name = "tb_phrasal")
 @Data
 public class Phrasal implements Serializable {
@@ -50,6 +46,16 @@ public class Phrasal implements Serializable {
      * 释义
      */
     private String definition;
+
+    /**
+     * 出处
+     */
+    private String source;
+
+    /**
+     * 出处
+     */
+    private String example;
 
     /**
      * 状态:{0:可用, 1:禁用}

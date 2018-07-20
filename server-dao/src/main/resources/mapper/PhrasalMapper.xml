@@ -12,6 +12,8 @@
         <result column="capital_word" property="capitalWord" jdbcType="CHAR"/>
         <result column="spelling" property="spelling" jdbcType="VARCHAR"/>
         <result column="definition" property="definition" jdbcType="VARCHAR"/>
+        <result column="source" property="source" jdbcType="VARCHAR"/>
+        <result column="example" property="example" jdbcType="VARCHAR"/>
         <result column="status" property="status" jdbcType="TINYINT"/>
         <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
         <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>

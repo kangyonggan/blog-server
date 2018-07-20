@@ -271,8 +271,12 @@ CREATE TABLE tb_phrasal
   COMMENT '首字母',
   spelling     VARCHAR(100)                          NOT NULL
   COMMENT '拼音',
-  definition   VARCHAR(2048)                         NOT NULL                    DEFAULT ''
+  definition   VARCHAR(1024)                         NOT NULL                    DEFAULT ''
   COMMENT '释义',
+  source       VARCHAR(256)                          NOT NULL                    DEFAULT ''
+  COMMENT '出处',
+  example      VARCHAR(1024)                         NOT NULL                    DEFAULT ''
+  COMMENT '示例',
   status       TINYINT                               NOT NULL                    DEFAULT 0
   COMMENT '状态:{0:可用, 1:禁用}',
   created_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP
