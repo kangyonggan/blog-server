@@ -85,6 +85,8 @@ public class PhrasalServiceImpl extends BaseService<Phrasal> implements PhrasalS
             criteria.andLike("name", StringUtil.toLike(name));
         }
 
+        example.selectProperties("id", "name");
+
         String sort = params.getSort();
         String order = params.getOrder();
         if (!StringUtil.hasEmpty(sort, order)) {
@@ -110,6 +112,8 @@ public class PhrasalServiceImpl extends BaseService<Phrasal> implements PhrasalS
         if (StringUtils.isNotEmpty(name)) {
             criteria.andLike("name", name + "%");
         }
+
+        example.selectProperties("id", "name");
 
         example.setOrderByClause("id desc");
         PageHelper.startPage(1, 20);
